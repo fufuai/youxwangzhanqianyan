@@ -361,8 +361,8 @@
                 mainContent.style.display = 'block';
                 // 检查年龄验证
                 checkAgeVerification();
-                // 启动公告栏动画
-                startAnnouncementAnimation();
+                // 确保公告栏动画正常运行
+                setTimeout(restartAnnouncementAnimations, 100);
             } else {
                 // 新会话且未看过介绍，显示图片介绍
                 imageIntro.style.display = 'flex';
@@ -386,48 +386,42 @@
             setIntroViewedInSession();
             // 检查年龄验证
             checkAgeVerification();
-            // 启动公告栏动画
-            startAnnouncementAnimation();
+            // 重启公告栏动画
+            restartAnnouncementAnimations();
         });
 
-        // 启动公告栏动画
-        function startAnnouncementAnimation() {
-            // 只检查是否已经有动画在运行
-            const announcements = document.querySelectorAll('.announcement');
-            if (announcements.length > 0) {
-                // 只有在动画当前未运行时才设置
-                announcements.forEach((announcement) => {
-                    // 检查是否已经有动画样式
-                    const computedStyle = window.getComputedStyle(announcement);
-                    if (computedStyle.animationName === 'none' || computedStyle.animationName === '') {
-                        // 只有在没有动画时才设置
-                        if (announcement.classList.contains('announcement-1')) {
-                            announcement.style.animation = 'scroll1 40s linear infinite';
-                        } else if (announcement.classList.contains('announcement-2')) {
-                            announcement.style.animation = 'scroll2 35s linear infinite';
-                        } else if (announcement.classList.contains('announcement-3')) {
-                            announcement.style.animation = 'scroll3 30s linear infinite';
-                        }
+        // 重启公告栏动画函数
+        function restartAnnouncementAnimations() {
+            // 针对每个公告单独设置动画
+            const announcement1 = document.querySelector('.announcement-1');
+            const announcement2 = document.querySelector('.announcement-2');
+            const announcement3 = document.querySelector('.announcement-3');
 
-                        // 对于移动设备，设置不同的速度
-                        if (window.innerWidth <= 768) {
-                            if (announcement.classList.contains('announcement-1')) {
-                                announcement.style.animation = 'scroll1 35s linear infinite';
-                            } else if (announcement.classList.contains('announcement-2')) {
-                                announcement.style.animation = 'scroll2 30s linear infinite';
-                            } else if (announcement.classList.contains('announcement-3')) {
-                                announcement.style.animation = 'scroll3 25s linear infinite';
-                            }
-                        }
-                    }
-                });
+            if (announcement1) {
+                announcement1.style.animation = 'none';
+                void announcement1.offsetWidth;
+                announcement1.style.animation = 'scroll1 40s linear infinite';
+            }
+
+            if (announcement2) {
+                announcement2.style.animation = 'none';
+                void announcement2.offsetWidth;
+                announcement2.style.animation = 'scroll2 35s linear infinite';
+            }
+
+            if (announcement3) {
+                announcement3.style.animation = 'none';
+                void announcement3.offsetWidth;
+                announcement3.style.animation = 'scroll3 30s linear infinite';
+            }
+
+            // 检查是否在移动设备上
+            if (window.innerWidth <= 768) {
+                if (announcement1) announcement1.style.animation = 'scroll1 35s linear infinite';
+                if (announcement2) announcement2.style.animation = 'scroll2 30s linear infinite';
+                if (announcement3) announcement3.style.animation = 'scroll3 25s linear infinite';
             }
         }
-
-        // 移除不必要的事件监听器，这些会导致动画重置
-        // 只在页面从图片介绍切换到主内容时启动一次公告栏动画
-        // 我们去掉了visibilitychange和resize事件监听器，
-        // 这样可以确保公告栏动画一旦开始就会持续运行，不会因页面交互而重置
 
         // 页面加载时检查状态
         document.addEventListener('DOMContentLoaded', function () {
@@ -956,6 +950,12 @@
         if (!isPageRefresh() && !checkIntroViewedInSession()) {
             console.log("显示介绍图片");
         }
+
+        // 页面完全加载后
+        window.onload = function () {
+            // 页面加载完毕后重启公告栏动画
+            setTimeout(restartAnnouncementAnimations, 500);
+        };
     </script>
 </body>
 
