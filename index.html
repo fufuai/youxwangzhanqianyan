@@ -104,6 +104,11 @@
             max-width: 100%;
             max-height: 70vh;
             margin-bottom: 20px;
+            /* 添加固定的宽高比，与封面保持一致 */
+            aspect-ratio: 16 / 9;
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
         }
 
         /* 隐藏视频时长 */
@@ -148,6 +153,19 @@
                 max-width: 100%;
                 max-height: 50vh;
                 margin-bottom: 10px;
+            }
+
+            /* 调整视频封面在移动设备上的显示 */
+            .video-poster-container {
+                max-height: 50vh;
+                margin-bottom: 10px;
+            }
+
+            /* 调整播放按钮大小 */
+            .play-button-overlay {
+                font-size: 60px;
+                width: 80px;
+                height: 80px;
             }
         }
 
@@ -247,12 +265,17 @@
             overflow: hidden;
             border-radius: 10px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            /* 添加固定的宽高比，与视频保持一致 */
+            aspect-ratio: 16 / 9;
+            width: 100%;
         }
 
         #video-poster {
             width: 100%;
-            max-height: 70vh;
+            height: 100%;
             object-fit: cover;
+            object-position: center;
+            /* 确保图片居中裁剪 */
             transition: transform 0.3s ease;
         }
 
@@ -305,7 +328,8 @@
             </div>
 
             <video id="intro-video" controls autoplay playsinline preload="metadata"
-                poster="image1/Fantasy Factory [21P]/19.jpg" style="display: none;">
+                poster="image1/[Espacia Korea]/24.jpg"
+                style="display: none; width: 100%; aspect-ratio: 16/9; border-radius: 10px;">
                 <source src="/videx/1.mp4" type="video/mp4">
                 <source src="/videx/1.webm" type="video/webm">
                 <source src="/videx/1.ogg" type="video/ogg">
