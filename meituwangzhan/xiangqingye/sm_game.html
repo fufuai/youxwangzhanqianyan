@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SM游戏场景</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .game-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scene-image {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .dialogue-box {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px 25px;
+            border-radius: 20px;
+            max-width: 80%;
+            text-align: center;
+            z-index: 1001;
+        }
+
+        .dialogue-text {
+            color: #fff;
+            font-size: 1.1em;
+            margin: 0;
+            line-height: 1.4;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .interaction-buttons {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        .interaction-btn {
+            padding: 10px 20px;
+            background: rgba(255, 105, 180, 0.8);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .interaction-btn:hover {
+            background: rgba(255, 105, 180, 1);
+            transform: translateY(-2px);
+        }
+
+        .interaction-btn:active {
+            transform: scale(0.95);
+        }
+
+        .interaction-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+
+        .interaction-btn:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+
+        .effect-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1002;
+        }
+
+        .punish-effect {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 0, 0, 0.2);
+            animation: punishShake 0.5s ease-in-out;
+        }
+
+        .reward-effect {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 0, 0.2);
+            animation: rewardGlow 0.5s ease-in-out;
+        }
+
+        .command-effect {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 255, 255, 0.2);
+            animation: commandPulse 0.5s ease-in-out;
+        }
+
+        @keyframes punishShake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-10px);
+            }
+
+            75% {
+                transform: translateX(10px);
+            }
+        }
+
+        @keyframes rewardGlow {
+
+            0%,
+            100% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes commandPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .status-change {
+            position: absolute;
+            color: #ff69b4;
+            font-size: 1.2em;
+            font-weight: bold;
+            animation: floatUp 1s ease-out forwards;
+            pointer-events: none;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+        }
+
+        .scene-transition {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1003;
+            animation: fadeInOut 1s ease-in-out forwards;
+        }
+
+        @keyframes fadeInOut {
+            0% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            z-index: 1000;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff69b4, #ff1493);
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .status-bar {
+            position: fixed;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #fff;
+        }
+
+        .status-icon {
+            color: #ff69b4;
+        }
+
+        .command-panel {
+            position: fixed;
+            bottom: 150px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 15px;
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1004;
+            min-width: 200px;
+        }
+
+        .command-option {
+            padding: 8px 15px;
+            background: rgba(255, 105, 180, 0.5);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .command-option:hover {
+            background: rgba(255, 105, 180, 0.8);
+            transform: translateY(-2px);
+        }
+
+        .punish-panel {
+            border: 2px solid rgba(255, 0, 0, 0.5);
+        }
+
+        .reward-panel {
+            border: 2px solid rgba(255, 255, 0, 0.5);
+        }
+
+        .command-panel {
+            border: 2px solid rgba(0, 255, 255, 0.5);
+        }
+
+        .panel-title {
+            color: #ff69b4;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .related-games {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .game-card {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            width: 100%;
+            aspect-ratio: 3/4;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .game-image {
+            width: 100%;
+            height: 70%;
+            object-fit: cover;
+        }
+
+        .game-info {
+            padding: 10px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .game-title {
+            color: #ff69b4;
+            margin: 0;
+            font-size: 1.1em;
+            text-align: center;
+        }
+
+        .game-desc {
+            color: #ffffff;
+            margin: 5px 0;
+            font-size: 0.9em;
+            text-align: center;
+        }
+
+        @media (max-width: 1024px) {
+            .games-grid {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .games-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .games-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="game-container">
+        <div class="effect-overlay" id="effectOverlay"></div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="status-bar">
+            <div class="status-item">
+                <span class="status-icon">❤</span>
+                <span id="pleasureValue">0</span>
+            </div>
+            <div class="status-item">
+                <span class="status-icon">⚡</span>
+                <span id="energyValue">100</span>
+            </div>
+            <div class="status-item">
+                <span class="status-icon">🔒</span>
+                <span id="obedienceValue">0</span>
+            </div>
+        </div>
+        <img class="scene-image" id="sceneImage" src="" alt="游戏场景">
+        <div class="interaction-buttons">
+            <button class="interaction-btn" id="btnPunish">惩罚</button>
+            <button class="interaction-btn" id="btnReward">奖励</button>
+            <button class="interaction-btn" id="btnCommand">命令</button>
+        </div>
+        <div class="dialogue-box">
+            <p class="dialogue-text" id="dialogueText">主人...请开始调教吧...</p>
+        </div>
+        <div class="command-panel punish-panel" id="punishPanel">
+            <div class="panel-title">惩罚选项</div>
+            <button class="command-option" data-action="spank">打屁股</button>
+            <button class="command-option" data-action="whip">鞭打</button>
+            <button class="command-option" data-action="pinch">捏奶头</button>
+            <button class="command-option" data-action="close">关闭</button>
+        </div>
+        <div class="command-panel reward-panel" id="rewardPanel">
+            <div class="panel-title">奖励选项</div>
+            <button class="command-option" data-action="kiss">亲吻</button>
+            <button class="command-option" data-action="touch">抚摸</button>
+            <button class="command-option" data-action="massage">按摩</button>
+            <button class="command-option" data-action="close">关闭</button>
+        </div>
+        <div class="command-panel command-panel" id="commandPanel">
+            <div class="panel-title">命令选项</div>
+            <button class="command-option" data-action="pose">摆姿势</button>
+            <button class="command-option" data-action="undress">脱衣服</button>
+            <button class="command-option" data-action="kneel">跪下</button>
+            <button class="command-option" data-action="close">关闭</button>
+        </div>
+    </div>
+
+    <div class="related-games">
+        <h2 class="related-title">相关推荐</h2>
+        <div class="games-grid">
+            <a href="../meituxiangqing/meituxiangqing.html" class="game-card">
+                <img src="../image1/催眠v1.4.6c汉化版【PC+安卓/1.jpg" alt="催眠游戏" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">催眠游戏</h3>
+                    <p class="game-desc">催眠题材，剧情丰富</p>
+                </div>
+            </a>
+            <a href="../meituxiangqing/meituxiangqing.html" class="game-card">
+                <img src="../image1/催眠v1.4.6c汉化版【PC+安卓/2.jpg" alt="调教游戏" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">调教游戏</h3>
+                    <p class="game-desc">调教玩法，多种结局</p>
+                </div>
+            </a>
+            <a href="../meituxiangqing/meituxiangqing.html" class="game-card">
+                <img src="../image1/催眠v1.4.6c汉化版【PC+安卓/3.jpg" alt="SM游戏" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">SM游戏</h3>
+                    <p class="game-desc">SM玩法，剧情丰富</p>
+                </div>
+            </a>
+            <a href="../meituxiangqing/meituxiangqing.html" class="game-card">
+                <img src="../image1/催眠v1.4.6c汉化版【PC+安卓/4.jpg" alt="剧情游戏" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">剧情游戏</h3>
+                    <p class="game-desc">剧情丰富，画面精美</p>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // 游戏状态
+        const gameState = {
+            pleasure: 0,
+            energy: 100,
+            obedience: 0,
+            currentScene: 0,
+            scenes: [
+                {
+                    image: 'image/团子系列 工口少女 [66P]/1.jpg',
+                    dialogue: '主人...请开始调教吧...',
+                    commandImages: {
+                        pose: 'image/团子系列 工口少女 [66P]/pose1.jpg',
+                        undress: 'image/团子系列 工口少女 [66P]/undress1.jpg',
+                        kneel: 'image/团子系列 工口少女 [66P]/kneel1.jpg',
+                        spank: 'image/团子系列 工口少女 [66P]/spank1.jpg',
+                        whip: 'image/团子系列 工口少女 [66P]/whip1.jpg',
+                        pinch: 'image/团子系列 工口少女 [66P]/pinch1.jpg',
+                        kiss: 'image/团子系列 工口少女 [66P]/kiss1.jpg',
+                        touch: 'image/团子系列 工口少女 [66P]/touch1.jpg',
+                        massage: 'image/团子系列 工口少女 [66P]/massage1.jpg'
+                    }
+                },
+                {
+                    image: 'image/团子系列 工口少女 [66P]/2.jpg',
+                    dialogue: '主人...人家的下面好湿...',
+                    commandImages: {
+                        pose: 'image/团子系列 工口少女 [66P]/pose2.jpg',
+                        undress: 'image/团子系列 工口少女 [66P]/undress2.jpg',
+                        kneel: 'image/团子系列 工口少女 [66P]/kneel2.jpg',
+                        spank: 'image/团子系列 工口少女 [66P]/spank2.jpg',
+                        whip: 'image/团子系列 工口少女 [66P]/whip2.jpg',
+                        pinch: 'image/团子系列 工口少女 [66P]/pinch2.jpg',
+                        kiss: 'image/团子系列 工口少女 [66P]/kiss2.jpg',
+                        touch: 'image/团子系列 工口少女 [66P]/touch2.jpg',
+                        massage: 'image/团子系列 工口少女 [66P]/massage2.jpg'
+                    }
+                },
+                {
+                    image: 'image/团子系列 工口少女 [66P]/3.jpg',
+                    dialogue: '主人...人家的奶子好涨...',
+                    interactions: {
+                        punish: '啊...主人的手好重...',
+                        reward: '主人...请继续揉捏它们...',
+                        command: '是的主人...我会把奶子露出来...'
+                    }
+                },
+                {
+                    image: 'image/团子系列 工口少女 [66P]/4.jpg',
+                    dialogue: '主人...人家的屁股好痒...',
+                    interactions: {
+                        punish: '啊...主人的手好重...好舒服...',
+                        reward: '主人...请继续拍打我的屁股...',
+                        command: '是的主人...我会翘起屁股...'
+                    }
+                },
+                {
+                    image: 'image/团子系列 工口少女 [66P]/5.jpg',
+                    dialogue: '主人...人家的腿好软...',
+                    interactions: {
+                        punish: '啊...主人的手好热...',
+                        reward: '主人...请继续抚摸我的腿...',
+                        command: '是的主人...我会把腿分开...'
+                    }
+                },
+                {
+                    image: 'image/团子系列 工口少女 [66P]/6.jpg',
+                    dialogue: '主人...人家的腰好酸...',
+                    interactions: {
+                        punish: '啊...主人的手好有力...',
+                        reward: '主人...请继续按摩我的腰...',
+                        command: '是的主人...我会把腰弯下去...'
+                    }
+                }
+            ]
+        };
+
+        // 更新游戏状态显示
+        function updateStatus() {
+            document.getElementById('pleasureValue').textContent = gameState.pleasure;
+            document.getElementById('energyValue').textContent = gameState.energy;
+            document.getElementById('obedienceValue').textContent = gameState.obedience;
+            document.getElementById('progressFill').style.width = `${(gameState.currentScene / (gameState.scenes.length - 1)) * 100}%`;
+        }
+
+        // 更新场景
+        function updateScene() {
+            const scene = gameState.scenes[gameState.currentScene];
+            document.getElementById('sceneImage').src = scene.image;
+            document.getElementById('dialogueText').textContent = scene.dialogue;
+        }
+
+        // 创建状态变化显示
+        function showStatusChange(value, type) {
+            const statusItem = document.getElementById(`${type}Value`);
+            const change = document.createElement('div');
+            change.className = 'status-change';
+            change.textContent = `+${value}`;
+            change.style.left = `${statusItem.offsetLeft + statusItem.offsetWidth / 2}px`;
+            change.style.top = `${statusItem.offsetTop}px`;
+            document.body.appendChild(change);
+            setTimeout(() => change.remove(), 1000);
+        }
+
+        // 显示场景过渡效果
+        function showSceneTransition() {
+            const transition = document.createElement('div');
+            transition.className = 'scene-transition';
+            document.body.appendChild(transition);
+            setTimeout(() => transition.remove(), 1000);
+        }
+
+        // 显示互动效果
+        function showInteractionEffect(type) {
+            const overlay = document.getElementById('effectOverlay');
+            const effect = document.createElement('div');
+            effect.className = `${type}-effect`;
+            overlay.appendChild(effect);
+            setTimeout(() => effect.remove(), 500);
+        }
+
+        // 添加更多互动选项
+        const interactionOptions = {
+            punish: {
+                spank: {
+                    dialogue: '啊...主人的手好重...屁股好痛...',
+                    pleasure: 15,
+                    obedience: 8,
+                    energy: -5
+                },
+                whip: {
+                    dialogue: '啊...主人的鞭子好厉害...好痛...但是好舒服...',
+                    pleasure: 20,
+                    obedience: 10,
+                    energy: -8
+                },
+                pinch: {
+                    dialogue: '啊...主人的手好灵活...奶头好敏感...',
+                    pleasure: 12,
+                    obedience: 6,
+                    energy: -4
+                }
+            },
+            reward: {
+                kiss: {
+                    dialogue: '主人...你的嘴唇好软...好舒服...',
+                    pleasure: 18,
+                    obedience: 5,
+                    energy: -3
+                },
+                touch: {
+                    dialogue: '主人...你的手好温暖...好舒服...',
+                    pleasure: 15,
+                    obedience: 4,
+                    energy: -2
+                },
+                massage: {
+                    dialogue: '主人...你的按摩好舒服...人家要去了...',
+                    pleasure: 20,
+                    obedience: 6,
+                    energy: -4
+                }
+            },
+            command: {
+                pose: {
+                    dialogue: '是的主人...我会摆出你喜欢的姿势...',
+                    pleasure: 8,
+                    obedience: 12,
+                    energy: -3
+                },
+                undress: {
+                    dialogue: '是的主人...我会慢慢脱掉衣服...',
+                    pleasure: 10,
+                    obedience: 15,
+                    energy: -4
+                },
+                kneel: {
+                    dialogue: '是的主人...我会乖乖跪下...',
+                    pleasure: 5,
+                    obedience: 20,
+                    energy: -2
+                }
+            }
+        };
+
+        // 显示命令面板
+        function showCommandPanel(type) {
+            document.getElementById(`${type}Panel`).style.display = 'flex';
+        }
+
+        // 隐藏所有命令面板
+        function hideAllPanels() {
+            document.querySelectorAll('.command-panel').forEach(panel => {
+                panel.style.display = 'none';
+            });
+        }
+
+        // 添加图片过渡效果
+        function showImageTransition(newImage) {
+            const sceneImage = document.getElementById('sceneImage');
+            sceneImage.style.opacity = '0';
+            setTimeout(() => {
+                sceneImage.src = newImage;
+                sceneImage.style.opacity = '1';
+            }, 300);
+        }
+
+        // 修改处理具体命令函数
+        function handleSpecificCommand(type, action) {
+            const option = interactionOptions[type][action];
+            if (!option) return;
+
+            // 获取当前场景的命令图片
+            const currentScene = gameState.scenes[gameState.currentScene];
+            const commandImage = currentScene.commandImages[action];
+
+            if (commandImage) {
+                showImageTransition(commandImage);
+            }
+
+            document.getElementById('dialogueText').textContent = option.dialogue;
+            showInteractionEffect(type);
+
+            // 更新状态
+            gameState.pleasure = Math.min(100, Math.max(0, gameState.pleasure + option.pleasure));
+            gameState.obedience = Math.min(100, Math.max(0, gameState.obedience + option.obedience));
+            gameState.energy = Math.min(100, Math.max(0, gameState.energy + option.energy));
+
+            // 显示状态变化
+            showStatusChange(option.pleasure, 'pleasure');
+            showStatusChange(option.obedience, 'obedience');
+            showStatusChange(Math.abs(option.energy), 'energy');
+
+            updateStatus();
+            hideAllPanels();
+
+            // 3秒后恢复原始图片
+            setTimeout(() => {
+                if (commandImage) {
+                    showImageTransition(currentScene.image);
+                }
+            }, 3000);
+
+            // 检查是否可以进入下一场景
+            if (gameState.obedience >= 50 && gameState.currentScene < gameState.scenes.length - 1) {
+                showSceneTransition();
+                setTimeout(() => {
+                    gameState.currentScene++;
+                    updateScene();
+                }, 500);
+            }
+        }
+
+        // 修改初始化游戏函数
+        function initGame() {
+            updateScene();
+            updateStatus();
+
+            // 添加主按钮事件监听
+            document.getElementById('btnPunish').addEventListener('click', () => showCommandPanel('punish'));
+            document.getElementById('btnReward').addEventListener('click', () => showCommandPanel('reward'));
+            document.getElementById('btnCommand').addEventListener('click', () => showCommandPanel('command'));
+
+            // 添加命令选项事件监听
+            document.querySelectorAll('.command-option').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const action = e.target.dataset.action;
+                    if (action === 'close') {
+                        hideAllPanels();
+                        return;
+                    }
+                    const panel = e.target.closest('.command-panel');
+                    const type = panel.id.replace('Panel', '');
+                    handleSpecificCommand(type, action);
+                });
+            });
+
+            // 点击空白处关闭面板
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.command-panel') && !e.target.closest('.interaction-btn')) {
+                    hideAllPanels();
+                }
+            });
+        }
+
+        // 添加图片过渡样式
+        const style = document.createElement('style');
+        style.textContent = `
+            .scene-image {
+                transition: opacity 0.3s ease-in-out;
+            }
+        `;
+        document.head.appendChild(style);
+
+        // 启动游戏
+        window.onload = initGame;
+    </script>
+</body>
+
+</html>

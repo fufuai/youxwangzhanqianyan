@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新闻资讯 - 美图欣赏</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <button class="back-to-top">↑</button>
+    <button class="theme-toggle">切换主题</button>
+
+    <div class="container">
+        <div class="gallery-header">
+            <h1 class="gallery-title">新闻资讯</h1>
+            <p class="gallery-subtitle">最新动态，一手资讯</p>
+        </div>
+
+        <div class="news-grid">
+            <div class="news-card">
+                <img src="image/周叽是可爱兔兔 体操服 [31P]/1.jpg" alt="新闻图片">
+                <div class="news-content">
+                    <h3>最新摄影作品集发布</h3>
+                    <p class="news-date">2024-03-20</p>
+                    <p class="news-text">我们很高兴地宣布，最新一期的摄影作品集已经正式发布，包含了多位摄影师的精彩作品...</p>
+                    <a href="#" class="read-more">阅读更多</a>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <img src="image/周叽是可爱兔兔 体操服 [31P]/2.jpg" alt="新闻图片">
+                <div class="news-content">
+                    <h3>摄影技巧分享会</h3>
+                    <p class="news-date">2024-03-18</p>
+                    <p class="news-text">本周六将举办一场免费的摄影技巧分享会，由知名摄影师亲自授课，欢迎摄影爱好者参加...</p>
+                    <a href="#" class="read-more">阅读更多</a>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <img src="image/周叽是可爱兔兔 体操服 [31P]/15.jpg" alt="新闻图片">
+                <div class="news-content">
+                    <h3>摄影比赛结果公布</h3>
+                    <p class="news-date">2024-03-15</p>
+                    <p class="news-text">2024年度摄影大赛结果已经揭晓，共有100多位摄影师参与，获奖作品将在网站展示...</p>
+                    <a href="#" class="read-more">阅读更多</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部导航 -->
+    <footer class="bottom-nav">
+        <a href="#" class="nav-item" id="homeLink">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-text">首页</span>
+        </a>
+        <a href="news.html" class="nav-item active">
+            <span class="nav-icon">📰</span>
+            <span class="nav-text">新闻</span>
+        </a>
+        <a href="member.html" class="nav-item" onclick="localStorage.setItem('lastPageType', 'member')">
+            <span class="nav-icon">👤</span>
+            <span class="nav-text">会员</span>
+        </a>
+    </footer>
+
+    <script>
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function () {
+            // 设置首页链接
+            const homeLink = document.getElementById('homeLink');
+            const lastHomePage = localStorage.getItem('lastHomePage') || 'index.html';
+            homeLink.href = lastHomePage;
+
+
+        });
+        // 主题切换功能
+        const themeToggle = document.querySelector('.theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+        });
+
+        // 返回顶部功能
+        const backToTop = document.querySelector('.back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.style.display = 'block';
+            } else {
+                backToTop.style.display = 'none';
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+
+</html>

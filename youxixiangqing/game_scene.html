@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>调教场景</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            overflow: hidden;
+        }
+
+        .game-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .scene-container {
+            position: relative;
+            width: 100%;
+            height: calc(100% - 80px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .scene-image {
+            width: auto;
+            height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            will-change: opacity;
+        }
+
+        .scene-image.loaded {
+            opacity: 1;
+        }
+
+        .dialogue-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.7);
+            padding: 25px 30px;
+            border-radius: 15px;
+            z-index: 10;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            max-width: 80%;
+            width: auto;
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.3);
+            border: 1px solid rgba(255, 105, 180, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .dialogue-overlay.show {
+            opacity: 1;
+        }
+
+        .character-name {
+            color: #ff69b4;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.6em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7), 0 0 10px rgba(255, 105, 180, 0.5);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            will-change: opacity, transform;
+            letter-spacing: 1px;
+            font-family: 'Microsoft YaHei', '微软雅黑', sans-serif;
+            position: relative;
+            display: inline-block;
+        }
+
+        .character-name::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #ff69b4, transparent);
+        }
+
+        .character-name.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .dialogue-text {
+            margin: 0;
+            font-size: 1.4em;
+            line-height: 1.8;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            will-change: opacity, transform;
+            font-family: 'Microsoft YaHei', '微软雅黑', sans-serif;
+            letter-spacing: 0.5px;
+            padding: 0 10px;
+            text-align: left;
+        }
+
+        .dialogue-text.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .narrative-text {
+            font-style: italic;
+            color: #ffccd5;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .dialogue-quote {
+            color: #fff;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        .chapter-title {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ff69b4;
+            font-size: 1.8em;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7), 0 0 10px rgba(255, 105, 180, 0.5);
+            z-index: 15;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 105, 180, 0.3);
+            box-shadow: 0 0 15px rgba(255, 105, 180, 0.3);
+        }
+
+        .chapter-title.show {
+            opacity: 1;
+        }
+
+        .navigation-buttons {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 20;
+        }
+
+        .nav-button {
+            min-width: 120px;
+            background-color: rgba(255, 105, 180, 0.8);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.2em;
+            white-space: nowrap;
+        }
+
+        .nav-button:hover {
+            background-color: rgba(255, 20, 147, 0.8);
+            transform: scale(1.05);
+        }
+
+        .nav-button:disabled {
+            background-color: rgba(102, 102, 102, 0.5);
+            cursor: not-allowed;
+        }
+
+        .fullscreen-button,
+        .music-control {
+            position: fixed;
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 30;
+            font-size: 0.9em;
+        }
+
+        .fullscreen-button {
+            top: 10px;
+            right: 10px;
+        }
+
+        .music-control {
+            top: 10px;
+            left: 10px;
+        }
+
+        /* 信息面板样式 */
+        .info-panel {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 105, 180, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            width: 250px;
+            z-index: 30;
+            box-shadow: 0 0 15px rgba(255, 105, 180, 0.3);
+            display: none;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .info-panel.show {
+            display: block;
+            opacity: 1;
+        }
+
+        .info-title {
+            color: #ff69b4;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+            position: relative;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: rgba(255, 105, 180, 0.7);
+            color: white;
+            border: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .close-button:hover {
+            background-color: rgba(255, 20, 147, 0.9);
+            transform: scale(1.1);
+        }
+
+        .info-content {
+            color: #fff;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .info-item {
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .info-label {
+            color: #ffccd5;
+        }
+
+        .info-value {
+            color: #fff;
+        }
+
+        /* 开发程度面板样式 */
+        .development-panel {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 105, 180, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            width: 250px;
+            z-index: 30;
+            box-shadow: 0 0 15px rgba(255, 105, 180, 0.3);
+            display: none;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .development-panel.show {
+            display: block;
+            opacity: 1;
+        }
+
+        .development-title {
+            color: #ff69b4;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+            position: relative;
+        }
+
+        .development-content {
+            color: #fff;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .development-item {
+            margin-bottom: 8px;
+        }
+
+        .development-label {
+            color: #ffccd5;
+            margin-bottom: 5px;
+        }
+
+        .development-bar {
+            height: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .development-progress {
+            height: 100%;
+            background: linear-gradient(to right, #ff69b4, #ff1493);
+            border-radius: 10px;
+            transition: width 0.5s ease-in-out;
+        }
+
+        .development-value {
+            color: #fff;
+            font-size: 0.8em;
+            text-align: right;
+            margin-top: 2px;
+        }
+
+        .toggle-info-button {
+            position: fixed;
+            top: 10px;
+            right: 100px;
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 30;
+            font-size: 0.9em;
+        }
+
+        .toggle-development-button {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 30;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .scene-container {
+                height: calc(100% - 60px);
+            }
+
+            .dialogue-overlay {
+                padding: 20px;
+                max-width: 90%;
+            }
+
+            .character-name {
+                font-size: 1.3em;
+                margin-bottom: 10px;
+            }
+
+            .dialogue-text {
+                font-size: 1.1em;
+                line-height: 1.6;
+            }
+
+            .navigation-buttons {
+                padding: 10px;
+                gap: 10px;
+            }
+
+            .nav-button {
+                min-width: 100px;
+                padding: 10px 20px;
+                font-size: 1em;
+            }
+
+            .info-panel,
+            .development-panel {
+                width: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .scene-container {
+                height: calc(100% - 50px);
+            }
+
+            .dialogue-overlay {
+                padding: 15px;
+                max-width: 95%;
+            }
+
+            .character-name {
+                font-size: 1.2em;
+                margin-bottom: 8px;
+            }
+
+            .dialogue-text {
+                font-size: 1em;
+                line-height: 1.5;
+            }
+
+            .navigation-buttons {
+                padding: 8px;
+                gap: 8px;
+            }
+
+            .nav-button {
+                min-width: 80px;
+                padding: 8px 16px;
+                font-size: 0.9em;
+            }
+
+            .info-panel,
+            .development-panel {
+                width: 150px;
+                padding: 10px;
+            }
+
+            .toggle-info-button,
+            .toggle-development-button {
+                padding: 6px 12px;
+                font-size: 0.8em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="game-container">
+        <div class="scene-container">
+            <img class="scene-image" id="scene-image" src="" alt="场景图片">
+            <div class="chapter-title" id="chapter-title">第一章：初遇</div>
+            <div class="dialogue-overlay">
+                <div class="character-name" id="character-name">美诺子</div>
+                <p class="dialogue-text" id="dialogue-text"></p>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <button class="nav-button" id="prev-button" onclick="prevScene()">上一张</button>
+            <button class="nav-button" id="next-button" onclick="nextScene()">下一张</button>
+        </div>
+
+        <button class="fullscreen-button" onclick="toggleFullscreen()">全屏</button>
+        <button class="music-control" onclick="toggleMusic()">音乐</button>
+        <button class="toggle-info-button" onclick="toggleInfoPanel();">信息</button>
+        <button class="toggle-development-button" onclick="toggleDevelopmentPanel();">开发度</button>
+    </div>
+
+    <!-- 女主信息面板 -->
+    <div class="info-panel" id="info-panel" style="display: none;">
+        <div class="info-title">
+            美诺子信息
+            <button class="close-button" onclick="toggleInfoPanel()">×</button>
+        </div>
+        <div class="info-content">
+            <div class="info-item">
+                <span class="info-label">姓名:</span>
+                <span class="info-value">美诺子</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">年龄:</span>
+                <span class="info-value">18岁</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">身高:</span>
+                <span class="info-value">158cm</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">体重:</span>
+                <span class="info-value">45kg</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">三围:</span>
+                <span class="info-value">B85(D) W55 H83</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">性格:</span>
+                <span class="info-value">温顺、害羞、渴望被调教</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">身份:</span>
+                <span class="info-value">主人的小母狗</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">敏感带:</span>
+                <span class="info-value">乳头、阴蒂、小穴</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 开发程度面板 -->
+    <div class="development-panel" id="development-panel" style="display: none;">
+        <div class="development-title">
+            美诺子开发程度
+            <button class="close-button" onclick="toggleDevelopmentPanel()">×</button>
+        </div>
+        <div class="development-content">
+            <div class="development-item">
+                <div class="development-label">乳头敏感度</div>
+                <div class="development-bar">
+                    <div class="development-progress" id="nipple-progress" style="width: 75%"></div>
+                </div>
+                <div class="development-value">75%</div>
+            </div>
+            <div class="development-item">
+                <div class="development-label">小穴开发度</div>
+                <div class="development-bar">
+                    <div class="development-progress" id="pussy-progress" style="width: 60%"></div>
+                </div>
+                <div class="development-value">60%</div>
+            </div>
+            <div class="development-item">
+                <div class="development-label">阴蒂敏感度</div>
+                <div class="development-bar">
+                    <div class="development-progress" id="clit-progress" style="width: 85%"></div>
+                </div>
+                <div class="development-value">85%</div>
+            </div>
+            <div class="development-item">
+                <div class="development-label">肛门开发度</div>
+                <div class="development-bar">
+                    <div class="development-progress" id="anal-progress" style="width: 30%"></div>
+                </div>
+                <div class="development-value">30%</div>
+            </div>
+            <div class="development-item">
+                <div class="development-label">调教顺从度</div>
+                <div class="development-bar">
+                    <div class="development-progress" id="obedience-progress" style="width: 90%"></div>
+                </div>
+                <div class="development-value">90%</div>
+            </div>
+            <div class="development-item">
+                <div class="development-label">高潮敏感度</div>
+                <div class="development-bar">
+                    <div class="development-progress" id="orgasm-progress" style="width: 80%"></div>
+                </div>
+                <div class="development-value">80%</div>
+            </div>
+        </div>
+    </div>
+
+    <audio id="background-music" loop>
+        <source src="../music/background.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // 场景数据
+        const scenes = [
+            // 第一章：初遇
+            {
+                image: "../image1/[Espacia Korea]/1.jpg",
+                dialogue: "美诺子跪在你面前，双腿微微颤抖，她的身体已经准备好接受你的调教。主人...人家的下面好湿...好想要主人的大肉棒插人家的小穴...请狠狠地惩罚人家..."
+            },
+            {
+                image: "../image1/[Espacia Korea]/2.jpg",
+                dialogue: "你的手指轻轻探入美诺子的小穴，她立刻发出甜美的呻吟。啊...主人...你的手指好厉害...人家的小穴好舒服...请再深入一点...人家是主人的小母狗..."
+            },
+            {
+                image: "../image1/[Espacia Korea]/3.jpg",
+                dialogue: "你的手掌覆盖在美诺子的乳房上，用力揉捏着，她的乳头已经硬挺起来。主人...人家的奶子好涨...请用力揉捏它们...乳头都硬起来了...人家是主人的性奴..."
+            },
+            {
+                image: "../image1/[Espacia Korea]/4.jpg",
+                dialogue: "你的舌头轻轻舔舐着美诺子的乳头，她感到一阵酥麻传遍全身。啊...主人...你的舌头好灵活...人家的乳头好敏感...请继续舔它们...人家是主人的小母狗..."
+            },
+            {
+                image: "../image1/[Espacia Korea]/5.jpg",
+                dialogue: "你的手掌重重拍打在美诺子的臀部，她的身体因疼痛而颤抖，却感到一种奇异的快感。主人...人家的屁股好痒...请用力拍打它...好喜欢这种痛感...人家是主人的小母狗..."
+            },
+            {
+                image: "../image1/[Espacia Korea]/6.jpg",
+                dialogue: "你的肉棒抵在美诺子的小穴口，她感到一阵紧张和期待。啊...主人...你的肉棒好大...人家的小穴好紧...请慢慢插进来...人家是主人的性奴..."
+            },
+            {
+                image: "../image1/[Espacia Korea]/7.jpg",
+                dialogue: "美诺子的淫水不断流出，滴在地板上，形成一小滩水渍。主人...人家的淫水好多...都流出来了...请用手指搅动它...人家是主人的小母狗..."
+            },
+            {
+                image: "../image1/[Espacia Korea]/8.jpg",
+                dialogue: "你的手指在美诺子的小穴中快速抽插，她的身体因快感而颤抖。啊...主人...你的手指好深...人家要高潮了...请再快一点...人家是主人的性奴..."
+            },
+            {
+                image: "../image1/[Espacia Korea]/9.jpg",
+                dialogue: "你的手指轻轻捏住美诺子的乳头，她的身体立刻敏感地反应。主人...人家的奶头好硬...请继续玩弄它们...乳头都肿起来了...人家是主人的小母狗..."
+            },
+            {
+                image: "../image1/[Espacia Korea]/10.jpg",
+                dialogue: "你的舌头轻轻舔舐着美诺子的阴蒂，她感到一阵强烈的快感。啊...主人...你的舌头好热...人家的阴蒂好舒服...请用力吸它...人家是主人的性奴..."
+            },
+            // 第二章：深入
+            {
+                image: "../image1/[Espacia Korea]/11.jpg",
+                dialogue: "你的手掌再次拍打在美诺子的臀部，她的皮肤已经泛红。主人...人家的屁股好红...请继续打它...好喜欢这种惩罚...人家是主人的小母狗..."
+            },
+            {
+                image: "../image1/[Espacia Korea]/12.jpg",
+                dialogue: "你的肉棒深深插入美诺子的小穴，她感到一种前所未有的满足。啊...主人...你的肉棒好粗...人家的小穴好满...请用力顶到最深处...人家是主人的性奴..."
+            },
+            {
+                image: "../image1/[Espacia Korea]/13.jpg",
+                dialogue: "美诺子的淫水顺着大腿流下，散发着甜美的香气。主人...人家的淫水好甜...请尝尝看...都是为主人准备的...人家是主人的小母狗..."
+            },
+            {
+                image: "../image1/[Espacia Korea]/14.jpg",
+                dialogue: "你的手指在美诺子的小穴中快速抽插，她的身体因快感而颤抖。啊...主人...你的手指好快...人家要去了...请继续玩弄我的小穴...人家是主人的性奴..."
+            },
+            {
+                image: "../image1/[Espacia Korea]/15.jpg",
+                dialogue: "你的手掌覆盖在美诺子的乳房上，用力揉捏着，她的乳头已经硬挺起来。主人...人家的奶子好软...请用力揉它们...乳头都挺起来了...人家是主人的小母狗..."
+            },
+            {
+                image: "../image1/[Espacia Korea]/16.jpg",
+                dialogue: "你的舌头轻轻舔舐着美诺子的乳头，她感到一阵酥麻传遍全身。啊...主人...你的舌头好湿...人家的乳头好痒...请用舌头绕着乳头转圈...人家是主人的性奴..."
+            },
+            {
+                image: "../image1/[Espacia Korea]/17.jpg",
+                dialogue: "你的手掌重重拍打在美诺子的臀部，她的身体因疼痛而颤抖，却感到一种奇异的快感。主人...人家的屁股好痛...但是好舒服...请继续打它...再用力一点...人家是主人的小母狗..."
+            },
+            {
+                image: "../image1/[Espacia Korea]/18.jpg",
+                dialogue: "你的肉棒在美诺子的小穴中快速抽插，她的身体因快感而颤抖。啊...主人...你的肉棒好硬...人家的小穴好热...请用力抽插...再快一点...人家是主人的性奴..."
+            },
+            {
+                image: "../image1/[Espacia Korea]/19.jpg",
+                dialogue: "美诺子的淫水不断流出，散发着甜美的香气，你轻轻舔舐着。主人...人家的淫水好香...请喝掉它...都是为主人准备的...全部喝掉...人家是主人的小母狗..."
+            },
+            {
+                image: "../image1/[Espacia Korea]/20.jpg",
+                dialogue: "你的手指轻轻玩弄着美诺子的阴蒂，她的身体因快感而颤抖。啊...主人...你的手指好灵活...人家要高潮了...请继续玩弄我的阴蒂...再快一点...人家是主人的性奴..."
+            },
+            // 第三章：高潮
+            {
+                image: "../image1/[Espacia Korea]/21.jpg",
+                dialogue: "美诺子感到一种前所未有的满足，你的肉棒深深插入她的小穴，顶到最深处。她轻声呻吟道：'啊...主人...你的肉棒好长...人家的小穴好深...请全部插进来...顶到子宫口...人家是主人的小母狗...'"
+            },
+            {
+                image: "../image1/[Espacia Korea]/22.jpg",
+                dialogue: "美诺子的淫水不断流出，散发着甜美的香气，你轻轻搅动着。她感到一阵酥麻，轻声说道：'主人...人家的淫水好滑...请继续玩弄...用手指搅动它...好舒服...人家是主人的性奴...'"
+            },
+            {
+                image: "../image1/[Espacia Korea]/23.jpg",
+                dialogue: "你的手指在美诺子的小穴中快速抽插，她的身体因快感而颤抖，即将达到高潮。她轻声呻吟道：'啊...主人...你的手指好深...人家要去了...请继续抽插...再快一点...要高潮了...人家是主人的小母狗...'"
+            },
+            {
+                image: "../image1/[Espacia Korea]/24.jpg",
+                dialogue: "你的手掌覆盖在美诺子的乳房上，用力揉捏着，她的乳头已经硬挺起来。她感到一阵强烈的快感，轻声说道：'主人...人家的奶子好大...请用力揉它们...乳头都肿起来了...好敏感...人家是主人的性奴...'"
+            },
+            {
+                image: "../image1/[Espacia Korea]/25.jpg",
+                dialogue: "你的舌头轻轻舔舐着美诺子的乳头，她感到一阵酥麻传遍全身。她轻声呻吟道：'啊...主人...你的舌头好热...人家的乳头好硬...请用舌头舔它们...再用力吸...人家是主人的小母狗...'"
+            },
+            {
+                image: "../image1/[Espacia Korea]/26.jpg",
+                dialogue: "你的手掌再次拍打在美诺子的臀部，她的皮肤已经泛红，却感到一种奇异的快感。她轻声说道：'主人...人家的屁股好红...请继续打它...好喜欢这种惩罚...再用力一点...人家是主人的性奴...'"
+            },
+            {
+                image: "../image1/[Espacia Korea]/27.jpg",
+                dialogue: "你的肉棒深深插入美诺子的小穴，她感到一种前所未有的满足。她轻声呻吟道：'啊...主人...你的肉棒好粗...人家的小穴好紧...请慢慢插进来...全部插进去...人家是主人的小母狗...'"
+            },
+            {
+                image: "../image1/[Espacia Korea]/28.jpg",
+                dialogue: "美诺子的淫水不断流出，散发着甜美的香气，你轻轻搅动着。她感到一阵酥麻，轻声说道：'主人...人家的淫水好多...都流出来了...请用手指搅动它...好舒服...人家是主人的性奴...'"
+            },
+            {
+                image: "../image1/[Espacia Korea]/29.jpg",
+                dialogue: "你的手指在美诺子的小穴中快速抽插，她的身体因快感而颤抖，即将达到高潮。她轻声呻吟道：'啊...主人...你的手指好深...人家要高潮了...请继续抽插...再快一点...要去了...人家是主人的小母狗...'"
+            },
+            {
+                image: "../image1/[Espacia Korea]/30.jpg",
+                dialogue: "你的手指轻轻捏住美诺子的乳头，她的身体立刻敏感地反应。她轻声说道：'主人...人家的奶头好硬...请继续玩弄它们...乳头都肿起来了...好敏感...人家是主人的性奴...'"
+            },
+            // 第四章：极致
+            {
+                image: "../image1/[Espacia Korea]/31.jpg",
+                dialogue: "你的舌头轻轻舔舐着美诺子的阴蒂，她感到一阵强烈的快感。她轻声呻吟道：'啊...主人...你的舌头好热...人家的阴蒂好舒服...请用力吸它...再用力一点...人家是主人的小母狗...'"
+            },
+            {
+                image: "../image1/[Espacia Korea]/32.jpg",
+                dialogue: "你的手掌再次拍打在美诺子的臀部，她的皮肤已经泛红，却感到一种奇异的快感。她轻声说道：'主人...人家的屁股好红...请继续打它...好喜欢这种惩罚...再用力一点...人家是主人的性奴...'"
+            },
+            {
+                image: "../image1/[Espacia Korea]/33.jpg",
+                dialogue: "你的肉棒深深插入美诺子的小穴，顶到最深处，她感到一种前所未有的满足。她轻声呻吟道：'啊...主人...你的肉棒好粗...人家的小穴好满...请用力顶到最深处...再快一点...人家是主人的小母狗...'"
+            },
+            {
+                image: "../image1/[Espacia Korea]/34.jpg",
+                dialogue: "美诺子的淫水不断流出，散发着甜美的香气，你轻轻舔舐着。她感到一阵酥麻，轻声说道：'主人...人家的淫水好甜...请尝尝看...都是为主人准备的...全部喝掉...人家是主人的性奴...'"
+            },
+            {
+                image: "../image1/[Espacia Korea]/35.jpg",
+                dialogue: "你的手指在美诺子的小穴中快速抽插，她的身体因快感而颤抖，即将达到高潮。她轻声呻吟道：'啊...主人...你的手指好快...人家要去了...请继续玩弄我的小穴...再快一点...人家是主人的小母狗...'"
+            },
+            {
+                image: "../image1/[Espacia Korea]/36.jpg",
+                dialogue: "你的手掌覆盖在美诺子的乳房上，用力揉捏着，她的乳头已经硬挺起来。她感到一阵强烈的快感，轻声说道：'主人...人家的奶子好软...请用力揉它们...乳头都挺起来了...好敏感...人家是主人的性奴...'"
+            },
+            {
+                image: "../image1/[Espacia Korea]/37.jpg",
+                dialogue: "你的舌头轻轻舔舐着美诺子的乳头，她感到一阵酥麻传遍全身。她轻声呻吟道：'啊...主人...你的舌头好湿...人家的乳头好痒...请用舌头绕着乳头转圈...再用力吸...人家是主人的小母狗...'"
+            },
+            {
+                image: "../image1/[Espacia Korea]/38.jpg",
+                dialogue: "你的手掌再次拍打在美诺子的臀部，她的皮肤已经泛红，却感到一种奇异的快感。她轻声说道：'主人...人家的屁股好痛...但是好舒服...请继续打它...再用力一点...好喜欢...人家是主人的性奴...'"
+            },
+            {
+                image: "../image1/[Espacia Korea]/39.jpg",
+                dialogue: "你的肉棒在美诺子的小穴中快速抽插，她的身体因快感而颤抖，即将达到高潮。她轻声呻吟道：'啊...主人...你的肉棒好硬...人家的小穴好热...请用力抽插...再快一点...要高潮了...人家是主人的小母狗...'"
+            },
+            {
+                image: "../image1/[Espacia Korea]/40.jpg",
+                dialogue: "美诺子的淫水不断流出，散发着甜美的香气，你轻轻舔舐着。她感到一阵酥麻，轻声说道：'主人...人家的淫水好香...请喝掉它...都是为主人准备的...全部喝掉...好甜...人家是主人的性奴...'"
+            },
+            // 第五章：终章
+            {
+                image: "../image1/[Espacia Korea]/41.jpg",
+                dialogue: "你的手指轻轻玩弄着美诺子的阴蒂，她的身体因快感而颤抖，即将达到高潮。她轻声呻吟道：'啊...主人...你的手指好灵活...人家要高潮了...请继续玩弄我的阴蒂...再快一点...要去了...人家是主人的小母狗...'"
+            },
+            {
+                image: "../image1/[Espacia Korea]/42.jpg",
+                dialogue: "你的手掌覆盖在美诺子的乳房上，用力揉捏着，她的乳头已经硬挺起来。她感到一阵强烈的快感，轻声说道：'主人...人家的奶子好涨...请用力揉捏它们...乳头都硬起来了...好敏感...人家是主人的性奴...'"
+            },
+            {
+                image: "../image1/[Espacia Korea]/43.jpg",
+                dialogue: "你的舌头轻轻舔舐着美诺子的乳头，她感到一阵酥麻传遍全身。她轻声呻吟道：'啊...主人...你的舌头好灵活...人家的乳头好敏感...请用舌头舔它们...再用力吸...人家是主人的小母狗...'"
+            },
+            {
+                image: "../image1/[Espacia Korea]/44.jpg",
+                dialogue: "你的手掌再次拍打在美诺子的臀部，她的皮肤已经泛红，却感到一种奇异的快感。她轻声说道：'主人...人家的屁股好痒...请用力拍打它...好喜欢这种痛感...再用力一点...人家是主人的性奴...'"
+            },
+            {
+                image: "../image1/[Espacia Korea]/45.jpg",
+                dialogue: "你的肉棒深深插入美诺子的小穴，她感到一种前所未有的满足。她轻声呻吟道：'啊...主人...你的肉棒好大...人家的小穴好紧...请慢慢插进来...全部插进去...好舒服...人家是主人的小母狗...'"
+            },
+            {
+                image: "../image1/[Espacia Korea]/46.jpg",
+                dialogue: "美诺子的淫水不断流出，散发着甜美的香气，你轻轻搅动着。她感到一阵酥麻，轻声说道：'主人...人家的淫水好多...都流出来了...请用手指搅动它...好舒服...再快一点...人家是主人的性奴...'"
+            },
+            {
+                image: "../image1/[Espacia Korea]/47.jpg",
+                dialogue: "你的手指在美诺子的小穴中快速抽插，她的身体因快感而颤抖，即将达到高潮。她轻声呻吟道：'啊...主人...你的手指好深...人家要高潮了...请继续抽插...再快一点...要去了...好舒服...人家是主人的小母狗...'"
+            },
+            {
+                image: "../image1/[Espacia Korea]/48.jpg",
+                dialogue: "你的手指轻轻捏住美诺子的乳头，她的身体立刻敏感地反应。她轻声说道：'主人...人家的奶头好硬...请继续玩弄它们...乳头都肿起来了...好敏感...再用力一点...人家是主人的性奴...'"
+            },
+            {
+                image: "../image1/[Espacia Korea]/49.jpg",
+                dialogue: "你的舌头轻轻舔舐着美诺子的阴蒂，她感到一阵强烈的快感。她轻声呻吟道：'啊...主人...你的舌头好热...人家的阴蒂好舒服...请用力吸它...再用力一点...要高潮了...人家是主人的小母狗...'"
+            },
+            {
+                image: "../image1/[Espacia Korea]/50.jpg",
+                dialogue: "你的手掌最后一次拍打在美诺子的臀部，她的身体因疼痛而颤抖，却感到一种奇异的快感。她轻声说道：'主人...人家的屁股好红...请继续打它...好喜欢这种惩罚...再用力一点...好舒服...人家是主人的性奴...'"
+            }
+        ];
+
+        let currentSceneIndex = 0;
+        let isMusicPlaying = false;
+        let isInfoPanelVisible = false;
+        let isDevelopmentPanelVisible = false;
+        const backgroundMusic = document.getElementById('background-music');
+
+        // 加载场景
+        function loadScene(index) {
+            const scene = scenes[index];
+            const image = document.getElementById('scene-image');
+            const dialogueText = document.getElementById('dialogue-text');
+            const characterName = document.getElementById('character-name');
+            const dialogueOverlay = document.querySelector('.dialogue-overlay');
+            const chapterTitle = document.getElementById('chapter-title');
+
+            // 先隐藏所有元素
+            dialogueOverlay.classList.remove('show');
+            image.classList.remove('loaded');
+            dialogueText.classList.remove('show');
+            characterName.classList.remove('show');
+            chapterTitle.classList.remove('show');
+
+            // 加载新图片
+            image.src = scene.image;
+            image.onload = function () {
+                // 显示图片
+                image.classList.add('loaded');
+
+                // 显示章节标题
+                chapterTitle.classList.add('show');
+
+                // 等待3秒后显示文字
+                setTimeout(() => {
+                    dialogueOverlay.classList.add('show');
+                    dialogueText.textContent = scene.dialogue;
+
+                    // 依次显示角色名和对话文本
+                    requestAnimationFrame(() => {
+                        characterName.classList.add('show');
+                        setTimeout(() => {
+                            dialogueText.classList.add('show');
+                        }, 300);
+                    });
+                }, 3000);
+            };
+
+            // 更新按钮状态
+            document.getElementById('prev-button').disabled = index === 0;
+            document.getElementById('next-button').disabled = index === scenes.length - 1;
+
+            // 更新章节标题
+            updateChapterTitle(index);
+
+            // 更新开发程度
+            updateDevelopmentProgress(index);
+        }
+
+        // 更新章节标题
+        function updateChapterTitle(index) {
+            const chapterTitles = [
+                "第一章：初遇",
+                "第二章：深入",
+                "第三章：高潮",
+                "第四章：极致",
+                "第五章：终章"
+            ];
+
+            const chapterIndex = Math.floor(index / 10);
+            const chapterTitle = document.getElementById('chapter-title');
+            chapterTitle.textContent = chapterTitles[chapterIndex];
+        }
+
+        // 更新开发程度
+        function updateDevelopmentProgress(index) {
+            // 根据场景索引计算开发程度
+            const progress = Math.min(100, Math.floor((index / scenes.length) * 100));
+
+            // 更新各个开发程度条
+            document.getElementById('nipple-progress').style.width = Math.min(100, 75 + (progress * 0.25)) + '%';
+            document.getElementById('pussy-progress').style.width = Math.min(100, 60 + (progress * 0.4)) + '%';
+            document.getElementById('clit-progress').style.width = Math.min(100, 85 + (progress * 0.15)) + '%';
+            document.getElementById('anal-progress').style.width = Math.min(100, 30 + (progress * 0.7)) + '%';
+            document.getElementById('obedience-progress').style.width = Math.min(100, 90 + (progress * 0.1)) + '%';
+            document.getElementById('orgasm-progress').style.width = Math.min(100, 80 + (progress * 0.2)) + '%';
+
+            // 更新数值显示
+            document.querySelectorAll('.development-value').forEach((el, i) => {
+                const progressBars = document.querySelectorAll('.development-progress');
+                const width = parseInt(progressBars[i].style.width);
+                el.textContent = width + '%';
+            });
+        }
+
+        // 上一张
+        function prevScene() {
+            if (currentSceneIndex > 0) {
+                currentSceneIndex--;
+                loadScene(currentSceneIndex);
+            }
+        }
+
+        // 下一张
+        function nextScene() {
+            if (currentSceneIndex < scenes.length - 1) {
+                currentSceneIndex++;
+                loadScene(currentSceneIndex);
+            }
+        }
+
+        // 切换全屏
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        // 切换音乐
+        function toggleMusic() {
+            if (isMusicPlaying) {
+                backgroundMusic.pause();
+            } else {
+                backgroundMusic.play();
+            }
+            isMusicPlaying = !isMusicPlaying;
+        }
+
+        // 切换信息面板
+        function toggleInfoPanel() {
+            const infoPanel = document.getElementById('info-panel');
+            isInfoPanelVisible = !isInfoPanelVisible;
+
+            if (isInfoPanelVisible) {
+                infoPanel.style.display = "block";
+                setTimeout(() => {
+                    infoPanel.style.opacity = "1";
+                }, 10);
+                console.log("信息面板已打开");
+            } else {
+                infoPanel.style.opacity = "0";
+                setTimeout(() => {
+                    infoPanel.style.display = "none";
+                }, 300);
+                console.log("信息面板已关闭");
+            }
+        }
+
+        // 切换开发程度面板
+        function toggleDevelopmentPanel() {
+            const developmentPanel = document.getElementById('development-panel');
+            isDevelopmentPanelVisible = !isDevelopmentPanelVisible;
+
+            if (isDevelopmentPanelVisible) {
+                developmentPanel.style.display = "block";
+                setTimeout(() => {
+                    developmentPanel.style.opacity = "1";
+                }, 10);
+                console.log("开发程度面板已打开");
+            } else {
+                developmentPanel.style.opacity = "0";
+                setTimeout(() => {
+                    developmentPanel.style.display = "none";
+                }, 300);
+                console.log("开发程度面板已关闭");
+            }
+        }
+
+        // 键盘导航
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'ArrowLeft') {
+                prevScene();
+            } else if (e.key === 'ArrowRight') {
+                nextScene();
+            } else if (e.key === 'f') {
+                toggleFullscreen();
+            } else if (e.key === 'm') {
+                toggleMusic();
+            } else if (e.key === 'i') {
+                toggleInfoPanel();
+            } else if (e.key === 'd') {
+                toggleDevelopmentPanel();
+            }
+        });
+
+        // 初始化
+        window.onload = function () {
+            loadScene(0);
+        };
+    </script>
+</body>
+
+</html>

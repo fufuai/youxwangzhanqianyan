@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>详情</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <button class="back-to-top">返回顶部</button>
+    <button class="theme-toggle">切换主题</button>
+    <div class="image-gallery">
+        <span class="gallery-close">&times;</span>
+        <button class="gallery-nav prev">&lt;</button>
+        <button class="gallery-nav next">&gt;</button>
+        <img class="gallery-image" src="" alt="Gallery Image">
+    </div>
+    <div class="container">
+        <h1>Fantasy Factory [21P]</h1>
+
+        <div class="main-image">
+            <img id="mainImage" src="" alt="主图" style="cursor: pointer;">
+        </div>
+
+        <!-- 广告容器占位符 -->
+        <div id="ad-container-placeholder"></div>
+
+        <!-- 游戏入口 -->
+        <div class="game-entry" style="text-align: center; margin: 20px 0;">
+            <button class="start-game-btn" onclick="startGame()" style="
+                background-color: #f97dd8;
+                color: white;
+                border: none;
+                padding: 15px 30px;
+                font-size: 1.2em;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            ">开始游戏</button>
+        </div>
+
+        <!-- 添加独立的文本描述 -->
+        <div class="ad-description">
+            <h2 style="color: #f97dd8; text-align: center; margin-bottom: 10px; font-size: 1.2em;">内容简介</h2>
+
+            <div style="background: rgba(249, 125, 216, 0.1); padding: 10px; border-radius: 6px; margin-bottom: 10px;">
+                <h3 style="color: #f97dd8; margin-bottom: 8px; font-size: 1.1em;">『内容特色』</h3>
+                <ul style="list-style-type: none; padding-left: 0; margin: 0;">
+                    <li style="margin-bottom: 5px; font-size: 0.9em;">✦ 奇幻SM风格</li>
+                    <li style="margin-bottom: 5px; font-size: 0.9em;">✦ 创意道具设计</li>
+                    <li style="margin-bottom: 5px; font-size: 0.9em;">✦ 独特场景布置</li>
+                    <li style="margin-bottom: 5px; font-size: 0.9em;">✦ 特效后期处理</li>
+                </ul>
+            </div>
+
+            <div style="border-left: 2px solid #f97dd8; padding-left: 10px; margin: 10px 0;">
+                <span style="font-weight: bold; color: #f97dd8; font-size: 0.9em;">内容亮点：</span>
+                <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px;">
+                    <span
+                        style="background: #f97dd8; color: white; padding: 1px 4px; border-radius: 3px; font-size: 0.8em;">奇幻工厂精心打造，呈现独特SM视觉盛宴</span>
+                    <span
+                        style="background: #f97dd8; color: white; padding: 1px 4px; border-radius: 3px; font-size: 0.8em;">道具创意</span>
+                    <span
+                        style="background: #f97dd8; color: white; padding: 1px 4px; border-radius: 3px; font-size: 0.8em;">场景独特</span>
+                    <span
+                        style="background: #f97dd8; color: white; padding: 1px 4px; border-radius: 3px; font-size: 0.8em;">特效精美</span>
+                </div>
+            </div>
+
+            <div style="background: rgba(249, 125, 216, 0.1); padding: 10px; border-radius: 6px; margin-top: 15px;">
+                <h3 style="color: #f97dd8; margin-bottom: 8px; font-size: 1.1em;">『内容介绍』</h3>
+                <p style="margin-bottom: 10px; font-size: 0.9em; line-height: 1.5;">
+                    本套内容由奇幻工厂专业团队精心打造，采用先进摄影设备，搭配创意灯光布置，呈现完美SM视觉体验。每张照片都经过特效后期处理，确保画面独特，视觉效果出众。
+                </p>
+                <p style="margin-bottom: 10px; font-size: 0.9em; line-height: 1.5;">
+                    拍摄场景充满创意，道具设计独特，构图新颖，让每一帧画面都成为艺术品。通过专业的特效处理，让照片更具视觉冲击力。
+                </p>
+            </div>
+        </div>
+
+        <div class="image-container" id="image-container"></div>
+
+        <div class="changelog-section">
+            <div class="changelog-title">更新日志</div>
+            <div class="changelog-item">
+                <p>优化特效处理，提升画面质感</p>
+            </div>
+            <div class="changelog-item">
+                <p class="highlight">◆内容更新</p>
+                <p>新增奇幻SM内容，优化特效展示效果，提升整体视觉体验。</p>
+            </div>
+        </div>
+
+        <div class="action-section">
+            <div class="action-grid">
+                <div class="action-item">
+                    <a href="" class="download-btn">点击下载游戏</a>
+                </div>
+                <div class="action-item">
+                    <a href="https://qm.qq.com/q/IekbXKmPAG" class="service-link">提取码联系客服获取</a>
+                </div>
+                <div class="action-item">
+                    <button class="download-btn" onclick="shareGame()">分享游戏</button>
+                </div>
+            </div>
+            <p class="notice-text">如果客服链接失效，请看主页公告获取最新客服链接！</p>
+        </div>
+
+        <div class="related-games">
+            <h2 class="related-title">相关推荐</h2>
+            <div class="games-grid">
+                <a href="../meituxiangqing/meituxiangqing.html" class="game-card">
+                    <img src="../image1/催眠v1.4.6c汉化版【PC+安卓/1.jpg" alt="催眠游戏" class="game-image">
+                    <div class="game-info">
+                        <h3 class="game-title">催眠游戏</h3>
+                        <p class="game-desc">催眠题材，剧情丰富</p>
+                    </div>
+                </a>
+                <a href="../meituxiangqing/meituxiangqing.html" class="game-card">
+                    <img src="../image1/催眠v1.4.6c汉化版【PC+安卓/2.jpg" alt="调教游戏" class="game-image">
+                    <div class="game-info">
+                        <h3 class="game-title">调教游戏</h3>
+                        <p class="game-desc">调教玩法，多种结局</p>
+                    </div>
+                </a>
+                <a href="../meituxiangqing/meituxiangqing.html" class="game-card">
+                    <img src="../image1/催眠v1.4.6c汉化版【PC+安卓/3.jpg" alt="SM游戏" class="game-image">
+                    <div class="game-info">
+                        <h3 class="game-title">SM游戏</h3>
+                        <p class="game-desc">SM玩法，剧情丰富</p>
+                    </div>
+                </a>
+                <a href="../meituxiangqing/meituxiangqing.html" class="game-card">
+                    <img src="../image1/催眠v1.4.6c汉化版【PC+安卓/4.jpg" alt="剧情游戏" class="game-image">
+                    <div class="game-info">
+                        <h3 class="game-title">剧情游戏</h3>
+                        <p class="game-desc">剧情丰富，画面精美</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="password-container" id="password-container">
+            <div class="password-section">
+                <input type="password" id="passwordInput" placeholder="输入密码" />
+                <button onclick="checkPassword()" class="submit-btn">确认</button>
+                <a href="https://qm.qq.com/q/IekbXKmPAG" id="contactButton" class="contact-btn"
+                    target="_blank">访问密码请联系客服</a>
+            </div>
+            <div id="passwordMessage"></div>
+        </div>
+
+        <div class="game-tags">
+            <h2 class="related-title">游戏标签</h2>
+            <div class="tags-container">
+                <button class="game-tag">剧情向</button>
+                <button class="game-tag">催眠</button>
+                <button class="game-tag">调教</button>
+                <button class="game-tag">SM</button>
+                <button class="game-tag">全CG</button>
+                <button class="game-tag">多结局</button>
+                <button class="game-tag">汉化</button>
+                <button class="game-tag">PC/安卓</button>
+            </div>
+        </div>
+
+        <div class="installation-guide">
+            <h2 class="guide-title">安装指南</h2>
+            <div class="guide-steps">
+                <div class="guide-step">
+                    <h4>PC版本安装步骤</h4>
+                    <p>1. 下载游戏压缩包并解压到任意目录</p>
+                    <p>2. 运行游戏主程序即可开始游戏</p>
+                    <p>3. 如遇到运行问题，请确保已安装最新版本的DirectX和Visual C++运行库</p>
+                </div>
+                <div class="guide-step">
+                    <h4>安卓版本安装步骤</h4>
+                    <p>1. 下载APK安装包</p>
+                    <p>2. 在手机设置中允许安装未知来源应用</p>
+                    <p>3. 点击APK文件进行安装</p>
+                    <p>4. 安装完成后点击图标即可开始游戏</p>
+                </div>
+                <div class="guide-step">
+                    <h4>注意事项</h4>
+                    <p>• 游戏需要至少2GB可用存储空间</p>
+                    <p>• 安卓设备需要Android 5.0或更高版本</p>
+                    <p>• 如遇到安装问题，请尝试重启设备后重新安装</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 引入广告加载器脚本 -->
+    <script src="ad-loader.js"></script>
+    <script>
+        // 全局变量
+        const imageFolderPath = '../image1/Fantasy Factory [21P]/';
+        const totalImages = 21;
+        const password = "ab2658";
+        let imageCountLoading = 0;
+        let currentGalleryIndex = 0;
+        let galleryImages = [];
+
+        // 页面加载完成后执行
+        window.onload = function () {
+            renderImages();
+            startSlideshow('adSlideshow1');
+            startSlideshow('adSlideshow2');
+            startSlideshow('adSlideshow3');
+            startSlideshow('adSlideshow4');
+            initializeEventListeners();
+            initializeChangelog();
+            initializeRelatedGames();
+        };
+
+        // 渲染图片
+        function renderImages() {
+            const mainImage = document.getElementById('mainImage');
+            const imageContainer = document.getElementById('image-container');
+
+            mainImage.src = `${imageFolderPath}1.jpg`;
+            imageContainer.innerHTML = '';
+            galleryImages = []; // 清空图片数组
+            galleryImages.push(mainImage.src); // 添加主图到画廊数组
+
+            // 加载前5张描述图
+            for (let i = 0; i < 6; i++) {
+                const imgElement = document.createElement('div');
+                imgElement.className = 'image-item';
+                const imgSrc = `${imageFolderPath}${i + 2}.jpg`;
+                imgElement.innerHTML = `<img src="${imgSrc}" alt="商品描述图 ${i + 2}" onload="checkImageCount()">`;
+                imageContainer.appendChild(imgElement);
+                galleryImages.push(imgSrc);
+
+                // 为图片添加点击事件
+                const img = imgElement.querySelector('img');
+                img.onclick = function () {
+                    openGallery(i + 1); // 索引从1开始，因为0是主图
+                };
+            }
+        }
+
+        // 检查图片加载数量
+        function checkImageCount() {
+            imageCountLoading++;
+            if (imageCountLoading === 50) {
+                document.getElementById('passwordMessage').innerText = '请输入密码以查看更多图片';
+            }
+        }
+
+        // 渲染剩余图片
+        function renderRemainingImages() {
+            const imageContainer = document.getElementById('image-container');
+            const startIndex = galleryImages.length; // 从当前图片数组长度开始
+
+            for (let i = 7; i < totalImages; i++) {
+                const imgElement = document.createElement('div');
+                imgElement.className = 'image-item';
+                const imgSrc = `${imageFolderPath}${i + 1}.jpg`;
+                imgElement.innerHTML = `<img src="${imgSrc}" alt="商品描述图 ${i + 1}">`;
+                imageContainer.appendChild(imgElement);
+                galleryImages.push(imgSrc);
+
+                // 为新加载的图片添加点击事件
+                const img = imgElement.querySelector('img');
+                img.onclick = function () {
+                    openGallery(startIndex + (i - 7)); // 修正索引计算
+                };
+            }
+        }
+
+        // 检查密码
+        function checkPassword() {
+            const input = document.getElementById('passwordInput');
+            const message = document.getElementById('passwordMessage');
+            const inputValue = input.value.trim();
+
+            if (inputValue === password) {
+                renderRemainingImages();
+                document.getElementById('password-container').style.display = 'none';
+                message.innerText = '';
+                document.getElementById('contactButton').style.display = 'none';
+            } else {
+                message.innerText = '密码错误，请重试！';
+                message.classList.add('error');
+                input.classList.add('error');
+
+                // 添加抖动动画效果
+                input.style.animation = 'shake 0.5s';
+                setTimeout(() => {
+                    input.style.animation = '';
+                }, 500);
+
+                // 清空输入框并聚焦
+                input.value = '';
+                input.focus();
+            }
+        }
+
+        // 添加密码输入框的回车键监听
+        document.getElementById('passwordInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+
+        // 添加密码输入框的焦点事件
+        document.getElementById('passwordInput').addEventListener('focus', function () {
+            this.classList.remove('error');
+            document.getElementById('passwordMessage').classList.remove('error');
+        });
+
+        // 分享功能
+        function shareGame() {
+            if (navigator.share) {
+                navigator.share({
+                    title: '游戏详情',
+                    text: '查看这个有趣的游戏！',
+                    url: window.location.href
+                })
+                    .catch(console.error);
+            } else {
+                alert('复制链接成功！');
+                navigator.clipboard.writeText(window.location.href);
+            }
+        }
+
+        // 初始化事件监听器
+        function initializeEventListeners() {
+            // 返回顶部按钮
+            window.onscroll = function () {
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    document.querySelector('.back-to-top').style.display = 'block';
+                } else {
+                    document.querySelector('.back-to-top').style.display = 'none';
+                }
+            };
+
+            document.querySelector('.back-to-top').onclick = function () {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+
+            // 主题切换
+            const themeToggle = document.querySelector('.theme-toggle');
+            const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+            // 从本地存储加载主题设置
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-mode');
+                themeToggle.textContent = '切换暗色';
+            } else if (savedTheme === 'dark') {
+                document.body.classList.remove('light-mode');
+                themeToggle.textContent = '切换亮色';
+            } else {
+                // 如果没有保存的主题，使用系统偏好
+                if (prefersDarkScheme.matches) {
+                    document.body.classList.remove('light-mode');
+                    themeToggle.textContent = '切换亮色';
+                } else {
+                    document.body.classList.add('light-mode');
+                    themeToggle.textContent = '切换暗色';
+                }
+            }
+
+            themeToggle.onclick = function () {
+                document.body.classList.toggle('light-mode');
+                const isLightMode = document.body.classList.contains('light-mode');
+                localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
+                themeToggle.textContent = isLightMode ? '切换暗色' : '切换亮色';
+            };
+
+            // 监听系统主题变化
+            prefersDarkScheme.addEventListener('change', (e) => {
+                if (!localStorage.getItem('theme')) {
+                    if (e.matches) {
+                        document.body.classList.remove('light-mode');
+                        themeToggle.textContent = '切换亮色';
+                    } else {
+                        document.body.classList.add('light-mode');
+                        themeToggle.textContent = '切换暗色';
+                    }
+                }
+            });
+
+            // 图片画廊
+            document.getElementById('mainImage').onclick = function () {
+                openGallery(0);
+            };
+
+            document.querySelector('.gallery-close').onclick = function () {
+                document.querySelector('.image-gallery').style.display = 'none';
+            };
+
+            document.querySelector('.gallery-nav.prev').onclick = function () {
+                navigateGallery(-1);
+            };
+
+            document.querySelector('.gallery-nav.next').onclick = function () {
+                navigateGallery(1);
+            };
+
+            // 为所有图片添加点击事件
+            document.querySelectorAll('.image-item img').forEach((img, index) => {
+                img.onclick = function () {
+                    openGallery(index + 1);
+                };
+            });
+
+            // 添加键盘导航
+            document.addEventListener('keydown', function (e) {
+                const gallery = document.querySelector('.image-gallery');
+                if (gallery.style.display === 'flex') {
+                    if (e.key === 'ArrowLeft') {
+                        navigateGallery(-1);
+                    } else if (e.key === 'ArrowRight') {
+                        navigateGallery(1);
+                    } else if (e.key === 'Escape') {
+                        gallery.style.display = 'none';
+                    }
+                }
+            });
+
+            // 标签系统
+            document.querySelectorAll('.game-tag').forEach(tag => {
+                tag.addEventListener('click', function () {
+                    this.classList.toggle('active');
+                    const activeTags = Array.from(document.querySelectorAll('.game-tag.active'))
+                        .map(tag => tag.textContent);
+                    console.log('已选择的标签:', activeTags);
+                });
+            });
+
+            // 安装指南展开/收起
+            document.querySelectorAll('.guide-step').forEach(step => {
+                const title = step.querySelector('h4');
+                title.style.cursor = 'pointer';
+                title.addEventListener('click', () => {
+                    const content = step.querySelector('p');
+                    if (content.style.display === 'none') {
+                        content.style.display = 'block';
+                    } else {
+                        content.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // 初始化变更日志
+        function initializeChangelog() {
+            const changelogItems = document.querySelectorAll('.changelog-item');
+
+            changelogItems.forEach(item => {
+                // 添加点击展开/收起功能
+                item.addEventListener('click', function () {
+                    const paragraphs = this.querySelectorAll('p:not(.highlight)');
+                    const isExpanded = this.getAttribute('data-expanded') === 'true';
+
+                    if (isExpanded) {
+                        paragraphs.forEach(p => {
+                            if (p.classList.contains('story-text')) {
+                                p.style.display = 'none';
+                            }
+                        });
+                        this.setAttribute('data-expanded', 'false');
+                    } else {
+                        paragraphs.forEach(p => {
+                            p.style.display = 'block';
+                        });
+                        this.setAttribute('data-expanded', 'true');
+                    }
+                });
+
+                // 初始状态：只显示高亮文本
+                const paragraphs = item.querySelectorAll('p:not(.highlight)');
+                paragraphs.forEach(p => {
+                    if (p.classList.contains('story-text')) {
+                        p.style.display = 'none';
+                    }
+                });
+                item.setAttribute('data-expanded', 'false');
+            });
+        }
+
+        // 初始化相关游戏
+        function initializeRelatedGames() {
+            const gamesGrid = document.querySelector('.games-grid');
+
+            // 添加触摸滑动支持
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            gamesGrid.addEventListener('mousedown', (e) => {
+                isDown = true;
+                gamesGrid.style.cursor = 'grabbing';
+                startX = e.pageX - gamesGrid.offsetLeft;
+                scrollLeft = gamesGrid.scrollLeft;
+            });
+
+            gamesGrid.addEventListener('mouseleave', () => {
+                isDown = false;
+                gamesGrid.style.cursor = 'grab';
+            });
+
+            gamesGrid.addEventListener('mouseup', () => {
+                isDown = false;
+                gamesGrid.style.cursor = 'grab';
+            });
+
+            gamesGrid.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - gamesGrid.offsetLeft;
+                const walk = (x - startX) * 2;
+                gamesGrid.scrollLeft = scrollLeft - walk;
+            });
+
+            // 添加触摸事件支持
+            gamesGrid.addEventListener('touchstart', (e) => {
+                isDown = true;
+                startX = e.touches[0].pageX - gamesGrid.offsetLeft;
+                scrollLeft = gamesGrid.scrollLeft;
+            });
+
+            gamesGrid.addEventListener('touchend', () => {
+                isDown = false;
+            });
+
+            gamesGrid.addEventListener('touchmove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.touches[0].pageX - gamesGrid.offsetLeft;
+                const walk = (x - startX) * 2;
+                gamesGrid.scrollLeft = scrollLeft - walk;
+            });
+
+            // 添加游戏卡片点击事件
+            const gameCards = document.querySelectorAll('.game-card');
+            gameCards.forEach(card => {
+                card.addEventListener('click', function () {
+                    // 这里可以添加点击游戏卡片后的行为，比如跳转到游戏详情页
+                    const gameTitle = this.querySelector('.game-title').textContent;
+                    console.log(`点击了游戏: ${gameTitle}`);
+                });
+            });
+        }
+
+        // 打开图片画廊
+        function openGallery(index) {
+            const gallery = document.querySelector('.image-gallery');
+            const galleryImg = document.querySelector('.gallery-image');
+
+            if (index >= 0 && index < galleryImages.length) {
+                currentGalleryIndex = index;
+                gallery.style.display = 'flex';
+                galleryImg.src = galleryImages[index];
+            }
+        }
+
+        // 切换图片
+        function navigateGallery(direction) {
+            currentGalleryIndex = (currentGalleryIndex + direction + galleryImages.length) % galleryImages.length;
+            document.querySelector('.gallery-image').src = galleryImages[currentGalleryIndex];
+        }
+
+        // 启动游戏
+        function startGame() {
+            window.location.href = 'game.html';
+        }
+    </script>
+</body>
+
+</html>

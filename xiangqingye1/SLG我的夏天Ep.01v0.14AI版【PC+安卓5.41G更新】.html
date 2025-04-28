@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>前沿指挥所</title>
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+    <button class="back-to-top">↑</button>
+    <button class="theme-toggle">切换主题</button>
+
+    <div class="container">
+        <div class="game-header">
+            <h1 class="game-title">详情介绍</h1>
+            <p class="game-subtitle">SLG我的夏天Ep.01v0.14AI版【PC+安卓5.41G更新】</p>
+        </div>
+
+        <div class="main-image">
+            <img id="mainImage" src="" alt="游戏主图">
+        </div>
+
+        <div class="game-stats">
+            <div class="stat-item" onclick="openRatingModal()">
+                <div class="stat-icon">⭐</div>
+                <div class="stat-value" id="ratingValue">4.8</div>
+                <div class="stat-label">评分</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon">📥</div>
+                <div class="stat-value">12.5K</div>
+                <div class="stat-label">下载</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon">❤️</div>
+                <div class="stat-value">3.2K</div>
+                <div class="stat-label">收藏</div>
+            </div>
+            <div class="stat-item" onclick="openForum()">
+                <div class="stat-icon">💬</div>
+                <div class="stat-value" id="commentCount">0</div>
+                <div class="stat-label">评论</div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button class="action-button" onclick="startGame()">开始游戏</button>
+            <a href="" class="action-button download">下载游戏</a>
+            <a href="https://qm.qq.com/q/IekbXKmPAG" class="action-button service">联系客服</a>
+        </div>
+
+        <div class="info-card">
+            <h3>游戏故事</h3>
+            <p class="story-text">
+                游戏介绍：
+
+                由于分数低，今年夏天我不得不去上学。不过，这对我来说还不算太糟。我有女朋友，还能通过交易加密货币赚很多钱。没有什么能颠覆我的生活，对吧
+            </p>
+        </div>
+
+        <div class="image-gallery">
+            <span class="gallery-close">&times;</span>
+            <button class="gallery-nav prev">&lt;</button>
+            <button class="gallery-nav next">&gt;</button>
+            <img class="gallery-image" src="" alt="Gallery Image">
+            <div class="dialogue-box">
+                <p class="dialogue-text"></p>
+            </div>
+        </div>
+
+        <div class="image-container" id="image-container"></div>
+
+        <div class="info-card">
+            <h3>更新日志</h3>
+            <div class="changelog-item">
+                <h4>v0.14更新说明</h4>
+                <ul>
+                    <li>修复内容装备属性限制异常修正</li>
+                    <li>调整后的限制标准与原先几乎保持相同平衡性</li>
+                    <li>调整了部分属性限制装备的判定条件</li>
+                    <li>修复了某些情况下限制未生效的BUG</li>
+                    <li>多周目「水晶」记忆重置优化</li>
+                    <li>多周目数据残留问题修复</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="installation-guide">
+            <h3>安装指南</h3>
+            <div class="guide-step">
+                <h4 onclick="toggleGuide(this)">PC版本安装步骤</h4>
+                <div class="guide-content">
+                    <p>1. 下载游戏压缩包并解压到任意目录</p>
+                    <p>2. 运行游戏主程序即可开始游戏</p>
+                    <p>3. 如遇到运行问题，请确保已安装最新版本的DirectX和Visual C++运行库</p>
+                </div>
+            </div>
+            <div class="guide-step">
+                <h4 onclick="toggleGuide(this)">安卓版本安装步骤</h4>
+                <div class="guide-content">
+                    <p>1. 下载APK安装包</p>
+                    <p>2. 在手机设置中允许安装未知来源应用</p>
+                    <p>3. 点击APK文件进行安装</p>
+                    <p>4. 安装完成后点击图标即可开始游戏</p>
+                </div>
+            </div>
+            <div class="guide-step">
+                <h4 onclick="toggleGuide(this)">注意事项</h4>
+                <div class="guide-content">
+                    <p>• 游戏需要至少2GB可用存储空间</p>
+                    <p>• 安卓设备需要Android 5.0或更高版本</p>
+                    <p>• 如遇到安装问题，请尝试重启设备后重新安装</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h3>相关推荐</h3>
+            <div class="games-grid">
+                <a href="../xiangguantuijian/xiangguantuijian1.html" class="game-card">
+                    <img src="../xiangguantuijian/imgae/6.jpg" alt="催眠游戏">
+                    <div class="game-info">
+                        <h4>催眠游戏</h4>
+                        <p>催眠题材，剧情丰富</p>
+                    </div>
+                </a>
+                <a href="../xiangguantuijian/xiangguantuijian2.html" class="game-card">
+                    <img src="../xiangguantuijian/imgae/2.jpg" alt="调教游戏">
+                    <div class="game-info">
+                        <h4>调教游戏</h4>
+                        <p>调教玩法，多种结局</p>
+                    </div>
+                </a>
+                <a href="../xiangguantuijian/xiangguantuijian3.html" class="game-card">
+                    <img src="../xiangguantuijian/imgae/3.jpg" alt="SM游戏">
+                    <div class="game-info">
+                        <h4>SM游戏</h4>
+                        <p>SM玩法，剧情丰富</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="rating-modal" id="ratingModal">
+            <div class="rating-content">
+                <h3>为游戏评分</h3>
+                <div class="rating-stars">
+                    <span class="rating-star" data-value="1">★</span>
+                    <span class="rating-star" data-value="2">★</span>
+                    <span class="rating-star" data-value="3">★</span>
+                    <span class="rating-star" data-value="4">★</span>
+                    <span class="rating-star" data-value="5">★</span>
+                </div>
+                <button class="rating-submit" onclick="submitRating()">提交评分</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 全局变量
+        const imageFolderPath = '../image3/SLG我的夏天Ep.01v0.14AI版【PC+安卓5.41G更新】/';
+        const totalImages = 7;
+        let currentGalleryIndex = 0;
+        let galleryImages = [];
+        let isGalleryOpen = false;
+
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function () {
+            initializePage();
+            setupEventListeners();
+            loadImages();
+            setupTheme();
+        });
+
+        // 初始化页面
+        function initializePage() {
+            // 设置主图
+            const mainImage = document.getElementById('mainImage');
+            mainImage.src = `${imageFolderPath}1.jpg`;
+            galleryImages = [mainImage.src];
+
+            // 初始化图片容器
+            const imageContainer = document.getElementById('image-container');
+            imageContainer.innerHTML = '';
+
+            // 加载前6张描述图
+            for (let i = 0; i < 5; i++) {
+                const imgElement = createImageElement(i + 2);
+                imageContainer.appendChild(imgElement);
+                galleryImages.push(imgElement.querySelector('img').src);
+            }
+        }
+
+        // 创建图片元素
+        function createImageElement(index) {
+            const div = document.createElement('div');
+            div.className = 'image-item';
+            const img = document.createElement('img');
+            img.src = `${imageFolderPath}${index}.jpg`;
+            img.alt = `游戏截图 ${index}`;
+            img.loading = 'lazy';
+            div.appendChild(img);
+            return div;
+        }
+
+        // 设置事件监听器
+        function setupEventListeners() {
+            // 返回顶部按钮
+            const backToTop = document.querySelector('.back-to-top');
+            window.addEventListener('scroll', () => {
+                backToTop.style.display = window.scrollY > 300 ? 'block' : 'none';
+            });
+            backToTop.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // 主题切换
+            const themeToggle = document.querySelector('.theme-toggle');
+            themeToggle.addEventListener('click', toggleTheme);
+
+            // 图片画廊
+            setupGalleryEvents();
+
+            // 安装指南展开/收起
+            setupInstallationGuide();
+
+            // 标签点击
+            setupTags();
+        }
+
+        // 设置图片画廊事件
+        function setupGalleryEvents() {
+            const gallery = document.querySelector('.image-gallery');
+            const closeBtn = document.querySelector('.gallery-close');
+            const prevBtn = document.querySelector('.gallery-nav.prev');
+            const nextBtn = document.querySelector('.gallery-nav.next');
+
+            // 关闭画廊
+            closeBtn.addEventListener('click', () => {
+                gallery.style.display = 'none';
+                isGalleryOpen = false;
+                document.body.style.overflow = 'auto';
+            });
+
+            // 上一张/下一张
+            prevBtn.addEventListener('click', () => navigateGallery(-1));
+            nextBtn.addEventListener('click', () => navigateGallery(1));
+
+            // 键盘导航
+            document.addEventListener('keydown', (e) => {
+                if (!isGalleryOpen) return;
+                switch (e.key) {
+                    case 'ArrowLeft':
+                        navigateGallery(-1);
+                        break;
+                    case 'ArrowRight':
+                        navigateGallery(1);
+                        break;
+                    case 'Escape':
+                        gallery.style.display = 'none';
+                        isGalleryOpen = false;
+                        document.body.style.overflow = 'auto';
+                        break;
+                }
+            });
+
+            // 点击图片打开画廊
+            document.querySelectorAll('.image-item img, #mainImage').forEach((img, index) => {
+                img.addEventListener('click', () => openGallery(index));
+            });
+        }
+
+        // 设置安装指南展开/收起
+        function setupInstallationGuide() {
+            const steps = document.querySelectorAll('.guide-step');
+
+            steps.forEach(step => {
+                const header = step.querySelector('h4');
+                const content = step.querySelector('.guide-content');
+
+                header.addEventListener('click', () => {
+                    // 关闭其他所有步骤
+                    steps.forEach(otherStep => {
+                        if (otherStep !== step) {
+                            const otherContent = otherStep.querySelector('.guide-content');
+                            otherContent.style.display = 'none';
+                        }
+                    });
+
+                    // 切换当前步骤
+                    const isActive = step.classList.contains('active');
+                    step.classList.toggle('active');
+                    content.style.display = isActive ? 'none' : 'block';
+                });
+            });
+        }
+
+        // 设置标签点击事件
+        function setupTags() {
+            document.querySelectorAll('.game-tag').forEach(tag => {
+                tag.addEventListener('click', () => {
+                    tag.classList.toggle('active');
+                });
+            });
+        }
+
+        // 打开图片画廊
+        function openGallery(index) {
+            const gallery = document.querySelector('.image-gallery');
+            const galleryImg = document.querySelector('.gallery-image');
+            const dialogueText = document.querySelector('.dialogue-text');
+
+            if (index >= 0 && index < galleryImages.length) {
+                currentGalleryIndex = index;
+                gallery.style.display = 'flex';
+                galleryImg.src = galleryImages[index];
+                dialogueText.textContent = getRandomDialogue();
+                isGalleryOpen = true;
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        // 导航画廊
+        function navigateGallery(direction) {
+            currentGalleryIndex = (currentGalleryIndex + direction + galleryImages.length) % galleryImages.length;
+            const galleryImg = document.querySelector('.gallery-image');
+            const dialogueText = document.querySelector('.dialogue-text');
+
+            galleryImg.src = galleryImages[currentGalleryIndex];
+            dialogueText.textContent = getRandomDialogue();
+        }
+
+        // 获取随机对话
+        function getRandomDialogue() {
+            const dialogues = [
+                "主人...人家的下面好湿...好想要主人的大肉棒...",
+                "啊...主人的手指好厉害...人家的小穴好舒服...",
+                "主人...人家的奶子好涨...请用力揉捏它们...",
+                "啊...主人的舌头好灵活...人家的乳头好敏感...",
+                "主人...人家的屁股好痒...请用力拍打它...",
+                "啊...主人的肉棒好大...人家的小穴好紧...",
+                "主人...人家的淫水好多...都流出来了...",
+                "啊...主人的手指好深...人家要高潮了...",
+                "主人...人家的奶头好硬...请继续玩弄它们...",
+                "啊...主人的舌头好热...人家的阴蒂好舒服...",
+                "主人...人家的屁股好红...请继续打它...",
+                "啊...主人的肉棒好粗...人家的小穴好满...",
+                "主人...人家的淫水好甜...请尝尝看...",
+                "啊...主人的手指好快...人家要去了...",
+                "主人...人家的奶子好软...请用力揉它们...",
+                "啊...主人的舌头好湿...人家的乳头好痒...",
+                "主人...人家的屁股好痛...但是好舒服...",
+                "啊...主人的肉棒好硬...人家的小穴好热...",
+                "主人...人家的淫水好香...请喝掉它...",
+                "啊...主人的手指好灵活...人家要高潮了...",
+                "主人...人家的奶头好敏感...请继续玩弄...",
+                "啊...主人的舌头好软...人家的阴蒂好痒...",
+                "主人...人家的屁股好烫...请继续打它...",
+                "啊...主人的肉棒好长...人家的小穴好深...",
+                "主人...人家的淫水好滑...请继续玩弄...",
+                "啊...主人的手指好深...人家要去了...",
+                "主人...人家的奶子好大...请用力揉它们...",
+                "啊...主人的舌头好热...人家的乳头好硬...",
+                "主人...人家的屁股好红...请继续打它...",
+                "啊...主人的肉棒好粗...人家的小穴好紧...",
+                "主人...人家的淫水好多...都流出来了...",
+                "啊...主人的手指好快...人家要高潮了...",
+                "主人...人家的奶头好硬...请继续玩弄它们...",
+                "啊...主人的舌头好湿...人家的阴蒂好舒服...",
+                "主人...人家的屁股好痛...但是好舒服...",
+                "啊...主人的肉棒好硬...人家的小穴好热...",
+                "主人...人家的淫水好甜...请尝尝看...",
+                "啊...主人的手指好灵活...人家要去了...",
+                "主人...人家的奶子好软...请用力揉它们...",
+                "啊...主人的舌头好软...人家的乳头好痒...",
+                "主人...人家的屁股好烫...请继续打它...",
+                "啊...主人的肉棒好长...人家的小穴好深...",
+                "主人...人家的淫水好香...请喝掉它...",
+                "啊...主人的手指好深...人家要高潮了...",
+                "主人...人家的奶头好敏感...请继续玩弄...",
+                "啊...主人的舌头好热...人家的阴蒂好痒...",
+                "主人...人家的屁股好红...请继续打它...",
+                "啊...主人的肉棒好粗...人家的小穴好满...",
+                "主人...人家的淫水好滑...请继续玩弄...",
+                "啊...主人的手指好快...人家要去了..."
+            ];
+            return dialogues[Math.floor(Math.random() * dialogues.length)];
+        }
+
+        // 切换主题
+        function toggleTheme() {
+            const body = document.body;
+            const isDarkMode = body.classList.contains('dark-mode');
+
+            if (isDarkMode) {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                localStorage.setItem('theme', 'light');
+                document.querySelector('.theme-toggle').textContent = '切换暗色';
+            } else {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+                document.querySelector('.theme-toggle').textContent = '切换亮色';
+            }
+        }
+
+        // 设置主题
+        function setupTheme() {
+            const body = document.body;
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const themeToggle = document.querySelector('.theme-toggle');
+
+            if (savedTheme === 'light' || (!savedTheme && !prefersDark)) {
+                body.classList.add('light-mode');
+                themeToggle.textContent = '切换暗色';
+            } else {
+                body.classList.add('dark-mode');
+                themeToggle.textContent = '切换亮色';
+                document.body.classList.add('dark-mode');
+                document.querySelector('.theme-toggle').textContent = '切换亮色';
+            }
+        }
+
+        // 开始游戏
+        function startGame() {
+            window.location.href = 'game_scene.html';
+        }
+
+        // 分享游戏
+        function shareGame() {
+            if (navigator.share) {
+                navigator.share({
+                    title: '游戏详情',
+                    text: '查看这个有趣的游戏！',
+                    url: window.location.href
+                }).catch(console.error);
+            } else {
+                navigator.clipboard.writeText(window.location.href)
+                    .then(() => alert('链接已复制到剪贴板！'))
+                    .catch(() => alert('复制链接失败，请手动复制。'));
+            }
+        }
+
+        function toggleGuide(element) {
+            const step = element.parentElement;
+            const content = element.nextElementSibling;
+            const allSteps = document.querySelectorAll('.guide-step');
+
+            // 关闭其他所有步骤
+            allSteps.forEach(otherStep => {
+                if (otherStep !== step) {
+                    const otherContent = otherStep.querySelector('.guide-content');
+                    otherContent.style.display = 'none';
+                }
+            });
+
+            // 切换当前步骤
+            if (content.style.display === 'none' || content.style.display === '') {
+                content.style.display = 'block';
+            } else {
+                content.style.display = 'none';
+            }
+        }
+
+        // 收藏功能
+        function toggleFavorite() {
+            const favoriteBtn = document.querySelector('.stat-item:nth-child(3)');
+            const isFavorited = localStorage.getItem('gameFavorited') === 'true';
+
+            if (!isFavorited) {
+                localStorage.setItem('gameFavorited', 'true');
+                const count = parseInt(favoriteBtn.querySelector('.stat-value').textContent);
+                favoriteBtn.querySelector('.stat-value').textContent = count + 1;
+                favoriteBtn.querySelector('.stat-icon').textContent = '❤️';
+                alert('已添加到收藏！');
+            } else {
+                alert('已经收藏过了！');
+            }
+        }
+
+        // 提交评分
+        function submitRating() {
+            const isRated = localStorage.getItem('gameRated') === 'true';
+            if (isRated) {
+                alert('已经评分过了！');
+                return;
+            }
+
+            const activeStars = document.querySelectorAll('.rating-star.active');
+            const rating = activeStars.length;
+
+            if (rating > 0) {
+                // 保存评分状态
+                localStorage.setItem('gameRated', 'true');
+
+                // 保存评分到localStorage
+                localStorage.setItem('gameRating', rating);
+
+                // 更新显示的评分
+                const ratingValue = document.getElementById('ratingValue');
+                const currentRating = parseFloat(ratingValue.textContent);
+                const newRating = ((currentRating * 856) + rating) / 857; // 假设有856个评分
+                ratingValue.textContent = newRating.toFixed(1);
+
+                // 关闭模态框
+                document.getElementById('ratingModal').style.display = 'none';
+
+                alert('评分已提交，感谢您的参与！');
+            } else {
+                alert('请选择评分星级！');
+            }
+        }
+
+        // 页面加载时检查状态
+        document.addEventListener('DOMContentLoaded', function () {
+            // 检查收藏状态
+            const favoriteBtn = document.querySelector('.stat-item:nth-child(3)');
+            const isFavorited = localStorage.getItem('gameFavorited') === 'true';
+            if (isFavorited) {
+                favoriteBtn.querySelector('.stat-icon').textContent = '❤️';
+            }
+
+            // 检查评分状态
+            const savedRating = localStorage.getItem('gameRating');
+            if (savedRating) {
+                const ratingValue = document.getElementById('ratingValue');
+                ratingValue.textContent = savedRating;
+            }
+
+            // 检查评论状态并更新评论数
+            const savedComments = localStorage.getItem('gameComments');
+            if (savedComments) {
+                const commentCount = document.getElementById('commentCount');
+                const comments = JSON.parse(savedComments);
+                commentCount.textContent = comments.length;
+            }
+        });
+
+        // 打开评分模态框
+        function openRatingModal() {
+            const isRated = localStorage.getItem('gameRated') === 'true';
+            if (isRated) {
+                alert('已经评分过了！');
+                return;
+            }
+
+            const modal = document.getElementById('ratingModal');
+            modal.style.display = 'flex';
+
+            // 加载已保存的评分
+            const savedRating = localStorage.getItem('gameRating');
+            if (savedRating) {
+                const stars = document.querySelectorAll('.rating-star');
+                stars.forEach(star => {
+                    if (parseInt(star.dataset.value) <= savedRating) {
+                        star.classList.add('active');
+                    }
+                });
+            }
+        }
+
+        // 打开评论论坛
+        function openForum() {
+            const forumModal = document.createElement('div');
+            forumModal.className = 'forum-modal';
+
+            // 从localStorage加载评论
+            let savedComments = [];
+            try {
+                const savedCommentsStr = localStorage.getItem('gameComments');
+                if (savedCommentsStr) {
+                    savedComments = JSON.parse(savedCommentsStr);
+                }
+            } catch (e) {
+                console.error('加载评论失败:', e);
+            }
+
+            // 检查是否需要添加系统默认评论
+            const hasSystemComments = savedComments.some(comment =>
+                ['游戏玩家', 'RPG爱好者', '新玩家', '资深玩家', '游戏评论家'].includes(comment.author)
+            );
+
+            if (!hasSystemComments) {
+                const systemComments = [
+                    {
+                        author: '游戏玩家',
+                        date: '2023-06-15',
+                        content: '这款游戏的剧情非常丰富，画面也很精美。特别是H场景的设计非常用心，强烈推荐！',
+                        likes: 128,
+                        liked: false,
+                        replies: []
+                    },
+                    {
+                        author: 'RPG爱好者',
+                        date: '2023-06-10',
+                        content: '作为一个RPG游戏，战斗系统设计得不错，难度适中。不过有些支线任务比较难找，希望能有更好的引导。',
+                        likes: 96,
+                        liked: false,
+                        replies: []
+                    },
+                    {
+                        author: '新玩家',
+                        date: '2023-06-05',
+                        content: '第一次玩这种类型的游戏，感觉很有趣！AI翻译的质量也不错，玩起来很流畅。',
+                        likes: 75,
+                        liked: false,
+                        replies: []
+                    },
+                    {
+                        author: '资深玩家',
+                        date: '2023-06-01',
+                        content: '游戏画面很精美，剧情也很吸引人。H场景的设计很有创意，值得一玩！',
+                        likes: 112,
+                        liked: false,
+                        replies: []
+                    },
+                    {
+                        author: '游戏评论家',
+                        date: '2023-05-28',
+                        content: 'RPG元素和成人内容的平衡做得很好，不会让人觉得突兀。游戏性很强，推荐给喜欢RPG的玩家。',
+                        likes: 89,
+                        liked: false,
+                        replies: []
+                    }
+                ];
+
+                // 将系统评论添加到现有评论中
+                savedComments = [...systemComments, ...savedComments];
+                localStorage.setItem('gameComments', JSON.stringify(savedComments));
+            }
+
+            // 构建评论列表HTML
+            let commentsHTML = '';
+            savedComments.forEach(comment => {
+                commentsHTML += `
+                    <div class="forum-post">
+                        <div class="post-header">
+                            <span class="post-author">${comment.author}</span>
+                            <span class="post-date">${comment.date}</span>
+                        </div>
+                        <div class="post-content">
+                            ${comment.content}
+                        </div>
+                        <div class="post-actions">
+                            <button class="like-btn" data-liked="${comment.liked || 'false'}">👍 点赞 (${comment.likes || 0})</button>
+                            <button class="reply-btn">💬 回复</button>
+                        </div>
+                        <div class="replies" style="display: none;">
+                            <div class="reply-form">
+                                <textarea placeholder="回复评论..." class="reply-textarea"></textarea>
+                                <button class="submit-reply">发送回复</button>
+                            </div>
+                            <div class="reply-list">
+                                ${comment.replies ? comment.replies.map(reply => `
+                                    <div class="reply-item">
+                                        <div class="reply-header">
+                                            <span class="reply-author">${reply.author}</span>
+                                            <span class="reply-date">${reply.date}</span>
+                                        </div>
+                                        <div class="reply-content">
+                                            ${reply.content}
+                                        </div>
+                                    </div>
+                                `).join('') : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            forumModal.innerHTML = `
+                <div class="forum-content">
+                    <div class="forum-header">
+                        <h3>游戏评论论坛</h3>
+                        <button class="close-forum">&times;</button>
+                    </div>
+                    <div class="forum-body">
+                        <div class="forum-stats">
+                            <div class="forum-stat">
+                                <span class="stat-icon">📝</span>
+                                <span class="stat-value">${savedComments.length}</span>
+                                <span class="stat-label">总评论数</span>
+                            </div>
+                            <div class="forum-stat">
+                                <span class="stat-icon">👥</span>
+                                <span class="stat-value">1.2K</span>
+                                <span class="stat-label">活跃用户</span>
+                            </div>
+                        </div>
+                        <div class="forum-posts">
+                            ${commentsHTML}
+                        </div>
+                        <div class="new-post">
+                            <textarea placeholder="发表你的评论..." class="post-textarea"></textarea>
+                            <button class="submit-post">发布评论</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // 添加样式
+            const style = document.createElement('style');
+            style.textContent = `
+                .forum-modal {
+                    display: flex;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.8);
+                    z-index: 1000;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                .forum-content {
+                    background: var(--card-bg);
+                    width: 90%;
+                    max-width: 800px;
+                    max-height: 90vh;
+                    border-radius: var(--border-radius);
+                    overflow: hidden;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .forum-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 15px 20px;
+                    background: var(--primary-color);
+                    color: white;
+                }
+
+                .close-forum {
+                    background: none;
+                    border: none;
+                    color: white;
+                    font-size: 24px;
+                    cursor: pointer;
+                }
+
+                .forum-body {
+                    padding: 20px;
+                    overflow-y: auto;
+                }
+
+                .forum-stats {
+                    display: flex;
+                    gap: 20px;
+                    margin-bottom: 20px;
+                }
+
+                .forum-stat {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    padding: 10px 15px;
+                    background: rgba(255, 255, 255, 0.1);
+                    border-radius: var(--border-radius);
+                }
+
+                .forum-posts {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 15px;
+                    margin-bottom: 20px;
+                }
+
+                .forum-post {
+                    background: rgba(255, 255, 255, 0.1);
+                    padding: 15px;
+                    border-radius: var(--border-radius);
+                }
+
+                .post-header {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 10px;
+                    color: var(--primary-color);
+                }
+
+                .post-content {
+                    margin-bottom: 10px;
+                    line-height: 1.5;
+                }
+
+                .post-actions {
+                    display: flex;
+                    gap: 10px;
+                }
+
+                .post-actions button {
+                    padding: 5px 10px;
+                    border: none;
+                    border-radius: 15px;
+                    background: rgba(255, 255, 255, 0.1);
+                    color: var(--text-color);
+                    cursor: pointer;
+                    transition: var(--transition);
+                }
+
+                .post-actions button:hover {
+                    background: var(--primary-color);
+                }
+
+                .post-actions button.liked {
+                    background: var(--primary-color);
+                    color: white;
+                }
+
+                .replies {
+                    margin-top: 15px;
+                    padding-top: 15px;
+                    border-top: 1px solid rgba(255, 255, 255, 0.1);
+                }
+
+                .reply-form {
+                    margin-bottom: 15px;
+                }
+
+                .reply-textarea {
+                    width: 100%;
+                    height: 60px;
+                    padding: 10px;
+                    border: 1px solid var(--primary-color);
+                    border-radius: var(--border-radius);
+                    background: rgba(255, 255, 255, 0.1);
+                    color: var(--text-color);
+                    margin-bottom: 10px;
+                    resize: vertical;
+                }
+
+                .submit-reply {
+                    padding: 8px 15px;
+                    background: var(--primary-color);
+                    color: white;
+                    border: none;
+                    border-radius: 20px;
+                    cursor: pointer;
+                    transition: var(--transition);
+                }
+
+                .submit-reply:hover {
+                    background: var(--secondary-color);
+                }
+
+                .reply-list {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                }
+
+                .reply-item {
+                    background: rgba(255, 255, 255, 0.05);
+                    padding: 10px;
+                    border-radius: var(--border-radius);
+                }
+
+                .reply-header {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 5px;
+                    font-size: 0.9em;
+                    color: var(--primary-color);
+                }
+
+                .reply-content {
+                    font-size: 0.9em;
+                    line-height: 1.4;
+                }
+
+                .new-post {
+                    margin-top: 20px;
+                }
+
+                .post-textarea {
+                    width: 100%;
+                    height: 100px;
+                    padding: 10px;
+                    border: 1px solid var(--primary-color);
+                    border-radius: var(--border-radius);
+                    background: rgba(255, 255, 255, 0.1);
+                    color: var(--text-color);
+                    margin-bottom: 10px;
+                    resize: vertical;
+                }
+
+                .submit-post {
+                    padding: 10px 20px;
+                    background: var(--primary-color);
+                    color: white;
+                    border: none;
+                    border-radius: 20px;
+                    cursor: pointer;
+                    transition: var(--transition);
+                }
+
+                .submit-post:hover {
+                    background: var(--secondary-color);
+                }
+            `;
+
+            document.head.appendChild(style);
+            document.body.appendChild(forumModal);
+
+            // 关闭论坛
+            forumModal.querySelector('.close-forum').addEventListener('click', () => {
+                document.body.removeChild(forumModal);
+                document.head.removeChild(style);
+            });
+
+            // 提交评论
+            forumModal.querySelector('.submit-post').addEventListener('click', () => {
+                const textarea = forumModal.querySelector('.post-textarea');
+                const content = textarea.value.trim();
+
+                if (content) {
+                    const newComment = {
+                        author: '我',
+                        date: new Date().toISOString().split('T')[0],
+                        content: content,
+                        likes: 0,
+                        liked: false,
+                        replies: []
+                    };
+
+                    // 更新localStorage中的评论
+                    savedComments.unshift(newComment);
+                    localStorage.setItem('gameComments', JSON.stringify(savedComments));
+
+                    // 更新论坛内的评论数
+                    const forumCommentCount = forumModal.querySelector('.stat-value');
+                    forumCommentCount.textContent = savedComments.length;
+
+                    // 更新页面上的评论数
+                    const pageCommentCount = document.getElementById('commentCount');
+                    pageCommentCount.textContent = savedComments.length;
+
+                    // 重新加载评论列表
+                    openForum();
+                }
+            });
+
+            // 设置点赞和回复功能
+            function setupPostEvents(post, commentIndex) {
+                // 点赞功能
+                const likeBtn = post.querySelector('.like-btn');
+                likeBtn.addEventListener('click', function () {
+                    if (this.dataset.liked === 'false') {
+                        const count = parseInt(this.textContent.match(/\((\d+)\)/)[1]);
+                        this.textContent = `👍 点赞 (${count + 1})`;
+                        this.dataset.liked = 'true';
+                        this.classList.add('liked');
+
+                        // 更新localStorage中的点赞状态
+                        savedComments[commentIndex].likes = count + 1;
+                        savedComments[commentIndex].liked = true;
+                        localStorage.setItem('gameComments', JSON.stringify(savedComments));
+                    }
+                });
+
+                // 回复功能
+                const replyBtn = post.querySelector('.reply-btn');
+                const replies = post.querySelector('.replies');
+                replyBtn.addEventListener('click', () => {
+                    replies.style.display = replies.style.display === 'none' ? 'block' : 'none';
+                });
+
+                // 提交回复
+                const submitReply = post.querySelector('.submit-reply');
+                submitReply.addEventListener('click', () => {
+                    const textarea = post.querySelector('.reply-textarea');
+                    const content = textarea.value.trim();
+
+                    if (content) {
+                        const newReply = {
+                            author: '我',
+                            date: new Date().toISOString().split('T')[0],
+                            content: content
+                        };
+
+                        // 更新localStorage中的回复
+                        if (!savedComments[commentIndex].replies) {
+                            savedComments[commentIndex].replies = [];
+                        }
+                        savedComments[commentIndex].replies.push(newReply);
+                        localStorage.setItem('gameComments', JSON.stringify(savedComments));
+
+                        // 重新加载评论列表
+                        openForum();
+                    }
+                });
+            }
+
+            // 为现有评论设置事件监听
+            forumModal.querySelectorAll('.forum-post').forEach((post, index) => {
+                setupPostEvents(post, index);
+            });
+        }
+    </script>
+</body>
+
+</html>

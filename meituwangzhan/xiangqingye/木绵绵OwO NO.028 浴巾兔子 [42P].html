@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>美图欣赏 - 精美图片展示</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <button class="back-to-top">↑</button>
+    <button class="theme-toggle">切换主题</button>
+
+    <div class="container">
+        <div class="gallery-header">
+            <h1 class="gallery-title">精美图片集</h1>
+            <p class="gallery-subtitle">发现美好，分享精彩！</p>
+        </div>
+
+        <div class="gallery-tags">
+            <span class="gallery-tag active">全部</span>
+            <span class="gallery-tag">风景</span>
+            <span class="gallery-tag">人像</span>
+            <span class="gallery-tag">静物</span>
+            <span class="gallery-tag">建筑</span>
+            <span class="gallery-tag">动物</span>
+            <span class="gallery-tag">美食</span>
+            <span class="gallery-tag">街拍</span>
+        </div>
+
+        <div class="carousel-container">
+            <div class="carousel-track">
+                <div class="carousel-slide">
+                    <img src="../image/木绵绵OwO NO.028 浴巾兔子 [42P]/1.jpg" alt="轮播图1">
+                </div>
+                <div class="carousel-slide">
+                    <img src="../image/木绵绵OwO NO.028 浴巾兔子 [42P]/2.jpg" alt="轮播图2">
+                </div>
+                <div class="carousel-slide">
+                    <img src="../image/木绵绵OwO NO.028 浴巾兔子 [42P]/3.jpg" alt="轮播图3">
+                </div>
+                <div class="carousel-slide">
+                    <img src="../image/木绵绵OwO NO.028 浴巾兔子 [42P]/4.jpg" alt="轮播图4">
+                </div>
+                <div class="carousel-slide">
+                    <img src="../image/木绵绵OwO NO.028 浴巾兔子 [42P]/5.jpg" alt="轮播图5">
+                </div>
+                <div class="carousel-slide">
+                    <img src="../image/木绵绵OwO NO.028 浴巾兔子 [42P]/6.jpg" alt="轮播图6">
+                </div>
+                <div class="carousel-slide">
+                    <img src="../image/木绵绵OwO NO.028 浴巾兔子 [42P]/1.jpg" alt="轮播图1">
+                </div>
+                <div class="carousel-slide">
+                    <img src="../image/木绵绵OwO NO.028 浴巾兔子 [42P]/2.jpg" alt="轮播图2">
+                </div>
+                <div class="carousel-slide">
+                    <img src="../image/木绵绵OwO NO.028 浴巾兔子 [42P]/3.jpg" alt="轮播图3">
+                </div>
+                <div class="carousel-slide">
+                    <img src="../image/木绵绵OwO NO.028 浴巾兔子 [42P]/4.jpg" alt="轮播图4">
+                </div>
+                <div class="carousel-slide">
+                    <img src="../image/木绵绵OwO NO.028 浴巾兔子 [42P]/5.jpg" alt="轮播图5">
+                </div>
+                <div class="carousel-slide">
+                    <img src="../image/木绵绵OwO NO.028 浴巾兔子 [42P]/6.jpg" alt="轮播图6">
+                </div>
+            </div>
+        </div>
+
+        <div class="gallery-stats">
+            <div class="stat-item" onclick="openRatingModal()">
+                <div class="stat-icon">⭐</div>
+                <div class="stat-value" id="ratingValue">4.8</div>
+                <div class="stat-label">评分</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon">👁️</div>
+                <div class="stat-value">12.5K</div>
+                <div class="stat-label">浏览</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon">❤️</div>
+                <div class="stat-value">3.2K</div>
+                <div class="stat-label">收藏</div>
+            </div>
+            <div class="stat-item" onclick="openForum()">
+                <div class="stat-icon">💬</div>
+                <div class="stat-value" id="commentCount">0</div>
+                <div class="stat-label">评论</div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button class="action-button" onclick="startSlideshow()">开始浏览</button>
+            <button class="action-button download" onclick="downloadImage()">下载图片</button>
+            <a href="https://qm.qq.com/q/IekbXKmPAG" class="action-button service">联系作者</a>
+        </div>
+
+        <div class="info-card">
+            <h3>图片描述</h3>
+            <p class="description-text">
+                这是一组精心挑选的图片，展现了独特的艺术视角和精湛的拍摄技巧。每张图片都经过精心处理，确保最佳的视觉效果。
+            </p>
+        </div>
+
+        <div class="image-gallery">
+            <span class="gallery-close">&times;</span>
+            <img class="gallery-image" src="" alt="预览图片">
+            <div class="image-info">
+                <p class="image-description"></p>
+            </div>
+            <div class="gallery-navigation">
+                <button class="gallery-nav prev">&lt;</button>
+                <button class="gallery-nav next">&gt;</button>
+            </div>
+        </div>
+
+        <div class="images-grid" id="images-grid">
+            <!-- 图片将通过JavaScript动态添加 -->
+        </div>
+
+        <div class="info-card">
+            <h3>图片信息</h3>
+            <div class="image-details">
+                <div class="detail-item">
+                    <h4>拍摄设备</h4>
+                    <p>专业单反相机</p>
+                </div>
+                <div class="detail-item">
+                    <h4>后期处理</h4>
+                    <p>专业调色与修饰</p>
+                </div>
+                <div class="detail-item">
+                    <h4>图片尺寸</h4>
+                    <p>1920x1080</p>
+                </div>
+                <div class="detail-item">
+                    <h4>文件格式</h4>
+                    <p>JPG/PNG</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h3>相关推荐</h3>
+            <div class="related-images-grid">
+                <a href="风景摄影.html" class="related-image-card">
+                    <img src="../image/木绵绵OwO NO.028 浴巾兔子 [42P]/1.jpg" alt="风景摄影" loading="lazy">
+                    <div class="image-info">
+                        <h4>风景摄影</h4>
+                        <p>自然风光精选</p>
+                    </div>
+                </a>
+                <a href="人像摄影.html" class="related-image-card">
+                    <img src="../image/木绵绵OwO NO.028 浴巾兔子 [42P]/2.jpg" alt="人像摄影" loading="lazy">
+                    <div class="image-info">
+                        <h4>人像摄影</h4>
+                        <p>人物特写精选</p>
+                    </div>
+                </a>
+                <a href="静物摄影.html" class="related-image-card">
+                    <img src="../image/木绵绵OwO NO.028 浴巾兔子 [42P]/3.jpg" alt="静物摄影" loading="lazy">
+                    <div class="image-info">
+                        <h4>静物摄影</h4>
+                        <p>静物艺术精选</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="rating-modal" id="ratingModal">
+            <div class="rating-content">
+                <h3>为图片评分</h3>
+                <div class="rating-stars">
+                    <span class="rating-star" data-value="1">★</span>
+                    <span class="rating-star" data-value="2">★</span>
+                    <span class="rating-star" data-value="3">★</span>
+                    <span class="rating-star" data-value="4">★</span>
+                    <span class="rating-star" data-value="5">★</span>
+                </div>
+                <button class="rating-submit" onclick="submitRating()">提交评分</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部导航 -->
+    <footer class="bottom-nav">
+        <a href="木绵绵OwO NO.028 浴巾兔子[42P].html" class="nav-item active" id="homeLink">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-text">首页</span>
+        </a>
+        <a href="news.html" class="nav-item" id="newsLink" onclick="saveCurrentPage('news')">
+            <span class="nav-icon">📰</span>
+            <span class="nav-text">新闻</span>
+        </a>
+        <a href="member.html" class="nav-item" id="memberLink" onclick="saveCurrentPage('member')">
+            <span class="nav-icon">👤</span>
+            <span class="nav-text">会员</span>
+        </a>
+    </footer>
+
+
+    <script>
+        // 全局变量
+        const imagePaths = [
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/1.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/2.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/3.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/4.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/5.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/6.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/7.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/8.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/9.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/10.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/11.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/12.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/13.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/14.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/15.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/16.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/17.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/18.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/19.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/20.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/21.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/22.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/23.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/24.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/25.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/26.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/27.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/28.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/29.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/30.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/31.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/32.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/33.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/34.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/35.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/36.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/37.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/38.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/39.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/40.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/41.jpg',
+    '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/42.jpg',
+];
+
+        // 检查会员状态
+        function checkMemberStatus() {
+            // 检查密码版本是否匹配
+            const savedPasswordVersion = localStorage.getItem('passwordVersion');
+            const currentPasswordVersion = '1123456'; // 这里应该与member.html中的MEMBER_PASSWORD保持一致
+
+            // 如果密码版本不匹配，说明后台密码已更改，重置会员状态
+            if (savedPasswordVersion !== currentPasswordVersion) {
+                localStorage.setItem('isMember', 'false');
+                console.log('密码已更改，会员状态已重置');
+            }
+
+            return localStorage.getItem('isMember') === 'true';
+        }
+
+        // 更新图片访问权限
+        function updateImageAccess() {
+            const isMember = checkMemberStatus();
+            const imageCards = document.querySelectorAll('.image-card');
+
+            imageCards.forEach((card, index) => {
+                if (!isMember && index > 6) {
+                    card.classList.add('locked');
+                    card.innerHTML = `
+                        <div class="locked-overlay">
+                            <span class="lock-icon">🔒</span>
+                            <p>会员专享</p>
+                            <button class="unlock-btn">解锁查看</button>
+                        </div>
+                    `;
+                } else {
+                    card.classList.remove('locked');
+                }
+            });
+        }
+
+        // 页面加载时初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            // 预加载所有图片
+            const preloadedImages = [];
+            imagePaths.forEach(path => {
+                const img = new Image();
+                img.src = path;
+                preloadedImages.push(img);
+            });
+
+            // 生成图片卡片
+            const imagesGrid = document.querySelector('.images-grid');
+            imagePaths.forEach((path, index) => {
+                const card = document.createElement('div');
+                card.className = 'image-card';
+                card.innerHTML = `
+                    <img src="${path}" alt="图片 ${index + 1}">
+                `;
+                imagesGrid.appendChild(card);
+            });
+
+            // 更新图片访问权限
+            updateImageAccess();
+
+            // 设置图片点击事件
+            setupGalleryEvents();
+        });
+
+        // 解锁按钮点击事件
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('unlock-btn')) {
+                window.location.href = 'member.html';
+            }
+        });
+
+        // 全局变量
+        const imageFolderPath = '../image/木绵绵OwO NO.028 浴巾兔子 [42P]/';
+        const totalImages = 42;
+        let currentGalleryIndex = 0;
+        let galleryImages = [];
+        let isGalleryOpen = false;
+        let isTransitioning = false;
+
+        function saveCurrentPage(pageType) {
+            localStorage.setItem('lastPageType', pageType);
+            localStorage.setItem('lastHomePage', '木绵绵OwO NO.028 浴巾兔子 [42P].html');
+        }
+
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function () {
+            // 保存当前页面为首页
+            localStorage.setItem('lastHomePage', '木绵绵OwO NO.028 浴巾兔子 [42P].html');
+
+            // 初始化图片数组
+            galleryImages = Array.from({ length: totalImages }, (_, i) => `${imageFolderPath}${i + 1}.jpg`);
+
+            initializePage();
+            setupEventListeners();
+            loadImages();
+            setupTheme();
+            setupTags();
+        });
+
+        // 创建图片卡片
+        function createImageCard(imagePath, index) {
+            const isMember = checkMemberStatus();
+            const card = document.createElement('div');
+            card.className = 'image-card';
+
+            if (!isMember && index > 6) {
+                card.classList.add('locked');
+                card.innerHTML = `
+                    <div class="locked-overlay">
+                        <span class="lock-icon">🔒</span>
+                        <p>会员专享</p>
+                        <button class="unlock-btn">解锁查看</button>
+                    </div>
+                `;
+                card.querySelector('.unlock-btn').addEventListener('click', () => {
+                    window.location.href = 'member.html';
+                });
+            } else {
+                card.innerHTML = `
+                    <img src="${imagePath}" alt="图片${index + 1}" loading="lazy">
+                `;
+                // 添加点击事件
+                card.addEventListener('click', () => {
+                    if (!isGalleryOpen) {
+                        openGallery(index);
+                    }
+                });
+            }
+
+            return card;
+        }
+
+        // 初始化页面
+        function initializePage() {
+            const imagesGrid = document.querySelector('.images-grid');
+            imagesGrid.innerHTML = ''; // 清空现有内容
+
+            // 创建图片卡片
+            for (let i = 0; i < totalImages; i++) {
+                const imagePath = `${imageFolderPath}${i + 1}.jpg`;
+                const card = createImageCard(imagePath, i);
+                imagesGrid.appendChild(card);
+            }
+        }
+
+        // 设置标签点击事件
+        function setupTags() {
+            const tags = document.querySelectorAll('.gallery-tag');
+            tags.forEach(tag => {
+                tag.addEventListener('click', () => {
+                    // 移除所有标签的active类
+                    tags.forEach(t => t.classList.remove('active'));
+                    // 为当前点击的标签添加active类
+                    tag.classList.add('active');
+                    // 这里可以添加筛选图片的逻辑
+                });
+            });
+        }
+
+        // 设置事件监听器
+        function setupEventListeners() {
+            // 返回顶部按钮
+            const backToTop = document.querySelector('.back-to-top');
+            window.addEventListener('scroll', () => {
+                backToTop.style.display = window.scrollY > 300 ? 'block' : 'none';
+            });
+            backToTop.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // 主题切换
+            const themeToggle = document.querySelector('.theme-toggle');
+            themeToggle.addEventListener('click', toggleTheme);
+
+            // 图片画廊
+            setupGalleryEvents();
+        }
+
+        // 设置图片画廊事件
+        function setupGalleryEvents() {
+            const gallery = document.querySelector('.image-gallery');
+            const closeBtn = document.querySelector('.gallery-close');
+            const prevBtn = document.querySelector('.gallery-nav.prev');
+            const nextBtn = document.querySelector('.gallery-nav.next');
+            const galleryImg = document.querySelector('.gallery-image');
+
+            // 关闭画廊
+            closeBtn.addEventListener('click', closeGallery);
+
+            // 上一张/下一张
+            prevBtn.addEventListener('click', () => {
+                if (!isTransitioning) navigateGallery(-1);
+            });
+            nextBtn.addEventListener('click', () => {
+                if (!isTransitioning) navigateGallery(1);
+            });
+
+            // 键盘导航
+            document.addEventListener('keydown', (e) => {
+                if (!isGalleryOpen || isTransitioning) return;
+
+                switch (e.key) {
+                    case 'ArrowLeft':
+                        navigateGallery(-1);
+                        break;
+                    case 'ArrowRight':
+                        navigateGallery(1);
+                        break;
+                    case 'Escape':
+                        closeGallery();
+                        break;
+                }
+            });
+
+            // 点击背景关闭
+            gallery.addEventListener('click', (e) => {
+                if (e.target === gallery && !isTransitioning) {
+                    closeGallery();
+                }
+            });
+
+            function closeGallery() {
+                if (isTransitioning) return;
+                gallery.classList.remove('active');
+                setTimeout(() => {
+                    gallery.style.display = 'none';
+                    isGalleryOpen = false;
+                    document.body.style.overflow = 'auto';
+                }, 200);
+            }
+
+            function navigateGallery(direction) {
+                if (isTransitioning) return;
+
+                const isMember = checkMemberStatus();
+                const nextIndex = (currentGalleryIndex + direction + galleryImages.length) % galleryImages.length;
+
+                // 检查是否超出免费用户可预览范围
+                if (!isMember && nextIndex > 6) {
+                    window.location.href = 'member.html';
+                    return;
+                }
+
+                isTransitioning = true;
+                galleryImg.style.opacity = '0';
+
+                setTimeout(() => {
+                    currentGalleryIndex = nextIndex;
+                    galleryImg.src = galleryImages[currentGalleryIndex];
+                    document.querySelector('.image-description').textContent = getImageDescription(currentGalleryIndex);
+                    galleryImg.style.opacity = '1';
+                    isTransitioning = false;
+                }, 200);
+            }
+        }
+
+        // 获取图片描述
+        function getImageDescription(index) {
+            const isMember = checkMemberStatus();
+            if (!isMember && index > 6) {
+                return "会员专享内容，请升级会员后查看";
+            }
+
+            const descriptions = [
+    '这是一张精美的风景照片，展现了自然的壮丽景色。',
+    '人物特写，捕捉了瞬间的情感表达。',
+    '静物摄影，展现了物品的质感和细节。',
+    '城市风光，展现了现代都市的繁华景象。',
+    '自然风光，展现了山川河流的壮丽景色。',
+    '人像摄影，展现了人物的自然表情。',
+    '静物摄影，展现了物品的艺术美感。',
+    '这是一张精美的照片 8。',
+    '这是一张精美的照片 9。',
+    '这是一张精美的照片 10。',
+    '这是一张精美的照片 11。',
+    '这是一张精美的照片 12。',
+    '这是一张精美的照片 13。',
+    '这是一张精美的照片 14。',
+    '这是一张精美的照片 15。',
+    '这是一张精美的照片 16。',
+    '这是一张精美的照片 17。',
+    '这是一张精美的照片 18。',
+    '这是一张精美的照片 19。',
+    '这是一张精美的照片 20。',
+    '这是一张精美的照片 21。',
+    '这是一张精美的照片 22。',
+    '这是一张精美的照片 23。',
+    '这是一张精美的照片 24。',
+    '这是一张精美的照片 25。',
+    '这是一张精美的照片 26。',
+    '这是一张精美的照片 27。',
+    '这是一张精美的照片 28。',
+    '这是一张精美的照片 29。',
+    '这是一张精美的照片 30。',
+    '这是一张精美的照片 31。',
+    '这是一张精美的照片 32。',
+    '这是一张精美的照片 33。',
+    '这是一张精美的照片 34。',
+    '这是一张精美的照片 35。',
+    '这是一张精美的照片 36。',
+    '这是一张精美的照片 37。',
+    '这是一张精美的照片 38。',
+    '这是一张精美的照片 39。',
+    '这是一张精美的照片 40。',
+    '这是一张精美的照片 41。',
+    '这是一张精美的照片 42。',
+];
+            return descriptions[index] || "这是一张精美的照片。";
+        }
+
+        // 开始浏览
+        function startSlideshow() {
+            if (!isGalleryOpen) {
+                const isMember = checkMemberStatus();
+                if (!isMember) {
+                    // 非会员只能预览前6张图片
+                    openGallery(0);
+                } else {
+                    // 会员可以预览所有图片
+                    openGallery(0);
+                }
+            }
+        }
+
+        // 打开图片画廊
+        function openGallery(index) {
+            if (isGalleryOpen || isTransitioning) return;
+
+            const isMember = checkMemberStatus();
+            if (!isMember && index > 6) {
+                window.location.href = 'member.html';
+                return;
+            }
+
+            const gallery = document.querySelector('.image-gallery');
+            const galleryImg = document.querySelector('.gallery-image');
+            const imageDescription = document.querySelector('.image-description');
+            const bottomNav = document.querySelector('.bottom-nav');
+
+            currentGalleryIndex = index;
+            galleryImg.src = galleryImages[index];
+            imageDescription.textContent = getImageDescription(index);
+            gallery.style.display = 'flex';
+
+            // 隐藏底部导航
+            if (bottomNav) {
+                bottomNav.style.transform = 'translateY(100%)';
+            }
+
+            setTimeout(() => {
+                gallery.classList.add('active');
+                isGalleryOpen = true;
+                document.body.style.overflow = 'hidden';
+            }, 10);
+        }
+
+        // 关闭图片画廊
+        function closeGallery() {
+            if (!isGalleryOpen || isTransitioning) return;
+
+            isTransitioning = true;
+            const gallery = document.querySelector('.image-gallery');
+            const bottomNav = document.querySelector('.bottom-nav');
+
+            gallery.classList.remove('active');
+
+            // 显示底部导航
+            if (bottomNav) {
+                bottomNav.style.transform = 'translateY(0)';
+            }
+
+            setTimeout(() => {
+                gallery.style.display = 'none';
+                isGalleryOpen = false;
+                isTransitioning = false;
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        // 下载图片
+        function downloadImage() {
+            const isMember = checkMemberStatus();
+            if (!isMember && currentGalleryIndex > 6) {
+                window.location.href = 'member.html';
+                return;
+            }
+
+            const currentImage = galleryImages[currentGalleryIndex];
+            const link = document.createElement('a');
+            link.href = currentImage;
+            link.download = `image-${currentGalleryIndex + 1}.jpg`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // 切换主题
+        function toggleTheme() {
+            const body = document.body;
+            const isDarkMode = body.classList.contains('dark-mode');
+
+            if (isDarkMode) {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                localStorage.setItem('theme', 'light');
+                document.querySelector('.theme-toggle').textContent = '切换暗色';
+            } else {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+                document.querySelector('.theme-toggle').textContent = '切换亮色';
+            }
+        }
+
+        // 设置主题
+        function setupTheme() {
+            const body = document.body;
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const themeToggle = document.querySelector('.theme-toggle');
+
+            if (savedTheme === 'light' || (!savedTheme && !prefersDark)) {
+                body.classList.add('light-mode');
+                themeToggle.textContent = '切换暗色';
+            } else {
+                body.classList.add('dark-mode');
+                themeToggle.textContent = '切换亮色';
+            }
+        }
+
+        // 提交评分
+        function submitRating() {
+            const isRated = localStorage.getItem('imageRated') === 'true';
+            if (isRated) {
+                alert('已经评分过了！');
+                return;
+            }
+
+            const activeStars = document.querySelectorAll('.rating-star.active');
+            const rating = activeStars.length;
+
+            if (rating > 0) {
+                localStorage.setItem('imageRated', 'true');
+                localStorage.setItem('imageRating', rating);
+
+                const ratingValue = document.getElementById('ratingValue');
+                const currentRating = parseFloat(ratingValue.textContent);
+                const newRating = ((currentRating * 856) + rating) / 857;
+                ratingValue.textContent = newRating.toFixed(1);
+
+                document.getElementById('ratingModal').style.display = 'none';
+                alert('评分已提交，感谢您的参与！');
+            } else {
+                alert('请选择评分星级！');
+            }
+        }
+
+        // 打开评分模态框
+        function openRatingModal() {
+            const isRated = localStorage.getItem('imageRated') === 'true';
+            if (isRated) {
+                alert('已经评分过了！');
+                return;
+            }
+
+            const modal = document.getElementById('ratingModal');
+            modal.style.display = 'flex';
+
+            const savedRating = localStorage.getItem('imageRating');
+            if (savedRating) {
+                const stars = document.querySelectorAll('.rating-star');
+                stars.forEach(star => {
+                    if (parseInt(star.dataset.value) <= savedRating) {
+                        star.classList.add('active');
+                    }
+                });
+            }
+        }
+
+        // 打开评论论坛
+        function openForum() {
+            const forumModal = document.createElement('div');
+            forumModal.className = 'forum-modal';
+
+            let savedComments = [];
+            try {
+                const savedCommentsStr = localStorage.getItem('imageComments');
+                if (savedCommentsStr) {
+                    savedComments = JSON.parse(savedCommentsStr);
+                }
+            } catch (e) {
+                console.error('加载评论失败:', e);
+            }
+
+            const hasSystemComments = savedComments.some(comment =>
+                ['摄影爱好者', '艺术评论家', '新用户', '资深用户', '图片收藏家'].includes(comment.author)
+            );
+
+            if (!hasSystemComments) {
+                const systemComments = [
+                    {
+                        author: '摄影爱好者',
+                        date: '2023-06-15',
+                        content: '这组照片的构图和光线处理非常专业，特别是色彩的运用很有艺术感。',
+                        likes: 128,
+                        liked: false,
+                        replies: []
+                    },
+                    {
+                        author: '艺术评论家',
+                        date: '2023-06-10',
+                        content: '照片的意境表达很到位，能够引起观者的共鸣。',
+                        likes: 96,
+                        liked: false,
+                        replies: []
+                    },
+                    {
+                        author: '新用户',
+                        date: '2023-06-05',
+                        content: '第一次看到这么精美的照片，每一张都很有故事感。',
+                        likes: 75,
+                        liked: false,
+                        replies: []
+                    },
+                    {
+                        author: '资深用户',
+                        date: '2023-06-01',
+                        content: '照片的后期处理很专业，细节处理得很到位。',
+                        likes: 112,
+                        liked: false,
+                        replies: []
+                    },
+                    {
+                        author: '图片收藏家',
+                        date: '2023-05-28',
+                        content: '这组照片的艺术价值很高，值得收藏。',
+                        likes: 89,
+                        liked: false,
+                        replies: []
+                    }
+                ];
+
+                savedComments = [...systemComments, ...savedComments];
+                localStorage.setItem('imageComments', JSON.stringify(savedComments));
+            }
+
+            let commentsHTML = '';
+            savedComments.forEach(comment => {
+                commentsHTML += `
+                    <div class="forum-post">
+                        <div class="post-header">
+                            <span class="post-author">${comment.author}</span>
+                            <span class="post-date">${comment.date}</span>
+                        </div>
+                        <div class="post-content">
+                            ${comment.content}
+                        </div>
+                        <div class="post-actions">
+                            <button class="like-btn" data-liked="${comment.liked || 'false'}">👍 点赞 (${comment.likes || 0})</button>
+                            <button class="reply-btn">💬 回复</button>
+                        </div>
+                        <div class="replies" style="display: none;">
+                            <div class="reply-form">
+                                <textarea placeholder="回复评论..." class="reply-textarea"></textarea>
+                                <button class="submit-reply">发送回复</button>
+                            </div>
+                            <div class="reply-list">
+                                ${comment.replies ? comment.replies.map(reply => `
+                                    <div class="reply-item">
+                                        <div class="reply-header">
+                                            <span class="reply-author">${reply.author}</span>
+                                            <span class="reply-date">${reply.date}</span>
+                                        </div>
+                                        <div class="reply-content">
+                                            ${reply.content}
+                                        </div>
+                                    </div>
+                                `).join('') : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            forumModal.innerHTML = `
+                <div class="forum-content">
+                    <div class="forum-header">
+                        <h3>图片评论</h3>
+                        <button class="close-forum">&times;</button>
+                    </div>
+                    <div class="forum-body">
+                        <div class="forum-stats">
+                            <div class="forum-stat">
+                                <span class="stat-icon">📝</span>
+                                <span class="stat-value">${savedComments.length}</span>
+                                <span class="stat-label">总评论数</span>
+                            </div>
+                            <div class="forum-stat">
+                                <span class="stat-icon">👥</span>
+                                <span class="stat-value">1.2K</span>
+                                <span class="stat-label">活跃用户</span>
+                            </div>
+                        </div>
+                        <div class="forum-posts">
+                            ${commentsHTML}
+                        </div>
+                        <div class="new-post">
+                            <textarea placeholder="发表你的评论..." class="post-textarea"></textarea>
+                            <button class="submit-post">发布评论</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // 添加样式
+            const style = document.createElement('style');
+            style.textContent = `
+                .forum-modal {
+                    display: flex;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.8);
+                    z-index: 1000;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                .forum-content {
+                    background: var(--card-bg);
+                    width: 90%;
+                    max-width: 800px;
+                    max-height: 90vh;
+                    border-radius: var(--border-radius);
+                    overflow: hidden;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .forum-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 15px 20px;
+                    background: var(--primary-color);
+                    color: white;
+                }
+
+                .close-forum {
+                    background: none;
+                    border: none;
+                    color: white;
+                    font-size: 24px;
+                    cursor: pointer;
+                }
+
+                .forum-body {
+                    padding: 20px;
+                    overflow-y: auto;
+                }
+
+                .forum-stats {
+                    display: flex;
+                    gap: 20px;
+                    margin-bottom: 20px;
+                }
+
+                .forum-stat {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    padding: 10px 15px;
+                    background: rgba(255, 255, 255, 0.1);
+                    border-radius: var(--border-radius);
+                }
+
+                .forum-posts {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 15px;
+                    margin-bottom: 20px;
+                }
+
+                .forum-post {
+                    background: rgba(255, 255, 255, 0.1);
+                    padding: 15px;
+                    border-radius: var(--border-radius);
+                }
+
+                .post-header {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 10px;
+                    color: var(--primary-color);
+                }
+
+                .post-content {
+                    margin-bottom: 10px;
+                    line-height: 1.5;
+                }
+
+                .post-actions {
+                    display: flex;
+                    gap: 10px;
+                }
+
+                .post-actions button {
+                    padding: 5px 10px;
+                    border: none;
+                    border-radius: 15px;
+                    background: rgba(255, 255, 255, 0.1);
+                    color: var(--text-color);
+                    cursor: pointer;
+                    transition: var(--transition);
+                }
+
+                .post-actions button:hover {
+                    background: var(--primary-color);
+                }
+
+                .post-actions button.liked {
+                    background: var(--primary-color);
+                    color: white;
+                }
+
+                .replies {
+                    margin-top: 15px;
+                    padding-top: 15px;
+                    border-top: 1px solid rgba(255, 255, 255, 0.1);
+                }
+
+                .reply-form {
+                    margin-bottom: 15px;
+                }
+
+                .reply-textarea {
+                    width: 100%;
+                    height: 60px;
+                    padding: 10px;
+                    border: 1px solid var(--primary-color);
+                    border-radius: var(--border-radius);
+                    background: rgba(255, 255, 255, 0.1);
+                    color: var(--text-color);
+                    margin-bottom: 10px;
+                    resize: vertical;
+                }
+
+                .submit-reply {
+                    padding: 8px 15px;
+                    background: var(--primary-color);
+                    color: white;
+                    border: none;
+                    border-radius: 20px;
+                    cursor: pointer;
+                    transition: var(--transition);
+                }
+
+                .submit-reply:hover {
+                    background: var(--secondary-color);
+                }
+
+                .reply-list {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                }
+
+                .reply-item {
+                    background: rgba(255, 255, 255, 0.05);
+                    padding: 10px;
+                    border-radius: var(--border-radius);
+                }
+
+                .reply-header {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 5px;
+                    font-size: 0.9em;
+                    color: var(--primary-color);
+                }
+
+                .reply-content {
+                    font-size: 0.9em;
+                    line-height: 1.4;
+                }
+
+                .new-post {
+                    margin-top: 20px;
+                }
+
+                .post-textarea {
+                    width: 100%;
+                    height: 100px;
+                    padding: 10px;
+                    border: 1px solid var(--primary-color);
+                    border-radius: var(--border-radius);
+                    background: rgba(255, 255, 255, 0.1);
+                    color: var(--text-color);
+                    margin-bottom: 10px;
+                    resize: vertical;
+                }
+
+                .submit-post {
+                    padding: 10px 20px;
+                    background: var(--primary-color);
+                    color: white;
+                    border: none;
+                    border-radius: 20px;
+                    cursor: pointer;
+                    transition: var(--transition);
+                }
+
+                .submit-post:hover {
+                    background: var(--secondary-color);
+                }
+            `;
+
+            document.head.appendChild(style);
+            document.body.appendChild(forumModal);
+
+            // 关闭论坛
+            forumModal.querySelector('.close-forum').addEventListener('click', () => {
+                document.body.removeChild(forumModal);
+                document.head.removeChild(style);
+            });
+
+            // 提交评论
+            forumModal.querySelector('.submit-post').addEventListener('click', () => {
+                const textarea = forumModal.querySelector('.post-textarea');
+                const content = textarea.value.trim();
+
+                if (content) {
+                    const newComment = {
+                        author: '我',
+                        date: new Date().toISOString().split('T')[0],
+                        content: content,
+                        likes: 0,
+                        liked: false,
+                        replies: []
+                    };
+
+                    savedComments.unshift(newComment);
+                    localStorage.setItem('imageComments', JSON.stringify(savedComments));
+
+                    const forumCommentCount = forumModal.querySelector('.stat-value');
+                    forumCommentCount.textContent = savedComments.length;
+
+                    const pageCommentCount = document.getElementById('commentCount');
+                    pageCommentCount.textContent = savedComments.length;
+
+                    openForum();
+                }
+            });
+
+            // 设置点赞和回复功能
+            function setupPostEvents(post, commentIndex) {
+                const likeBtn = post.querySelector('.like-btn');
+                likeBtn.addEventListener('click', function () {
+                    if (this.dataset.liked === 'false') {
+                        const count = parseInt(this.textContent.match(/\((\d+)\)/)[1]);
+                        this.textContent = `👍 点赞 (${count + 1})`;
+                        this.dataset.liked = 'true';
+                        this.classList.add('liked');
+
+                        savedComments[commentIndex].likes = count + 1;
+                        savedComments[commentIndex].liked = true;
+                        localStorage.setItem('imageComments', JSON.stringify(savedComments));
+                    }
+                });
+
+                const replyBtn = post.querySelector('.reply-btn');
+                const replies = post.querySelector('.replies');
+                replyBtn.addEventListener('click', () => {
+                    replies.style.display = replies.style.display === 'none' ? 'block' : 'none';
+                });
+
+                const submitReply = post.querySelector('.submit-reply');
+                submitReply.addEventListener('click', () => {
+                    const textarea = post.querySelector('.reply-textarea');
+                    const content = textarea.value.trim();
+
+                    if (content) {
+                        const newReply = {
+                            author: '我',
+                            date: new Date().toISOString().split('T')[0],
+                            content: content
+                        };
+
+                        if (!savedComments[commentIndex].replies) {
+                            savedComments[commentIndex].replies = [];
+                        }
+                        savedComments[commentIndex].replies.push(newReply);
+                        localStorage.setItem('imageComments', JSON.stringify(savedComments));
+
+                        openForum();
+                    }
+                });
+            }
+
+            forumModal.querySelectorAll('.forum-post').forEach((post, index) => {
+                setupPostEvents(post, index);
+            });
+        }
+    </script>
+</body>
+
+</html>
