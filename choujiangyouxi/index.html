@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>情趣大转盘 - 浪漫抽奖游戏</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>情趣大转盘</h1>
+            <p>转动命运之轮，开启你的浪漫旅程~</p>
+        </header>
+
+        <main>
+            <div class="prize-wheel-container">
+                <div class="prize-wheel" id="prizeWheel">
+                    <div class="wheel-section"
+                        style="transform: rotate(0deg); background-image: url('./images/bg1.jpg');">
+                        <span>激情热吻</span>
+                    </div>
+                    <div class="wheel-section"
+                        style="transform: rotate(72deg); background-image: url('./images/bg2.jpg');">
+                        <span>浪漫按摩</span>
+                    </div>
+                    <div class="wheel-section"
+                        style="transform: rotate(144deg); background-image: url('./images/bg3.jpg');">
+                        <span>情趣内衣</span>
+                    </div>
+                    <div class="wheel-section"
+                        style="transform: rotate(216deg); background-image: url('./images/bg4.jpg');">
+                        <span>角色扮演</span>
+                    </div>
+                    <div class="wheel-section"
+                        style="transform: rotate(288deg); background-image: url('./images/bg5.jpg');">
+                        <span>甜蜜惩罚</span>
+                    </div>
+                    <div class="wheel-center"></div>
+                    <div class="wheel-pointer"></div>
+                </div>
+                <button class="spin-button" id="spinButton">开始旋转</button>
+            </div>
+
+            <div class="prize-list">
+                <h2>奖品清单</h2>
+                <ul>
+                    <li>激情热吻：来一个长达5分钟的激情热吻，点燃你的欲望</li>
+                    <li>浪漫按摩：享受30分钟的精油全身按摩，放松身心</li>
+                    <li>情趣内衣：伴侣为你穿上准备好的情趣内衣，尽享视觉盛宴</li>
+                    <li>角色扮演：选择你最喜欢的角色，享受不一样的刺激体验</li>
+                    <li>甜蜜惩罚：由对方选择一种小小的惩罚，增添情趣</li>
+                </ul>
+            </div>
+
+            <div id="resultContainer" class="result-container">
+                <h2 class="section-title">抽奖结果</h2>
+                <h3 id="prizeName" class="prize-name"></h3>
+                <div id="imageContainer" class="image-container">
+                    <!-- 图片将通过JavaScript动态添加 -->
+                </div>
+                <p id="resultText"></p>
+                <a href="#" id="startGameBtn" class="action-button">开始游戏</a>
+            </div>
+
+            <div class="rules">
+                <h2>游戏规则</h2>
+                <ol>
+                    <li>点击"开始旋转"按钮，大转盘将开始旋转</li>
+                    <li>转盘停止后，指针所指向的区域即为获得的奖品</li>
+                    <li>每次抽奖结果都是随机的，增加游戏的趣味性</li>
+                    <li>奖品详情请查看"奖品清单"</li>
+                    <li>获奖后，请立即兑现奖品，享受美妙时光</li>
+                </ol>
+            </div>
+        </main>
+
+        <footer>
+            <p>情趣大转盘 &copy; 2023 All Rights Reserved | 为爱情增添情趣与激情</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

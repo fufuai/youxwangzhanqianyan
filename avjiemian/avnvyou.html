@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>女优展示</title>
+    <style>
+        :root {
+            --primary-color: #ff5e94;
+            --secondary-color: #8a2be2;
+            --dark-color: #2c0e37;
+            --light-color: #fff1f6;
+            --accent-color: #ff3366;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--dark-color);
+            color: var(--light-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .tags-container {
+            margin: 20px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .tag {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid var(--primary-color);
+        }
+
+        .tag:hover,
+        .tag.active {
+            background-color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .search-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .search-input {
+            padding: 10px 15px;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 25px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: var(--dark-color);
+            font-size: 1rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        /* 添加移动端响应式布局 */
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .card-image {
+                height: 200px;
+            }
+
+            .card-title {
+                font-size: 1rem;
+            }
+
+            .card-tag {
+                font-size: 0.7rem;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-image {
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover .card-image img {
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            padding: 15px;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .card-tag {
+            font-size: 0.8rem;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 3px 8px;
+            border-radius: 10px;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+            gap: 10px;
+        }
+
+        .page-btn {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .page-btn:hover,
+        .page-btn.active {
+            background-color: var(--accent-color);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+
+        /* 详情页样式 */
+        .detail-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .detail-content {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: var(--dark-color);
+            border-radius: 10px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .detail-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 20px;
+        }
+
+        .detail-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .detail-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-color);
+        }
+
+        .detail-info {
+            flex: 1;
+        }
+
+        .detail-name {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .detail-bio {
+            margin: 15px 0;
+            line-height: 1.6;
+            color: #f0f0f0;
+        }
+
+        .detail-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .detail-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .gallery-item {
+            border-radius: 8px;
+            overflow: hidden;
+            height: 250px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* 图片查看器 */
+        .image-viewer {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .viewer-image {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+
+        .viewer-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+        }
+
+        .viewer-prev,
+        .viewer-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 3rem;
+            color: white;
+            cursor: pointer;
+            background-color: rgba(0, 0, 0, 0.5);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .viewer-prev {
+            left: 20px;
+        }
+
+        .viewer-next {
+            right: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .detail-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .detail-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .detail-gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-item {
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>女优精选</h1>
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="搜索女优..." id="searchInput">
+            </div>
+        </header>
+
+        <div class="tags-container" id="tagsContainer">
+            <div class="tag active" data-tag="all">全部</div>
+            <div class="tag" data-tag="新人">新人</div>
+            <div class="tag" data-tag="巨乳">巨乳</div>
+            <div class="tag" data-tag="萝莉">萝莉</div>
+            <div class="tag" data-tag="御姐">御姐</div>
+            <div class="tag" data-tag="熟女">熟女</div>
+            <div class="tag" data-tag="制服">制服</div>
+            <div class="tag" data-tag="清纯">清纯</div>
+            <div class="tag" data-tag="女同">女同</div>
+            <div class="tag" data-tag="人妻">人妻</div>
+        </div>
+
+        <div class="grid" id="actressGrid"></div>
+
+        <div class="pagination" id="pagination"></div>
+
+        <footer>
+            <p>© 2023 女优展示 | 仅供娱乐，请勿用于非法用途</p>
+        </footer>
+    </div>
+
+    <!-- 详情页容器 -->
+    <div class="detail-container" id="detailContainer">
+        <div class="detail-close" id="detailClose">×</div>
+        <div class="detail-content" id="detailContent"></div>
+    </div>
+
+    <!-- 图片查看器 -->
+    <div class="image-viewer" id="imageViewer" style="display: none;">
+        <div class="viewer-close" id="viewerClose">×</div>
+        <div class="viewer-prev" id="viewerPrev">❮</div>
+        <img src="" alt="" class="viewer-image" id="viewerImage">
+        <div class="viewer-next" id="viewerNext">❯</div>
+    </div>
+
+    <script>
+        // 图片文件夹路径配置 - 可添加多个文件夹
+        const imageFolders = [
+            {
+                path: "image/倉本菫_Nozomi Kuramoto_Sumire Kuramoto_倉本すみれ_倉本希 _ JavRate -",
+                name: "倉本菫",
+                tags: ["清纯", "萝莉"],
+                imageCount: 27,
+                birthdate: "1989-12-08",
+                height: "156cm",
+                measurements: "B85-W57-H86",
+                cupSize: "D",
+                birthplace: "东京",
+                blood: "O型",
+                hobby: "游泳、听音乐",
+                bio: "倉本菫是一位风格独特的女优，拥有甜美的外表和温柔的气质。她的表演风格自然真实，特别擅长清纯和萝莉角色。在业内获得了不少好评，粉丝喜欢她自然不做作的表现。"
+            },
+            {
+                path: "image/美園和花_Waka Misono_Yui Yada_矢田結衣_美园和花 _ JavRate -",
+                name: "美園和花",
+                tags: ["巨乳", "偶像"],
+                imageCount: 35,
+                birthdate: "1993-08-16",
+                height: "159cm",
+                measurements: "B89-W55-H86",
+                cupSize: "G",
+                birthplace: "爱知县",
+                blood: "A型",
+                hobby: "购物、唱歌",
+                bio: "美園和花原是日本知名女子偶像团体SKE48成员，2015年转行进入成人影视界。凭借甜美面孔和火辣身材迅速成为业界顶级女优。她不仅在影视作品中表现出色，还积极参与综艺节目和直播活动，与粉丝保持良好互动。"
+            },
+            {
+                path: "image/桥本有菜_橋本ありな_Hashimoto Arina",
+                name: "桥本有菜",
+                tags: ["清纯", "制服"],
+                imageCount: 12,
+                birthdate: "1996-12-15",
+                height: "166cm",
+                measurements: "B83-W56-H83",
+                cupSize: "C",
+                birthplace: "日本",
+                blood: "A型",
+                hobby: "摄影、看电影",
+                bio: "桥本有菜是日本当红女优，拥有清新脱俗的气质和出色的演技。2016年出道以来，凭借青春靓丽的外表和认真敬业的态度赢得了大量粉丝。她特别擅长制服和清纯类型的作品，被誉为业界新生代代表人物之一。"
+            },
+            {
+                path: "image/深田咏美_深田えいみ_Fukada Eimi",
+                name: "深田咏美",
+                tags: ["巨乳", "人妻"],
+                imageCount: 8,
+                birthdate: "1998-03-18",
+                height: "158cm",
+                measurements: "B92-W57-H85",
+                cupSize: "G",
+                birthplace: "大阪",
+                blood: "B型",
+                hobby: "料理、服装设计",
+                bio: "深田咏美是近年来迅速崛起的人气女优，拥有魔鬼般的身材和灵动的表演风格。她以喜剧感十足的表演和丰满的身材闻名，在各类题材作品中都有出色表现。她的社交媒体互动活跃，经常与粉丝分享日常生活。"
+            },
+
+            {
+                path: "image/水卜樱_水卜さくら_Mizumori Sakura",
+                name: "水卜樱",
+                tags: ["巨乳", "新人"],
+                imageCount: 11,
+                birthdate: "1997-11-12",
+                height: "152cm",
+                measurements: "B90-W53-H85",
+                cupSize: "H",
+                birthplace: "千叶",
+                blood: "O型",
+                hobby: "游戏、泡温泉",
+                bio: "水卜樱是天然巨乳代表女优，拥有甜美可爱的娃娃脸和惊人的身材比例。2017年出道后因其自然甜美的风格和积极的工作态度迅速走红。她的作品风格多变，同时兼具邻家女孩的亲和力和成熟魅力，深受不同年龄层粉丝喜爱。"
+            },
+            {
+                path: "image/河北彩花_Kawakita Saika",
+                name: "河北彩花",
+                tags: ["清纯", "新人"],
+                imageCount: 13,
+                birthdate: "1999-03-24",
+                height: "166cm",
+                measurements: "B83-W58-H83",
+                cupSize: "C",
+                birthplace: "神奈川",
+                blood: "AB型",
+                hobby: "健身、看书",
+                bio: "河北彩花是业界公认的高颜值女优，拥有模特般的身材和令人惊艳的五官。2018年出道后凭借清新自然的气质和出色的表现力成为业界新星。她的作品风格多样，从清纯到成熟都能自如驾驭，展现了非凡的演艺天赋。"
+            },
+            {
+                path: "image/吉泽明步_吉沢明歩_Akiho Yoshizawa",
+                name: "吉泽明步",
+                tags: ["御姐", "熟女"],
+                imageCount: 16,
+                birthdate: "1984-03-03",
+                height: "161cm",
+                measurements: "B86-W58-H86",
+                cupSize: "E",
+                birthplace: "东京",
+                blood: "B型",
+                hobby: "旅行、品酒",
+                bio: "吉泽明步是业界传奇人物，拥有超过15年的职业生涯。她以精湛的演技和不老的容颜闻名，曾多次获得业内最高荣誉。除成人影视外，她还涉足主流电影、电视剧和综艺节目，是少数成功跨界的女优之一。她的专业精神和敬业态度受到业内广泛尊敬。"
+            },
+            {
+                path: "image/凉森玲梦_涼森れむ_Suzumori Remu",
+                name: "凉森玲梦",
+                tags: ["巨乳", "新人"],
+                imageCount: 10,
+                birthdate: "1997-12-03",
+                height: "165cm",
+                measurements: "B94-W58-H88",
+                cupSize: "H",
+                birthplace: "埼玉",
+                blood: "B型",
+                hobby: "绘画、烹饪",
+                bio: "凉森玲梦是近年来人气急升的新生代女优，拥有傲人的身材和精致的脸蛋。2019年出道以来作品产量惊人，受到粉丝热烈追捧。她的表演风格富有激情和感染力，同时保持亲和可爱的邻家女孩形象，被誉为业界最有潜力的新星之一。"
+            },
+            {
+                path: "image/希崎杰西卡_希崎ジェシカ_Kizaki Jessica",
+                name: "希崎杰西卡",
+                tags: ["御姐", "制服"],
+                imageCount: 12,
+                birthdate: "1988-07-23",
+                height: "163cm",
+                measurements: "B88-W58-H86",
+                cupSize: "F",
+                birthplace: "福冈",
+                blood: "AB型",
+                hobby: "收集香水、瑜伽",
+                bio: "希崎杰西卡是一位拥有混血气质的女优，以精致的五官和火辣性感的表演风格著称。她的职业生涯跨度长，作品质量始终保持高水准。除拍摄影片外，她还担任时尚模特和活动主持人，展现了全方位的才艺。她的成熟魅力和职业态度使她成为业界备受尊敬的资深女优。"
+            },
+            {
+                path: "image/明日花绮罗_明日花キララ_Kirara Asuka",
+                name: "明日花绮罗",
+                tags: ["巨乳", "偶像"],
+                imageCount: 14,
+                birthdate: "1988-10-02",
+                height: "165cm",
+                measurements: "B90-W58-H85",
+                cupSize: "G",
+                birthplace: "北海道",
+                blood: "A型",
+                hobby: "时尚、社交媒体",
+                bio: "明日花绮罗是日本顶级女优之一，以完美身材和精致脸蛋闻名。她不仅在成人影视领域取得巨大成功，还是一位成功的企业家，拥有自己的化妆品和服装品牌。她的社交媒体拥有数百万粉丝，影响力远超行业范围，是真正的跨界明星。"
+            },
+            {
+                path: "image/松下纱荣子_松下紗栄子_Matsushita Saeko",
+                name: "松下纱荣子",
+                tags: ["御姐", "人妻"],
+                imageCount: 9,
+                birthdate: "1990-06-18",
+                height: "164cm",
+                measurements: "B88-W60-H86",
+                cupSize: "F",
+                birthplace: "大阪",
+                blood: "O型",
+                hobby: "园艺、阅读",
+                bio: "松下纱荣子是以成熟优雅著称的女优，拥有端庄的气质和出色的演技。她特别擅长演绎人妻和职场女性角色，表演细腻真实。出道多年来保持稳定的作品产量和质量，赢得了固定粉丝群的忠实支持。她低调的生活方式和专注于作品的态度使她在业内获得广泛尊重。"
+            }
+        ];
+
+        // 将文件夹配置转换为女优数据
+        const actresses = imageFolders.map((folder, index) => {
+            return {
+                id: index + 1,
+                name: folder.name,
+                image: `${folder.path}/1.jpg`, // 使用第一张图作为封面
+                tags: folder.tags,
+                folderPath: folder.path,
+                imageCount: folder.imageCount,
+                birthdate: folder.birthdate,
+                height: folder.height,
+                measurements: folder.measurements,
+                cupSize: folder.cupSize,
+                birthplace: folder.birthplace,
+                blood: folder.blood,
+                hobby: folder.hobby,
+                bio: folder.bio
+            };
+        });
+
+        // 应用状态
+        let currentPage = 1;
+        let itemsPerPage = 12;
+        let currentTag = 'all';
+        let searchQuery = '';
+
+        // DOM元素
+        const grid = document.getElementById('actressGrid');
+        const pagination = document.getElementById('pagination');
+        const tagsContainer = document.getElementById('tagsContainer');
+        const searchInput = document.getElementById('searchInput');
+        const detailContainer = document.getElementById('detailContainer');
+        const detailContent = document.getElementById('detailContent');
+        const detailClose = document.getElementById('detailClose');
+        const imageViewer = document.getElementById('imageViewer');
+        const viewerImage = document.getElementById('viewerImage');
+        const viewerClose = document.getElementById('viewerClose');
+        const viewerPrev = document.getElementById('viewerPrev');
+        const viewerNext = document.getElementById('viewerNext');
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function () {
+            renderActresses();
+
+            // 标签点击事件
+            tagsContainer.addEventListener('click', function (e) {
+                if (e.target.classList.contains('tag')) {
+                    document.querySelectorAll('.tag').forEach(tag => tag.classList.remove('active'));
+                    e.target.classList.add('active');
+                    currentTag = e.target.dataset.tag;
+                    currentPage = 1;
+                    renderActresses();
+                }
+            });
+
+            // 搜索输入事件
+            searchInput.addEventListener('input', function (e) {
+                searchQuery = e.target.value.trim().toLowerCase();
+                currentPage = 1;
+                renderActresses();
+            });
+
+            // 详情页关闭事件
+            detailClose.addEventListener('click', function () {
+                detailContainer.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+
+            // 图片查看器关闭事件
+            viewerClose.addEventListener('click', function () {
+                imageViewer.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // 渲染女优卡片
+        function renderActresses() {
+            // 筛选数据
+            let filteredActresses = actresses.filter(actress => {
+                // 标签筛选
+                const tagMatch = currentTag === 'all' || actress.tags.includes(currentTag);
+
+                // 搜索筛选
+                const searchMatch = searchQuery === '' ||
+                    actress.name.toLowerCase().includes(searchQuery) ||
+                    actress.tags.some(tag => tag.toLowerCase().includes(searchQuery));
+
+                return tagMatch && searchMatch;
+            });
+
+            // 分页
+            const totalPages = Math.ceil(filteredActresses.length / itemsPerPage);
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const currentActresses = filteredActresses.slice(startIndex, endIndex);
+
+            // 渲染网格
+            grid.innerHTML = '';
+            currentActresses.forEach(actress => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.dataset.id = actress.id;
+
+                // 使用本地占位图而不是外部服务
+                const encodedName = encodeNameForURL(actress.name);
+                card.innerHTML = `
+                    <div class="card-image">
+                        <img src="${actress.image}" alt="${actress.name}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'300\\' height=\\'400\\' viewBox=\\'0 0 300 400\\'><rect fill=\\'%23ff5e94\\' width=\\'300\\' height=\\'400\\'/><text fill=\\'%23ffffff\\' font-family=\\'Arial\\' font-size=\\'24\\' x=\\'50%\\' y=\\'50%\\' text-anchor=\\'middle\\'>${encodedName}</text></svg>'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">${actress.name}</h3>
+                        <div class="card-tags">
+                            ${actress.tags.map(tag => `<span class="card-tag">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+
+                // 添加点击事件打开详情页
+                card.addEventListener('click', function () {
+                    openDetailPage(actress);
+                });
+
+                grid.appendChild(card);
+            });
+
+            // 渲染分页
+            renderPagination(totalPages);
+        }
+
+        // 渲染分页
+        function renderPagination(totalPages) {
+            pagination.innerHTML = '';
+
+            // 上一页按钮
+            if (currentPage > 1) {
+                const prevBtn = document.createElement('button');
+                prevBtn.className = 'page-btn';
+                prevBtn.textContent = '上一页';
+                prevBtn.addEventListener('click', () => {
+                    currentPage--;
+                    renderActresses();
+                });
+                pagination.appendChild(prevBtn);
+            }
+
+            // 页码按钮
+            for (let i = 1; i <= totalPages; i++) {
+                const pageBtn = document.createElement('button');
+                pageBtn.className = 'page-btn' + (i === currentPage ? ' active' : '');
+                pageBtn.textContent = i;
+                pageBtn.addEventListener('click', () => {
+                    currentPage = i;
+                    renderActresses();
+                });
+                pagination.appendChild(pageBtn);
+            }
+
+            // 下一页按钮
+            if (currentPage < totalPages) {
+                const nextBtn = document.createElement('button');
+                nextBtn.className = 'page-btn';
+                nextBtn.textContent = '下一页';
+                nextBtn.addEventListener('click', () => {
+                    currentPage++;
+                    renderActresses();
+                });
+                pagination.appendChild(nextBtn);
+            }
+        }
+
+        // 打开详情页
+        function openDetailPage(actress) {
+            // 检查图片存在
+            const checkImage = (path, callback) => {
+                const img = new Image();
+                img.onload = function () { callback(true); };
+                img.onerror = function () { callback(false); };
+                img.src = path;
+            };
+
+            // 生成编码后的名称用于SVG占位图
+            const encodedName = encodeNameForURL(actress.name);
+
+            // 生成详情页内容
+            let detailHTML = `
+                <div class="detail-header">
+                    <img src="${actress.image}" alt="${actress.name}" class="detail-avatar" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'150\\' height=\\'150\\' viewBox=\\'0 0 150 150\\'><circle fill=\\'%23ff5e94\\' cx=\\'75\\' cy=\\'75\\' r=\\'75\\'/><text fill=\\'%23ffffff\\' font-family=\\'Arial\\' font-size=\\'18\\' x=\\'50%\\' y=\\'50%\\' text-anchor=\\'middle\\'>${encodedName}</text></svg>'">
+                    <div class="detail-info">
+                        <h2 class="detail-name">${actress.name}</h2>
+                        <div class="card-tags">
+                            ${actress.tags.map(tag => `<span class="card-tag">${tag}</span>`).join('')}
+                        </div>
+                        <p class="detail-bio">${actress.bio || '暂无详细介绍'}</p>
+                    </div>
+                </div>
+                <div class="detail-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">生日</span>
+                        <span class="stat-value">${actress.birthdate || '未知'}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">身高</span>
+                        <span class="stat-value">${actress.height || '未知'}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">三围</span>
+                        <span class="stat-value">${actress.measurements || '未知'}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">罩杯</span>
+                        <span class="stat-value">${actress.cupSize || '未知'}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">出生地</span>
+                        <span class="stat-value">${actress.birthplace || '未知'}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">血型</span>
+                        <span class="stat-value">${actress.blood || '未知'}</span>
+                    </div>
+                </div>
+                <h3 style="margin-top: 20px; color: var(--primary-color);">写真集</h3>
+                <div class="detail-gallery">
+            `;
+
+            // 添加图库图片
+            for (let i = 1; i <= actress.imageCount; i++) {
+                const imagePath = `${actress.folderPath}/${i}.jpg`;
+                detailHTML += `
+                    <div class="gallery-item" data-index="${i - 1}">
+                        <img src="${imagePath}" alt="${actress.name}-${i}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'200\\' height=\\'250\\' viewBox=\\'0 0 200 250\\'><rect fill=\\'%23ff5e94\\' width=\\'200\\' height=\\'250\\'/><text fill=\\'%23ffffff\\' font-family=\\'Arial\\' font-size=\\'16\\' x=\\'50%\\' y=\\'50%\\' text-anchor=\\'middle\\'>${encodedName}-${i}</text></svg>'">
+                    </div>
+                `;
+            }
+
+            detailHTML += `</div>`;
+
+            // 更新详情页内容
+            detailContent.innerHTML = detailHTML;
+            detailContainer.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+
+            // 保存当前女优数据
+            imageViewer.dataset.actressId = actress.id;
+
+            // 添加图片点击事件
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            galleryItems.forEach(item => {
+                item.addEventListener('click', function () {
+                    const imageIndex = parseInt(this.dataset.index);
+                    openImageViewer(actress, imageIndex);
+                });
+            });
+        }
+
+        // 打开图片查看器
+        function openImageViewer(actress, imageIndex) {
+            // 设置图片
+            const imagePath = `${actress.folderPath}/${imageIndex + 1}.jpg`;
+            const encodedName = encodeNameForURL(actress.name);
+
+            viewerImage.src = imagePath;
+            viewerImage.alt = `${actress.name}-${imageIndex + 1}`;
+            viewerImage.onerror = function () {
+                this.src = `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'><rect fill='%23ff5e94' width='800' height='600'/><text fill='%23ffffff' font-family='Arial' font-size='32' x='50%' y='50%' text-anchor='middle'>${encodedName}-${imageIndex + 1}</text></svg>`;
+            };
+
+            // 保存当前浏览状态
+            imageViewer.dataset.currentIndex = imageIndex;
+            imageViewer.dataset.maxIndex = actress.imageCount - 1;
+
+            // 显示查看器
+            imageViewer.style.display = 'flex';
+
+            // 添加上一张/下一张事件
+            viewerPrev.onclick = function () {
+                let currentIndex = parseInt(imageViewer.dataset.currentIndex);
+                let newIndex = currentIndex - 1;
+                if (newIndex < 0) newIndex = parseInt(imageViewer.dataset.maxIndex);
+                openImageViewer(actress, newIndex);
+            };
+
+            viewerNext.onclick = function () {
+                let currentIndex = parseInt(imageViewer.dataset.currentIndex);
+                let newIndex = currentIndex + 1;
+                if (newIndex > parseInt(imageViewer.dataset.maxIndex)) newIndex = 0;
+                openImageViewer(actress, newIndex);
+            };
+
+            // 添加键盘事件
+            document.onkeydown = function (e) {
+                if (imageViewer.style.display === 'flex') {
+                    if (e.key === 'ArrowLeft') viewerPrev.click();
+                    if (e.key === 'ArrowRight') viewerNext.click();
+                    if (e.key === 'Escape') viewerClose.click();
+                } else if (detailContainer.style.display === 'block') {
+                    if (e.key === 'Escape') detailClose.click();
+                }
+            };
+        }
+
+        // 辅助函数：为URL编码名称，去除特殊字符
+        function encodeNameForURL(name) {
+            // 将名称编码为URL安全字符串
+            return name.replace(/[^\w\s]/gi, '')
+                .replace(/\s+/g, '_');
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIANG NV BA</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="global-fonts.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* 搜索框样式优化 */
+        .search-container {
+            position: relative;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 12px 45px 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #searchInput:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 2px 10px rgba(76, 175, 80, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            cursor: pointer;
+        }
+
+        #result {
+            position: absolute;
+            width: 100%;
+            max-height: 300px;
+            overflow-y: auto;
+            background: white;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            padding: 0 15px;
+            box-sizing: border-box;
+        }
+
+        #result div {
+            padding: 10px 15px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        #result div:hover {
+            background-color: #f9f9f9;
+        }
+
+        #result a {
+            display: block;
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* 移动设备响应式样式 */
+        @media (max-width: 768px) {
+            .search-container {
+                max-width: 90%;
+            }
+
+            #searchInput {
+                padding: 10px 40px 10px 12px;
+                font-size: 14px;
+            }
+
+            #result {
+                max-height: 250px;
+            }
+
+            #result div {
+                padding: 8px 12px;
+            }
+
+            #result a {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-loader">
+        <div class="loader"></div>
+    </div>
+
+    <header>
+        <div class="menu-toggle" id="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/index.html"><i class="fas fa-home"></i> 首页</a></li>
+                <li><a href="/meituwangzhan/index.html"><i class="fas fa-images"></i> 美图</a></li>
+                <li><a href="/hejiwangzhan/index.html"><i class="fas fa-video"></i> 合集</a></li>
+                <li><a href="/choujiangyouxi/index.html"><i class="fas fa-gift"></i> 抽奖</a></li>
+                <li><a href="/huiyuanzhongxin/huiyuanzhonxing.html"><i class="fas fa-crown"></i> 会员</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="announcement-wrapper">
+        <div class="announcement-container">
+            <div class="announcement announcement-1">
+                欢迎来到游戏网站！我们提供最新、最热门的游戏资源，让您尽情享受游戏的乐趣。
+            </div>
+            <div class="announcement announcement-2">
+                新用户注册即送100积分，每日签到还可获得额外奖励！
+            </div>
+            <div class="announcement announcement-3">
+                最新游戏资源已更新，快来体验吧！
+            </div>
+        </div>
+    </div>
+
+    <!-- 广告横条，包含动态显示的图片 -->
+    <div class="ad-banner" id="ad-banner">
+        <div class="ad-slideshow" id="ad-slideshow">
+            <!-- 广告图片将通过JavaScript动态插入 -->
+        </div>
+    </div>
+
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="搜索内容..." autocomplete="off">
+        <i class="fas fa-search search-icon" id="searchIcon"></i>
+        <div id="result"></div>
+    </div>
+
+    <!-- 添加独立的文本描述 -->
+    <p class="ad-description">此页面展示了最新的游戏资源，快来发现更多惊喜！</p>
+
+    <div class="tag-filter">
+        <button class="tag-button" data-tag="all"><i class="fas fa-th-large"></i> 所有</button>
+        <button class="tag-button" data-tag="PC"><i class="fas fa-desktop"></i> PC</button>
+        <button class="tag-button" data-tag="安卓"><i class="fas fa-mobile-alt"></i> 安卓</button>
+        <button class="tag-button" data-tag="RPG"><i class="fas fa-gamepad"></i> RPG</button>
+        <button class="tag-button" data-tag="cos"><i class="fas fa-gamepad"></i> cos</button>
+        <button class="tag-button" data-tag="ADV"><i class="fas fa-gamepad"></i> ADV</button>
+        <button class="tag-button" data-tag="ACT"><i class="fas fa-gamepad"></i> ACT</button>
+    </div>
+
+    <main>
+        <div class="card-container" id="image-gallery">
+            <!-- 动态生成的卡片将放在这里 -->
+        </div>
+        <div class="pagination" id="pagination">
+            <button id="prev"><i class="fas fa-chevron-left"></i> 上一页</button>
+            <button id="next">下一页 <i class="fas fa-chevron-right"></i></button>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-music">
+            <button id="prev-song"><i class="fas fa-step-backward"></i></button>
+            <button id="play-pause"><i class="fas fa-play"></i></button>
+            <button id="next-song"><i class="fas fa-step-forward"></i></button>
+            <audio id="audio-player" controls style="display:none;"></audio> <!-- 隐藏默认控件 -->
+        </div>
+        <p>@公司名称 | TX有限公司<br>电话：010-82971111<br>网址：www.txkuozhanban.com<br>客服热线：400-800-8888</p>
+        <p>地址：北京市海淀区西二旗路10号北京邮电大学西门</p>
+
+        <div class="footer-links">
+            <a href="#"><i class="fas fa-file-contract"></i> 用户协议</a> |
+            <a href="#"><i class="fas fa-shield-alt"></i> 隐私政策</a>
+        </div>
+    </footer>
+
+    <!-- 滚动到顶部按钮 -->
+    <button id="scroll-to-top" title="回到顶部"><i class="fas fa-arrow-up"></i></button>
+
+    <!-- 模态弹窗 -->
+    <div class="modal" id="ageModal">
+        <div class="modal-content">
+            <h2><i class="fas fa-exclamation-circle"></i> 年龄验证</h2>
+            <p>您是否已满18周岁？</p>
+            <div class="checkbox-container">
+                <input type="checkbox" id="agreeTerms">
+                <label for="agreeTerms">我同意 <a href="#">用户协议</a> 和 <a href="#">隐私政策</a></label>
+            </div>
+            <div class="modal-buttons">
+                <button id="confirmButton">是，我已满18周岁</button>
+                <button id="exitButton">否，我未满18周岁</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 页面加载动画
+        window.addEventListener('load', function () {
+            document.querySelector('.page-loader').style.display = 'none';
+        });
+
+        // 滚动到顶部按钮
+        const scrollToTopButton = document.getElementById('scroll-to-top');
+
+        window.addEventListener('scroll', function () {
+            if (window.pageYOffset > 300) {
+                scrollToTopButton.style.display = 'block';
+            } else {
+                scrollToTopButton.style.display = 'none';
+            }
+        });
+
+        scrollToTopButton.addEventListener('click', function () {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // 菜单按钮点击事件
+        const menuToggle = document.getElementById('menu-toggle');
+        const nav = document.querySelector('nav');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            nav.classList.toggle('active');
+        });
+
+        // 点击导航链接后关闭菜单
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                nav.classList.remove('active');
+            });
+        });
+
+        // 点击页面其他区域关闭菜单
+        document.addEventListener('click', (e) => {
+            if (!nav.contains(e.target) && !menuToggle.contains(e.target) && nav.classList.contains('active')) {
+                menuToggle.classList.remove('active');
+                nav.classList.remove('active');
+            }
+        });
+
+        const imageFolderPath = '封面/';
+        let totalImages = 200; // 总图片数
+        const imagesPerPage = 20; // 每页显示20张图片
+        let currentPage = 1;
+
+        // 获取图片画廊的容器
+        const imageGallery = document.getElementById('image-gallery');
+
+        // 获取分页按钮
+        const prevButton = document.getElementById('prev');
+        const nextButton = document.getElementById('next');
+
+        const tagButtons = document.querySelectorAll('.tag-button');
+        let currentTag = 'all'; // 存储当前选中的标签
+
+        // 添加标签按钮点击事件
+        tagButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // 移除所有按钮的active类
+                tagButtons.forEach(btn => btn.classList.remove('active'));
+                // 添加active类到当前点击的按钮
+                button.classList.add('active');
+
+                currentTag = button.getAttribute('data-tag');
+                currentPage = 1; // 重置到第一页
+                loadImages(currentTag); // 传递选中的标签
+                updateButtons(); // 更新分页按钮状态
+            });
+        });
+
+        function updateButtons() {
+            prevButton.disabled = currentPage === 1;
+            nextButton.disabled = currentPage * imagesPerPage >= totalImages;
+        }
+
+        prevButton.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                loadImages(currentTag); // 使用当前选中的标签
+                updateButtons();
+                window.scrollTo({
+                    top: document.querySelector('.card-container').offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            }
+        });
+
+        nextButton.addEventListener('click', () => {
+            if (currentPage * imagesPerPage < totalImages) {
+                currentPage++;
+                loadImages(currentTag); // 使用当前选中的标签
+                updateButtons();
+                window.scrollTo({
+                    top: document.querySelector('.card-container').offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            }
+        });
+
+        // 假设这是每张图片对应的价格数组
+        const links = [
+
+            { link: 'xiangqingye/[いくみ]いくみと温泉(ROM) [95P].html', price: '2021.01.11', tag: 'SLG' },
+            { link: 'xiangqingye/[雲少女写真] 写SchoolGirl.II [27P].html', price: '2021.01.11', tag: 'SLG' },
+            { link: 'xiangqingye/周叽是可爱兔兔 体操服 [31P].html', price: '2021.01.11', tag: 'SLG' },
+            { link: 'xiangqingye/Pure Media Vol.76 Song Hana[70P].html', price: '2021.01.11', tag: 'cos' },
+            { link: 'xiangqingye/虎森森 体操服 [36P].html', price: '2021.01.11', tag: 'SLG' },
+
+            { link: 'xiangqingye/木绵绵OwO NO.028 浴巾兔子 [42P].html', price: '2021.01.11', tag: 'SLG' },
+            { link: 'xiangqingye/肉肉番外[49P].html', price: '2021.01.11', tag: 'SLG' },
+            { link: 'xiangqingye/软妹摇摇乐[73P].html', price: '2021.01.11', tag: 'SLG' },
+            { link: 'xiangqingye/孙乐乐 [15P].html', price: '2021.01.11', tag: 'SLG' },
+            { link: 'xiangqingye/团子系列 工口少女 [66P].html', price: '2021.01.11', tag: 'SLG' },
+
+            { link: 'xiangqingye/Coser@周叽是可爱兔兔 Vol.012： 体操服 [31P].html', price: '2021.01.11', tag: 'SLG' },
+            { link: 'xiangqingye/逐月su-网吧历险记 [23P].html', price: '2021.01.11', tag: 'SLG' },
+            { link: 'xiangqingye/六味帝皇酱 - 溪水体操服 [60P].html', price: '2021.01.11', tag: 'SLG' },
+            { link: 'xiangqingye/六味帝皇酱午后少女 [84P].html', price: '2021.01.11', tag: 'SLG' },
+
+            { link: 'xiangqingye/[いくみ]いくみと温泉(ROM) [95P].html', price: '2021.01.11', tag: 'SLG' },
+            { link: 'xiangqingye/[雲少女写真] 写SchoolGirl.II [27P].html', price: '2021.01.11', tag: 'cos' },
+            { link: 'xiangqingye/周叽是可爱兔兔 体操服 [31P].html', price: '2021.01.11', tag: 'SLG' },
+            { link: 'xiangqingye/Pure Media Vol.76 Song Hana[70P].html', price: '2021.01.11', tag: 'SLG' },
+            { link: 'xiangqingye/虎森森 体操服 [36P].html', price: '2021.01.11', tag: 'SLG' },
+
+            { link: 'xiangqingye/木绵绵OwO NO.028 浴巾兔子 [42P].html', price: '2021.01.11', tag: 'SLG' },
+            { link: 'xiangqingye/肉肉番外[49P].html', price: '2021.01.11', tag: 'SLG' },
+            { link: 'xiangqingye/软妹摇摇乐[73P].html', price: '2021.01.11', tag: 'SLG' },
+            { link: 'xiangqingye/孙乐乐 [15P].html', price: '2021.01.11', tag: 'SLG' },
+            { link: 'xiangqingye/团子系列 工口少女 [66P].html', price: '2021.01.11', tag: 'SLG' },
+
+            { link: 'xiangqingye/Coser@周叽是可爱兔兔 Vol.012： 体操服 [31P].html', price: '2021.01.11', tag: 'SLG' },
+            { link: 'xiangqingye/逐月su-网吧历险记 [23P].html', price: '2021.01.11', tag: 'SLG' },
+            { link: 'xiangqingye/六味帝皇酱 - 溪水体操服 [60P].html', price: '2021.01.11', tag: 'SLG' },
+            { link: 'xiangqingye/六味帝皇酱午后少女 [84P].html', price: '2021.01.11', tag: 'SLG' },
+
+
+            { link: 'xiangqingye/[いくみ]いくみと温泉(ROM) [95P].html', price: '2021.01.11', tag: '安卓' },
+            { link: 'xiangqingye/[雲少女写真] 写SchoolGirl.II [27P].html', price: '2021.01.11', tag: 'SLG' },
+            { link: 'xiangqingye/周叽是可爱兔兔 体操服 [31P].html', price: '2021.01.11', tag: 'SLG' },
+            { link: 'xiangqingye/Pure Media Vol.76 Song Hana[70P].html', price: '2021.01.11', tag: 'SLG' },
+            { link: 'xiangqingye/虎森森 体操服 [36P].html', price: '2021.01.11', tag: 'SLG' },
+
+            { link: 'xiangqingye/木绵绵OwO NO.028 浴巾兔子 [42P].html', price: '2021.01.11', tag: 'SLG' },
+            { link: 'xiangqingye/肉肉番外[49P].html', price: '2021.01.11', tag: 'SLG' },
+            { link: 'xiangqingye/软妹摇摇乐[73P].html', price: '2021.01.11', tag: 'SLG' },
+            { link: 'xiangqingye/孙乐乐 [15P].html', price: '2021.01.11', tag: 'SLG' },
+            { link: 'xiangqingye/团子系列 工口少女 [66P].html', price: '2021.01.11', tag: 'SLG' },
+
+            { link: 'xiangqingye/Coser@周叽是可爱兔兔 Vol.012： 体操服 [31P].html', price: '2021.01.11', tag: 'SLG' },
+            { link: 'xiangqingye/逐月su-网吧历险记 [23P].html', price: '2021.01.11', tag: 'SLG' },
+            { link: 'xiangqingye/六味帝皇酱 - 溪水体操服 [60P].html', price: '2021.01.11', tag: 'cos' },
+            { link: 'xiangqingye/六味帝皇酱午后少女 [84P].html', price: '2021.01.11', tag: 'SLG' },
+
+
+
+
+
+            // 继续添加链接，价格和标签
+            // ... 其他链接 ...
+        ];
+
+        function searchLinks() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = ''; // 清空之前的结果
+
+            // 如果输入为空，直接返回，不显示任何结果
+            if (input === '') {
+                resultDiv.style.display = 'none';
+                return;
+            }
+
+            let matchFound = false;
+            links.forEach(linkItem => {
+                // 提取标题，即去掉 'xiangqingye/' 和 '.html'
+                const title = linkItem.link.replace('youxixiangqing/', '').replace('xiangqingye1/', '').replace('xiangqingye/', '').replace('.html', '');
+
+                if (title.toLowerCase().includes(input)) {
+                    matchFound = true;
+                    const div = document.createElement('div');
+                    const link = document.createElement('a');
+                    link.href = linkItem.link; // 连接到原始链接
+                    link.target = '_blank'; // 在新窗口打开链接
+                    link.textContent = title; // 显示提取后的标题
+                    div.appendChild(link); // 将链接添加到 div
+                    resultDiv.appendChild(div); // 将 div 添加到结果区域
+                }
+            });
+
+            // 显示或隐藏结果框
+            resultDiv.style.display = matchFound ? 'block' : 'none';
+
+            // 如果没有匹配项，显示提示
+            if (!matchFound && input.length > 0) {
+                const noResult = document.createElement('div');
+                noResult.textContent = '没有找到匹配的内容';
+                noResult.style.textAlign = 'center';
+                noResult.style.padding = '15px';
+                noResult.style.color = '#999';
+                resultDiv.appendChild(noResult);
+                resultDiv.style.display = 'block';
+            }
+        }
+
+        // 添加点击搜索图标触发搜索
+        document.getElementById('searchIcon').addEventListener('click', searchLinks);
+
+        // 添加点击页面其他区域隐藏搜索结果
+        document.addEventListener('click', function (event) {
+            const searchContainer = document.querySelector('.search-container');
+            const resultDiv = document.getElementById('result');
+            if (!searchContainer.contains(event.target)) {
+                resultDiv.style.display = 'none';
+            }
+        });
+
+        // 添加输入事件监听，实时搜索
+        document.getElementById('searchInput').addEventListener('input', function () {
+            searchLinks();
+        });
+
+        // 按下ESC键隐藏搜索结果
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                document.getElementById('result').style.display = 'none';
+            }
+        });
+
+        // 修改loadImages函数
+        function loadImages(selectedTag = 'all') {
+            imageGallery.innerHTML = ''; // 清空图片容器
+
+            // 计算符合当前标签的卡片总数（用于分页）
+            const filteredLinks = links.filter(link => selectedTag === 'all' || link.tag === selectedTag);
+            totalImages = filteredLinks.length;
+
+            const startIndex = (currentPage - 1) * imagesPerPage;
+            let cardCount = 0; // 追踪当前页面已添加的卡片数
+
+            // 遍历所有链接
+            for (let i = 0; i < links.length && cardCount < imagesPerPage; i++) {
+                if (selectedTag !== 'all' && links[i].tag !== selectedTag) {
+                    continue; // 如果标签不匹配，则跳过
+                }
+
+                // 计算当前标签筛选后的索引位置
+                const filteredIndex = filteredLinks.indexOf(links[i]);
+                if (filteredIndex < startIndex || filteredIndex >= startIndex + imagesPerPage) {
+                    continue; // 不在当前页的范围内
+                }
+
+                cardCount++;
+
+                const card = document.createElement('div');
+                card.classList.add('card');
+
+                const link = document.createElement('a');
+                link.href = links[i].link; // 设置链接
+                link.target = '_blank'; // 在新窗口打开链接
+                link.style.textDecoration = 'none'; // 清除链接下划线
+
+                const img = document.createElement('img');
+                img.src = `${imageFolderPath}${i + 1}.jpg`; // 根据图片路径
+                img.alt = links[i].link.replace('youxixiangqing/', '').replace('xiangqingye1/', '').replace('xiangqingye/', '').replace('.html', '');
+
+                const title = links[i].link.replace('youxixiangqing/', '').replace('xiangqingye1/', '').replace('xiangqingye/', '').replace('.html', '');
+                const titleElement = document.createElement('h3');
+                titleElement.textContent = title;
+                titleElement.classList.add('title'); // 添加类名以应用样式限制
+
+                const priceElement = document.createElement('p');
+                priceElement.textContent = links[i].price;
+                priceElement.classList.add('price');
+
+                link.appendChild(img);
+                link.appendChild(titleElement);
+                link.appendChild(priceElement);
+                card.appendChild(link); // 将链接加入卡片
+
+                imageGallery.appendChild(card); // 添加卡片到画廊
+            }
+
+            updateButtons(); // 每次加载完图片后更新按钮状态
+        }
+
+        // 在初始化时加载所有图片并激活"所有"按钮
+        document.querySelector('[data-tag="all"]').classList.add('active');
+        loadImages('all'); // 初始化加载图片
+        updateButtons(); // 初始化按钮状态
+
+        // 定义广告图片数据，三组图片
+        const adImages = [
+            ['../image1/广告图/1.jpg', '../image1/广告图/2.jpg', '../image1/广告图/3.jpg'], // 第一组
+            ['../image1/广告图/3.jpg', '../image1/广告图/1.jpg', '../image1/广告图/2.jpg'], // 第二组
+            ['../image1/广告图/2.jpg', '../image1/广告图/3.jpg', '../image1/广告图/1.jpg']  // 第三组
+
+
+        ];
+
+        // 定义广告链接
+        const adLinks = [
+            ['https://example.com/ad1', 'https://example.com/ad2', 'https://example.com/ad3'],
+            ['https://example.com/ad4', 'https://example.com/ad5', 'https://example.com/ad6'],
+            ['https://example.com/ad7', 'https://example.com/ad8', 'https://example.com/ad9']
+        ];
+
+        let currentIndex = 0; // 当前显示的图片索引
+
+        // 获取广告轮播容器
+        const slideshow = document.getElementById('ad-slideshow');
+
+        function loadAds() {
+            // 清空广告轮播容器
+            slideshow.innerHTML = '';
+
+            // 动态生成广告图片，每次显示三组的相应索引的图片
+            for (let i = 0; i < adImages.length; i++) {
+                const imgElement = document.createElement('img');
+                imgElement.src = adImages[i][currentIndex]; // 获取当前组的当前索引的图片
+
+                const linkElement = document.createElement('a');
+                linkElement.href = adLinks[i][currentIndex]; // 设置链接
+                linkElement.target = '_blank'; // 在新窗口打开
+                linkElement.appendChild(imgElement);
+
+                slideshow.appendChild(linkElement); // 添加链接及图片到广告轮播容器
+            }
+
+            // 更新索引
+            currentIndex = (currentIndex + 1) % adImages[0].length; // 循环显示每组的图片
+        }
+
+        // 3秒切换一次广告图片
+        setInterval(loadAds, 3000);
+
+        // 初始化加载广告
+        loadAds();
+
+        const songs = [
+
+            '路径MP3',
+            '路径MP3'
+            // 添加更多歌曲路径
+        ];
+
+        let currentSongIndex = 0;
+        const audioPlayer = document.getElementById('audio-player');
+        const playPauseButton = document.getElementById('play-pause');
+        const prevSongButton = document.getElementById('prev-song');
+        const nextSongButton = document.getElementById('next-song');
+
+        function loadSong(index) {
+            audioPlayer.src = songs[index];
+            audioPlayer.play();
+            playPauseButton.innerHTML = '<i class="fas fa-pause"></i>';
+        }
+
+        playPauseButton.addEventListener('click', () => {
+            if (audioPlayer.paused) {
+                audioPlayer.play();
+                playPauseButton.innerHTML = '<i class="fas fa-pause"></i>';
+            } else {
+                audioPlayer.pause();
+                playPauseButton.innerHTML = '<i class="fas fa-play"></i>';
+            }
+        });
+
+        prevSongButton.addEventListener('click', () => {
+            currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+            loadSong(currentSongIndex);
+        });
+
+        nextSongButton.addEventListener('click', () => {
+            currentSongIndex = (currentSongIndex + 1) % songs.length;
+            loadSong(currentSongIndex);
+        });
+
+        // 音频播放结束时自动播放下一首
+        audioPlayer.addEventListener('ended', () => {
+            currentSongIndex = (currentSongIndex + 1) % songs.length;
+            loadSong(currentSongIndex);
+        });
+
+        // 初始化加载第一首歌
+        loadSong(currentSongIndex);
+
+        // 获取模态弹窗和按钮
+        const ageModal = document.getElementById('ageModal');
+        const confirmButton = document.getElementById('confirmButton');
+        const exitButton = document.getElementById('exitButton');
+        const agreeTerms = document.getElementById('agreeTerms');
+
+        // 显示模态弹窗
+        window.onload = function () {
+            // 检查用户是否已经确认过年龄
+            if (!localStorage.getItem('ageConfirmed')) {
+                ageModal.style.display = 'flex';
+            }
+        };
+
+        // 点击"是"按钮
+        confirmButton.addEventListener('click', () => {
+            if (agreeTerms.checked) {
+                ageModal.style.display = 'none'; // 隐藏模态弹窗
+                localStorage.setItem('ageConfirmed', 'true'); // 记录用户已确认
+            } else {
+                alert('请同意用户协议和隐私政策');
+            }
+        });
+
+        // 点击"否"按钮
+        exitButton.addEventListener('click', () => {
+            localStorage.setItem('ageConfirmed', 'true'); // 记录用户已确认
+            window.location.href = 'https://www.google.com'; // 重定向到其他网站
+        });
+    </script>
+</body>
+
+</html>
