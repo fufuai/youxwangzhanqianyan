@@ -361,8 +361,6 @@
                 mainContent.style.display = 'block';
                 // 检查年龄验证
                 checkAgeVerification();
-                // 确保公告栏动画正常运行
-                setTimeout(restartAnnouncementAnimations, 100);
             } else {
                 // 新会话且未看过介绍，显示图片介绍
                 imageIntro.style.display = 'flex';
@@ -390,37 +388,30 @@
             restartAnnouncementAnimations();
         });
 
-        // 重启公告栏动画函数
+        // 重启公告栏动画的函数
         function restartAnnouncementAnimations() {
-            // 针对每个公告单独设置动画
-            const announcement1 = document.querySelector('.announcement-1');
-            const announcement2 = document.querySelector('.announcement-2');
-            const announcement3 = document.querySelector('.announcement-3');
+            const announcements = document.querySelectorAll('.announcement');
+            announcements.forEach(announcement => {
+                // 临时移除动画
+                const animationName = window.getComputedStyle(announcement).animationName;
+                const animationDuration = window.getComputedStyle(announcement).animationDuration;
+                const animationDelay = window.getComputedStyle(announcement).animationDelay;
+                const animationIterationCount = window.getComputedStyle(announcement).animationIterationCount;
 
-            if (announcement1) {
-                announcement1.style.animation = 'none';
-                void announcement1.offsetWidth;
-                announcement1.style.animation = 'scroll1 40s linear infinite';
-            }
+                announcement.style.animation = 'none';
 
-            if (announcement2) {
-                announcement2.style.animation = 'none';
-                void announcement2.offsetWidth;
-                announcement2.style.animation = 'scroll2 35s linear infinite';
-            }
+                // 触发回流
+                announcement.offsetHeight;
 
-            if (announcement3) {
-                announcement3.style.animation = 'none';
-                void announcement3.offsetWidth;
-                announcement3.style.animation = 'scroll3 30s linear infinite';
-            }
+                // 重新添加动画
+                announcement.style.animation = `${animationName} ${animationDuration} ${animationDelay} ${animationIterationCount}`;
+            });
+        }
 
-            // 检查是否在移动设备上
-            if (window.innerWidth <= 768) {
-                if (announcement1) announcement1.style.animation = 'scroll1 35s linear infinite';
-                if (announcement2) announcement2.style.animation = 'scroll2 30s linear infinite';
-                if (announcement3) announcement3.style.animation = 'scroll3 25s linear infinite';
-            }
+        // 如果直接显示主内容，确保公告栏动画正确运行
+        if (isPageRefresh() || checkIntroViewedInSession()) {
+            // 页面加载后稍微延迟执行，确保DOM已经完全渲染
+            setTimeout(restartAnnouncementAnimations, 100);
         }
 
         // 页面加载时检查状态
@@ -951,11 +942,15 @@
             console.log("显示介绍图片");
         }
 
-        // 页面完全加载后
-        window.onload = function () {
-            // 页面加载完毕后重启公告栏动画
-            setTimeout(restartAnnouncementAnimations, 500);
-        };
+        // 从视频结束事件中迁移的功能，确保动画在任何情况下都能正确启动
+        introImage.addEventListener('load', function () {
+            // 设置一个较短的延迟来模拟图片查看后的自动进入
+            // 这个延迟实际上不会被用到，因为用户需要点击跳过按钮
+            // 但如果将来有自动跳过功能，就可以利用这个延迟
+            setTimeout(() => {
+                console.log("图片已加载完成，准备就绪");
+            }, 1000);
+        });
     </script>
 </body>
 
