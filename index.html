@@ -52,7 +52,7 @@
         }
 
         /* 视频介绍部分 */
-        #video-intro {
+        #image-intro {
             position: fixed;
             top: 0;
             left: 0;
@@ -71,26 +71,26 @@
         }
 
         /* 滚动条样式美化 */
-        #video-intro::-webkit-scrollbar {
+        #image-intro::-webkit-scrollbar {
             width: 8px;
         }
 
-        #video-intro::-webkit-scrollbar-track {
+        #image-intro::-webkit-scrollbar-track {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
         }
 
-        #video-intro::-webkit-scrollbar-thumb {
+        #image-intro::-webkit-scrollbar-thumb {
             background: rgba(255, 255, 255, 0.3);
             border-radius: 10px;
         }
 
-        #video-intro::-webkit-scrollbar-thumb:hover {
+        #image-intro::-webkit-scrollbar-thumb:hover {
             background: rgba(255, 255, 255, 0.5);
         }
 
         /* 视频页面内容容器 */
-        .video-intro-content {
+        .image-intro-content {
             width: 100%;
             max-width: 1200px;
             padding: 20px 0;
@@ -100,20 +100,12 @@
             align-items: center;
         }
 
-        #intro-video {
+        #intro-image {
             max-width: 100%;
             max-height: 70vh;
             margin-bottom: 20px;
-        }
-
-        /* 隐藏视频时长 */
-        video::-webkit-media-controls-time-remaining-display,
-        video::-webkit-media-controls-current-time-display {
-            display: none !important;
-        }
-
-        video::-webkit-media-controls-timeline {
-            margin-right: 0 !important;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.3);
         }
 
         #skip-intro {
@@ -144,14 +136,14 @@
                 font-size: 18px;
             }
 
-            #intro-video {
+            #intro-image {
                 max-width: 100%;
                 max-height: 50vh;
                 margin-bottom: 10px;
             }
         }
 
-        .video-title {
+        .image-title {
             color: #ff9ecb;
             font-size: 2.5em;
             margin-bottom: 15px;
@@ -160,7 +152,7 @@
             text-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
         }
 
-        .video-description {
+        .image-description {
             color: #f0f0f0;
             font-size: 1.2em;
             text-align: center;
@@ -177,21 +169,18 @@
 
 <body>
     <!-- 视频介绍部分 -->
-    <div id="video-intro">
-        <div class="video-intro-content">
-            <h1 class="video-title">成人游戏天堂</h1>
-            <p class="video-description">这里为您呈现最精彩的成人游戏资源，满足您的一切幻想。每款游戏都经过精心挑选，确保为您带来极致体验。</p>
-            <video id="intro-video" controls preload="none">
-                <source src="/videx/1.mp4" type="video/mp4">
-                您的浏览器不支持视频标签。
-            </video>
+    <div id="image-intro">
+        <div class="image-intro-content">
+            <h1 class="image-title">成人游戏天堂</h1>
+            <p class="image-description">这里为您呈现最精彩的成人游戏资源，满足您的一切幻想。每款游戏都经过精心挑选，确保为您带来极致体验。</p>
+            <img id="intro-image" src="image1/[Espacia Korea]/19.jpg" alt="成人游戏介绍图片">
             <button id="skip-intro">立即进入</button>
-            <p class="video-description">点击上方按钮开始您的私密探索之旅，发现更多刺激内容！</p>
+            <p class="image-description">点击上方按钮开始您的私密探索之旅，发现更多刺激内容！</p>
 
             <!-- 添加额外内容以测试滚动效果 -->
             <div class="extra-content">
                 <h2 style="color: #ff9ecb; text-align: center; margin-top: 30px;">热门游戏分类</h2>
-                <p class="video-description">
+                <p class="image-description">
                     我们为您精选了多种类型的成人游戏，包括角色扮演(RPG)、模拟(SLG)、冒险(ADV)和动作(ACT)等，
                     满足您不同的喜好和幻想。所有游戏均支持PC或安卓平台，随时随地享受乐趣。
                 </p>
@@ -341,14 +330,14 @@
 
     <script>
         // 视频介绍控制
-        const introVideo = document.getElementById('intro-video');
-        const videoIntro = document.getElementById('video-intro');
+        const introImage = document.getElementById('intro-image');
+        const imageIntro = document.getElementById('image-intro');
         const skipIntro = document.getElementById('skip-intro');
         const mainContent = document.getElementById('main-content');
 
-        // 检查当前会话是否已经看过视频（只在当前会话有效，关闭页面后失效）
-        function checkVideoWatchedInSession() {
-            return sessionStorage.getItem('videoWatchedInSession') === 'true';
+        // 检查当前会话是否已经看过介绍（只在当前会话有效，关闭页面后失效）
+        function checkIntroViewedInSession() {
+            return sessionStorage.getItem('introViewedInSession') === 'true';
         }
 
         // 检查页面是否被刷新
@@ -359,22 +348,22 @@
                 window.performance.navigation.type === 1;
         }
 
-        // 设置当前会话已经看过视频
-        function setVideoWatchedInSession() {
-            sessionStorage.setItem('videoWatchedInSession', 'true');
+        // 设置当前会话已经看过介绍
+        function setIntroViewedInSession() {
+            sessionStorage.setItem('introViewedInSession', 'true');
         }
 
         // 根据情况决定显示内容
         function showAppropriateContent() {
-            if (isPageRefresh() || checkVideoWatchedInSession()) {
-                // 如果是页面刷新或已在当前会话看过视频，直接显示主内容
-                videoIntro.style.display = 'none';
+            if (isPageRefresh() || checkIntroViewedInSession()) {
+                // 如果是页面刷新或已在当前会话看过介绍，直接显示主内容
+                imageIntro.style.display = 'none';
                 mainContent.style.display = 'block';
                 // 检查年龄验证
                 checkAgeVerification();
             } else {
-                // 新会话且未看过视频，显示视频介绍
-                videoIntro.style.display = 'flex';
+                // 新会话且未看过介绍，显示图片介绍
+                imageIntro.style.display = 'flex';
                 mainContent.style.display = 'none';
             }
         }
@@ -387,104 +376,19 @@
             }
         }
 
-        // 视频播放完成后显示主内容
-        introVideo.addEventListener('ended', function () {
-            videoIntro.style.display = 'none';
-            mainContent.style.display = 'block';
-            // 设置当前会话已经看过视频
-            setVideoWatchedInSession();
-            // 检查年龄验证
-            checkAgeVerification();
-        });
-
         // 点击跳过按钮
         skipIntro.addEventListener('click', function () {
-            videoIntro.style.display = 'none';
+            imageIntro.style.display = 'none';
             mainContent.style.display = 'block';
-            // 设置当前会话已经看过视频
-            setVideoWatchedInSession();
+            // 设置当前会话已经看过介绍
+            setIntroViewedInSession();
             // 检查年龄验证
             checkAgeVerification();
         });
 
-        // 页面加载时检查视频状态
+        // 页面加载时检查状态
         document.addEventListener('DOMContentLoaded', function () {
             showAppropriateContent();
-
-            // 确保隐藏视频时长显示
-            const videoElement = document.getElementById('intro-video');
-            if (videoElement) {
-                // 尝试移除所有时间显示元素
-                const hideTimeElements = function () {
-                    // 尝试查找并隐藏时间显示元素
-                    const mediaControls = videoElement.shadowRoot
-                        ? videoElement.shadowRoot.querySelector('.media-controls')
-                        : null;
-
-                    if (mediaControls) {
-                        const timeElements = mediaControls.querySelectorAll('.time-display, .time-remaining-display, .current-time-display');
-                        timeElements.forEach(el => {
-                            el.style.display = 'none';
-                        });
-                    }
-                };
-
-                // 尝试多次调用以确保隐藏（有些浏览器可能延迟加载控件）
-                hideTimeElements();
-                setTimeout(hideTimeElements, 500);
-                setTimeout(hideTimeElements, 1000);
-            }
-
-            // 删除视频自动播放尝试的代码，让用户可以直接点击"立即进入"按钮跳过介绍
-        });
-
-        // 页面加载动画
-        window.addEventListener('load', function () {
-            document.querySelector('.page-loader').style.display = 'none';
-        });
-
-        // 滚动到顶部按钮
-        const scrollToTopButton = document.getElementById('scroll-to-top');
-
-        window.addEventListener('scroll', function () {
-            if (window.pageYOffset > 300) {
-                scrollToTopButton.style.display = 'block';
-            } else {
-                scrollToTopButton.style.display = 'none';
-            }
-        });
-
-        scrollToTopButton.addEventListener('click', function () {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-
-        // 菜单按钮点击事件
-        const menuToggle = document.getElementById('menu-toggle');
-        const nav = document.querySelector('nav');
-
-        menuToggle.addEventListener('click', () => {
-            menuToggle.classList.toggle('active');
-            nav.classList.toggle('active');
-        });
-
-        // 点击导航链接后关闭菜单
-        const navLinks = document.querySelectorAll('nav a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                menuToggle.classList.remove('active');
-                nav.classList.remove('active');
-            });
-        });
-
-        // 点击页面其他区域关闭菜单
-        document.addEventListener('click', (e) => {
-            if (!nav.contains(e.target) && !menuToggle.contains(e.target) && nav.classList.contains('active')) {
-                menuToggle.classList.remove('active');
-                nav.classList.remove('active');
-            }
         });
 
         const imageFolderPath = '封面/';
@@ -955,6 +859,60 @@
             localStorage.setItem('ageConfirmed', 'true'); // 记录用户已确认
             window.location.href = 'https://www.google.com'; // 重定向到其他网站
         });
+
+        // 页面加载动画
+        window.addEventListener('load', function () {
+            document.querySelector('.page-loader').style.display = 'none';
+        });
+
+        // 滚动到顶部按钮
+        const scrollToTopButton = document.getElementById('scroll-to-top');
+
+        window.addEventListener('scroll', function () {
+            if (window.pageYOffset > 300) {
+                scrollToTopButton.style.display = 'block';
+            } else {
+                scrollToTopButton.style.display = 'none';
+            }
+        });
+
+        scrollToTopButton.addEventListener('click', function () {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // 菜单按钮点击事件
+        const menuToggle = document.getElementById('menu-toggle');
+        const nav = document.querySelector('nav');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            nav.classList.toggle('active');
+        });
+
+        // 点击导航链接后关闭菜单
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                nav.classList.remove('active');
+            });
+        });
+
+        // 点击页面其他区域关闭菜单
+        document.addEventListener('click', (e) => {
+            if (!nav.contains(e.target) && !menuToggle.contains(e.target) && nav.classList.contains('active')) {
+                menuToggle.classList.remove('active');
+                nav.classList.remove('active');
+            }
+        });
+
+        // 如果需要显示介绍，从当前已知的图片中选择一张
+        if (!isPageRefresh() && !checkIntroViewedInSession()) {
+            console.log("显示介绍图片");
+        }
     </script>
 </body>
 
