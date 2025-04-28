@@ -181,7 +181,7 @@
         <div class="video-intro-content">
             <h1 class="video-title">成人游戏天堂</h1>
             <p class="video-description">这里为您呈现最精彩的成人游戏资源，满足您的一切幻想。每款游戏都经过精心挑选，确保为您带来极致体验。</p>
-            <video id="intro-video" controls autoplay>
+            <video id="intro-video" controls preload="none">
                 <source src="/videx/1.mp4" type="video/mp4">
                 您的浏览器不支持视频标签。
             </video>
@@ -435,46 +435,7 @@
                 setTimeout(hideTimeElements, 1000);
             }
 
-            // 如果需要显示视频，尝试自动播放
-            if (!isPageRefresh() && !checkVideoWatchedInSession()) {
-                // 尝试直接自动播放带声音的视频
-                const playPromise = introVideo.play();
-
-                if (playPromise !== undefined) {
-                    playPromise.then(function () {
-                        console.log("视频自动播放成功（带声音）");
-                        // 视频成功自动播放
-                    }).catch(function (error) {
-                        console.log("带声音自动播放失败，尝试其他方法: ", error);
-
-                        // 尝试使用用户交互来解锁音频
-                        const unlockButton = document.createElement('button');
-                        unlockButton.textContent = '点击开始播放';
-                        unlockButton.style.position = 'absolute';
-                        unlockButton.style.top = '50%';
-                        unlockButton.style.left = '50%';
-                        unlockButton.style.transform = 'translate(-50%, -50%)';
-                        unlockButton.style.padding = '15px 25px';
-                        unlockButton.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
-                        unlockButton.style.color = 'black';
-                        unlockButton.style.border = 'none';
-                        unlockButton.style.borderRadius = '5px';
-                        unlockButton.style.cursor = 'pointer';
-                        unlockButton.style.fontSize = '20px';
-                        unlockButton.style.zIndex = '1010';
-
-                        unlockButton.addEventListener('click', function () {
-                            introVideo.play();
-                            this.remove();
-                        });
-
-                        videoIntro.appendChild(unlockButton);
-                    });
-                } else {
-                    // 旧浏览器或不支持Promise的情况
-                    console.log("浏览器不支持Promise方式的视频播放");
-                }
-            }
+            // 删除视频自动播放尝试的代码，让用户可以直接点击"立即进入"按钮跳过介绍
         });
 
         // 页面加载动画
