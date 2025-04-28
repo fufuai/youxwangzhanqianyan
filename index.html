@@ -4,8 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="format-detection" content="telephone=no">
     <title>LIANG NV BA</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="global-fonts.css">
@@ -106,42 +104,6 @@
             max-width: 100%;
             max-height: 70vh;
             margin-bottom: 20px;
-            background-color: #000;
-            /* 添加背景色以防止透明视频 */
-            object-fit: contain;
-            /* 确保视频适应容器 */
-        }
-
-        /* 移动设备视频播放按钮样式 */
-        .mobile-play-button {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 15px 30px;
-            background-color: rgba(255, 105, 180, 0.8);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 20px;
-            cursor: pointer;
-            z-index: 2000;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: translate(-50%, -50%) scale(1);
-            }
-
-            50% {
-                transform: translate(-50%, -50%) scale(1.05);
-            }
-
-            100% {
-                transform: translate(-50%, -50%) scale(1);
-            }
         }
 
         /* 隐藏视频时长 */
@@ -187,17 +149,6 @@
                 max-height: 50vh;
                 margin-bottom: 10px;
             }
-
-            /* 为移动设备添加强调样式，确保视频容器有可见边界 */
-            .video-intro-content {
-                padding: 10px;
-            }
-
-            /* 为视频容器添加明显的边框和背景，以便调试 */
-            #intro-video {
-                border: 1px solid rgba(255, 255, 255, 0.2);
-                background-color: #000;
-            }
         }
 
         .video-title {
@@ -230,9 +181,8 @@
         <div class="video-intro-content">
             <h1 class="video-title">成人游戏天堂</h1>
             <p class="video-description">这里为您呈现最精彩的成人游戏资源，满足您的一切幻想。每款游戏都经过精心挑选，确保为您带来极致体验。</p>
-            <video id="intro-video" controls preload="auto" poster="封面/1.jpg" playsinline webkit-playsinline muted>
-                <source src="./videx/1.mp4" type="video/mp4">
-                <source src="./videx/20250405_2338452025420315551.webm" type="video/webm">
+            <video id="intro-video" controls autoplay>
+                <source src="/videx/1.mp4" type="video/mp4">
                 您的浏览器不支持视频标签。
             </video>
             <button id="skip-intro">立即进入</button>
@@ -451,8 +401,6 @@
         skipIntro.addEventListener('click', function () {
             videoIntro.style.display = 'none';
             mainContent.style.display = 'block';
-            // 暂停视频以释放资源
-            introVideo.pause();
             // 设置当前会话已经看过视频
             setVideoWatchedInSession();
             // 检查年龄验证
@@ -463,144 +411,69 @@
         document.addEventListener('DOMContentLoaded', function () {
             showAppropriateContent();
 
-            // 如果需要显示视频，使用更可靠的方式尝试播放
+            // 确保隐藏视频时长显示
+            const videoElement = document.getElementById('intro-video');
+            if (videoElement) {
+                // 尝试移除所有时间显示元素
+                const hideTimeElements = function () {
+                    // 尝试查找并隐藏时间显示元素
+                    const mediaControls = videoElement.shadowRoot
+                        ? videoElement.shadowRoot.querySelector('.media-controls')
+                        : null;
+
+                    if (mediaControls) {
+                        const timeElements = mediaControls.querySelectorAll('.time-display, .time-remaining-display, .current-time-display');
+                        timeElements.forEach(el => {
+                            el.style.display = 'none';
+                        });
+                    }
+                };
+
+                // 尝试多次调用以确保隐藏（有些浏览器可能延迟加载控件）
+                hideTimeElements();
+                setTimeout(hideTimeElements, 500);
+                setTimeout(hideTimeElements, 1000);
+            }
+
+            // 如果需要显示视频，尝试自动播放
             if (!isPageRefresh() && !checkVideoWatchedInSession()) {
-                // 添加可见性监听，当页面可见时尝试播放
-                if (document.visibilityState === 'visible') {
-                    playVideoWithFallback();
-                } else {
-                    document.addEventListener('visibilitychange', function onVisibilityChange() {
-                        if (document.visibilityState === 'visible') {
-                            playVideoWithFallback();
-                            document.removeEventListener('visibilitychange', onVisibilityChange);
-                        }
+                // 尝试直接自动播放带声音的视频
+                const playPromise = introVideo.play();
+
+                if (playPromise !== undefined) {
+                    playPromise.then(function () {
+                        console.log("视频自动播放成功（带声音）");
+                        // 视频成功自动播放
+                    }).catch(function (error) {
+                        console.log("带声音自动播放失败，尝试其他方法: ", error);
+
+                        // 尝试使用用户交互来解锁音频
+                        const unlockButton = document.createElement('button');
+                        unlockButton.textContent = '点击开始播放';
+                        unlockButton.style.position = 'absolute';
+                        unlockButton.style.top = '50%';
+                        unlockButton.style.left = '50%';
+                        unlockButton.style.transform = 'translate(-50%, -50%)';
+                        unlockButton.style.padding = '15px 25px';
+                        unlockButton.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+                        unlockButton.style.color = 'black';
+                        unlockButton.style.border = 'none';
+                        unlockButton.style.borderRadius = '5px';
+                        unlockButton.style.cursor = 'pointer';
+                        unlockButton.style.fontSize = '20px';
+                        unlockButton.style.zIndex = '1010';
+
+                        unlockButton.addEventListener('click', function () {
+                            introVideo.play();
+                            this.remove();
+                        });
+
+                        videoIntro.appendChild(unlockButton);
                     });
+                } else {
+                    // 旧浏览器或不支持Promise的情况
+                    console.log("浏览器不支持Promise方式的视频播放");
                 }
-
-                // 为移动设备添加触摸监听，通过用户交互解锁播放
-                document.addEventListener('touchstart', function playOnFirstTouch() {
-                    playVideoWithFallback();
-                    document.removeEventListener('touchstart', playOnFirstTouch);
-                }, { once: true });
-            }
-        });
-
-        // 添加新的函数用于处理视频播放的各种回退方案
-        function playVideoWithFallback() {
-            console.log('尝试播放视频');
-            const introVideo = document.getElementById('intro-video');
-            introVideo.muted = true;
-
-            console.log('视频准备状态:', introVideo.readyState);
-
-            // 确保视频源路径正确
-            const sources = introVideo.querySelectorAll('source');
-            sources.forEach(source => {
-                if (!source.src.startsWith('./') && !source.src.startsWith('http')) {
-                    source.src = `./${source.src.replace(/^\//, '')}`;
-                }
-            });
-
-            // 如果视频尚未加载，强制重新加载
-            if (introVideo.readyState === 0) {
-                introVideo.load();
-
-                // 如果3秒后视频仍未加载，显示播放按钮
-                setTimeout(function () {
-                    if (introVideo.readyState < 2) {
-                        showPlayButton();
-                    }
-                }, 3000);
-            }
-
-            // 检查视频是否已加载并准备好播放
-            if (introVideo.readyState >= 2) {
-                attemptPlayback();
-            } else {
-                introVideo.addEventListener('loadeddata', attemptPlayback, { once: true });
-            }
-        }
-
-        function showPlayButton() {
-            const introVideo = document.getElementById('intro-video');
-            const videoContainer = introVideo.parentElement;
-
-            // 防止创建多个按钮
-            if (document.querySelector('.mobile-play-button')) {
-                return;
-            }
-
-            // 创建明显的播放按钮
-            const playButton = document.createElement('button');
-            playButton.textContent = '点击播放视频';
-            playButton.className = 'mobile-play-button';
-            playButton.style.position = 'absolute';
-            playButton.style.top = '50%';
-            playButton.style.left = '50%';
-            playButton.style.transform = 'translate(-50%, -50%)';
-            playButton.style.padding = '15px 30px';
-            playButton.style.backgroundColor = 'rgba(255, 105, 180, 0.8)';
-            playButton.style.color = 'white';
-            playButton.style.border = 'none';
-            playButton.style.borderRadius = '5px';
-            playButton.style.fontSize = '20px';
-            playButton.style.cursor = 'pointer';
-            playButton.style.zIndex = '2000';
-
-            playButton.addEventListener('click', function () {
-                playButton.textContent = '加载中...';
-
-                // 尝试播放视频
-                introVideo.muted = true;
-                introVideo.play().then(function () {
-                    playButton.remove();
-                    setTimeout(() => { introVideo.muted = false; }, 1000);
-                }).catch(function (error) {
-                    console.error('点击后播放失败:', error);
-                    playButton.textContent = '无法播放，点击跳过';
-                    playButton.onclick = function () {
-                        const skipIntro = document.getElementById('skip-intro');
-                        skipIntro.click();
-                    };
-                });
-            });
-
-            videoContainer.style.position = 'relative';
-            videoContainer.appendChild(playButton);
-        }
-
-        function attemptPlayback() {
-            const introVideo = document.getElementById('intro-video');
-            const playPromise = introVideo.play();
-
-            if (playPromise !== undefined) {
-                playPromise.then(function () {
-                    console.log("视频自动播放成功");
-                }).catch(function (error) {
-                    console.error("自动播放失败:", error);
-                    showPlayButton();
-                });
-            } else {
-                showPlayButton();
-            }
-        }
-
-        // 在页面底部添加这段代码以确保视频在iOS Safari上能播放
-        document.addEventListener('DOMContentLoaded', function () {
-            // 处理iOS Safari特别的播放问题
-            if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-                const video = document.getElementById('intro-video');
-                video.setAttribute('playsinline', '');
-                video.setAttribute('webkit-playsinline', '');
-
-                // 确保视频路径正确
-                const sources = video.querySelectorAll('source');
-                sources.forEach(source => {
-                    if (source.src.startsWith('/')) {
-                        source.src = source.src.replace(/^\//, '');
-                    }
-                });
-                video.load();
             }
         });
 
@@ -849,6 +722,10 @@
             { link: 'youxixiangqing/SLG像素互动中文职场的30天 官方中文版+存档【新作490M】.html', price: '2021.01.11', tag: ['SLG', 'PC',] },
 
 
+            { link: 'youxixiangqing/SLG情欲风暴Ep1va1.0.2汉化版【PC+安卓更新】.html', price: '2021.01.11', tag: ['SLG', 'PC', '安卓'] },
+            { link: 'youxixiangqing/SLG欲望小镇0.85AI版【PC+安卓更新】.html', price: '2021.01.11', tag: ['SLG', 'PC', '安卓'] },
+            { link: 'youxixiangqing/SLG欲望学院S2第二季AI版【PC+安卓更新】.html', price: '2021.01.11', tag: ['SLG', 'PC', '安卓'] },
+            { link: 'youxixiangqing/SLG欲望学院S1第一季AI版【PC+安卓更新】.html', price: '2021.01.11', tag: ['SLG', 'PC', '安卓'] },
             { link: 'youxixiangqing/SLG新生也疯狂S2Ep.4P1AI版【PC+安卓更新】.html', price: '2021.01.11', tag: ['SLG', 'PC', '安卓'] },
             { link: 'youxixiangqing/SLG船长的奇妙冒险2.8AI版【PC+安卓更新】.html', price: '2021.01.11', tag: ['SLG', 'PC', '安卓'] },
             { link: 'youxixiangqing/SLG深渊欲望0.1.1AI版【PC+安卓更新】.html', price: '2021.01.11', tag: ['SLG', 'PC', '安卓'] },
@@ -1116,44 +993,6 @@
         exitButton.addEventListener('click', () => {
             localStorage.setItem('ageConfirmed', 'true'); // 记录用户已确认
             window.location.href = 'https://www.google.com'; // 重定向到其他网站
-        });
-
-        document.body.addEventListener('touchstart', function () {
-            introVideo.load();
-            introVideo.play().catch(function (error) {
-                console.log('播放失败:', error);
-            });
-        }, { once: true });
-
-        // 添加视频错误处理和调试信息
-        document.addEventListener('DOMContentLoaded', function () {
-            const video = document.getElementById('intro-video');
-
-            // 添加视频错误事件监听
-            video.addEventListener('error', function (e) {
-                console.error('视频加载错误:', e);
-                const sources = video.querySelectorAll('source');
-                sources.forEach(source => {
-                    console.log('尝试加载:', source.src, source.type);
-                });
-            });
-
-            // 为每个source添加错误监听
-            const sources = video.querySelectorAll('source');
-            sources.forEach(source => {
-                source.addEventListener('error', function (e) {
-                    console.error('Source加载错误:', source.src, e);
-                });
-
-                // 修正路径
-                if (!source.src.startsWith('./') && !source.src.startsWith('http')) {
-                    source.src = `./${source.src.replace(/^\//, '')}`;
-                    console.log('修正后的视频路径:', source.src);
-                }
-            });
-
-            // 强制重新加载视频
-            video.load();
         });
     </script>
 </body>
