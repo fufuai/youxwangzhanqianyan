@@ -489,70 +489,48 @@
         function playVideoWithFallback() {
             console.log('尝试播放视频');
             const introVideo = document.getElementById('intro-video');
-
-            // 确保视频已经设置了静音属性（解决自动播放策略问题）
             introVideo.muted = true;
 
-            // 检查视频状态
             console.log('视频准备状态:', introVideo.readyState);
-            console.log('视频网络状态:', introVideo.networkState);
 
-            // 检查视频路径
+            // 确保视频源路径正确
             const sources = introVideo.querySelectorAll('source');
             sources.forEach(source => {
-                console.log('视频源:', source.src, source.type);
-
-                // 修正视频路径，使用相对路径
                 if (!source.src.startsWith('./') && !source.src.startsWith('http')) {
                     source.src = `./${source.src.replace(/^\//, '')}`;
-                    console.log('已修正视频路径为:', source.src);
                 }
             });
 
-            // 强制重新加载
-            introVideo.load();
-
-            // 使用base64编码的测试视频作为备用方案
+            // 如果视频尚未加载，强制重新加载
             if (introVideo.readyState === 0) {
-                // 创建一个短的测试视频（1x1像素透明视频）作为备用
-                const testSource = document.createElement('source');
-                testSource.src = 'data:video/mp4;base64,AAAAHGZ0eXBpc29tAAACAGlzb21pc28yYXZjMW1wNDEAAAAIZnJlZQAAAu1tZGF0AAACrQYF//+p3EXpvebZSLeWLNgg2SPu73gyNjQgLSBjb3JlIDE0MiByMjQ3OSBkZDc5YTYxIC0gSC4yNjQvTVBFRy00IEFWQyBjb2RlYyAtIENvcHlsZWZ0IDIwMDMtMjAxNCAtIGh0dHA6Ly93d3cudmlkZW9sYW4ub3JnL3gyNjQuaHRtbCAtIG9wdGlvbnM6IGNhYmFjPTEgcmVmPTMgZGVibG9jaz0xOjA6MCBhbmFseXNlPTB4MzoweDExMyBtZT1oZXggc3VibWU9NyBwc3k9MSBwc3lfcmQ9MS4wMDowLjAwIG1peGVkX3JlZj0xIG1lX3JhbmdlPTE2IGNocm9tYV9tZT0xIHRyZWxsaXM9MSA4eDhkY3Q9MSBjcW09MCBkZWFkem9uZT0yMSwxMSBmYXN0X3Bza2lwPTEgY2hyb21hX3FwX29mZnNldD0tMiB0aHJlYWRzPTEgbG9va2FoZWFkX3RocmVhZHM9MSBzbGljZWRfdGhyZWFkcz0wIG5yPTAgZGVjaW1hdGU9MSBpbnRlcmxhY2VkPTAgYmx1cmF5X2NvbXBhdD0wIGNvbnN0cmFpbmVkX2ludHJhPTAgYmZyYW1lcz0zIGJfcHlyYW1pZD0yIGJfYWRhcHQ9MSBiX2JpYXM9MCBkaXJlY3Q9MSB3ZWlnaHRiPTEgb3Blbl9nb3A9MCB3ZWlnaHRwPTIga2V5aW50PWluZmluaXRlIGtleWludF9taW49Mjkgc2NlbmVjdXQ9NDAgaW50cmFfcmVmcmVzaD0wIHJjX2xvb2thaGVhZD00MCByYz1jcmYgbWJ0cmVlPTEgY3JmPTIzLjAgcWNvbXA9MC42MCBxcG1pbj0wIHFwbWF4PTY5IHFwc3RlcD00IGlwX3JhdGlvPTEuNDAgYXE9MToxLjAwAIAAAAAwZYiEAD//8m+P5OXfBeLGOfKE3xkODvFZuBflHv/+VwJIta6cbpIo4ABLoKBAAAADmWGAABN4BYVJ6AEGgALF/f/EW6MAAAAANZkBCxQCxQCxQCxQC8UAvFALxQBNAfFAD0AAAEQAAAAHA4E5YICAAJYIDhGPBAtIQECe0IAAgIFIAADA2WSBAJ9A/yxAAHgAICA/KCAABghglC/rBBEQEAIPGICAADxgggJ5QQABAQGiggAC4QABAYHxghFBAAEAIQAAF0CAAAA8YEAQQABAYIRpgiAAAYEBA2CEUEAAQBBC5wgADx/wQD8MQAB4wQACBAALChA4QZAEEEAQQEC4ECB8MGCAgIAPHBBAEEAAQGjeEAH/BU0BAQIIQgAZECBAQLwwBBAQADxEEEAQQABAeJ4QAA==';
-                testSource.type = 'video/mp4';
-
-                // 清除现有sources并添加测试源
-                while (introVideo.firstChild) {
-                    introVideo.removeChild(introVideo.firstChild);
-                }
-
-                introVideo.appendChild(testSource);
                 introVideo.load();
+
+                // 如果3秒后视频仍未加载，显示播放按钮
+                setTimeout(function () {
+                    if (introVideo.readyState < 2) {
+                        showPlayButton();
+                    }
+                }, 3000);
             }
 
-            // 首先检查视频是否已加载并准备好播放
+            // 检查视频是否已加载并准备好播放
             if (introVideo.readyState >= 2) {
                 attemptPlayback();
             } else {
                 introVideo.addEventListener('loadeddata', attemptPlayback, { once: true });
-
-                // 添加超时处理，如果视频长时间没加载则显示播放按钮
-                setTimeout(function () {
-                    if (introVideo.readyState < 2) {
-                        console.log('视频加载超时，显示播放按钮');
-                        showPlayButton();
-                    }
-                }, 3000);
             }
         }
 
         function showPlayButton() {
             const introVideo = document.getElementById('intro-video');
+            const videoContainer = introVideo.parentElement;
 
-            // 检查是否已有播放按钮
+            // 防止创建多个按钮
             if (document.querySelector('.mobile-play-button')) {
                 return;
             }
 
-            // 创建播放按钮
+            // 创建明显的播放按钮
             const playButton = document.createElement('button');
             playButton.textContent = '点击播放视频';
             playButton.className = 'mobile-play-button';
@@ -570,60 +548,39 @@
             playButton.style.zIndex = '2000';
 
             playButton.addEventListener('click', function () {
-                // 显示加载中状态
                 playButton.textContent = '加载中...';
 
-                // 尝试先设置为静音以绕过自动播放限制
+                // 尝试播放视频
                 introVideo.muted = true;
-                const playPromise = introVideo.play();
-
-                if (playPromise !== undefined) {
-                    playPromise.then(function () {
-                        // 播放成功后可以取消静音并移除按钮
-                        setTimeout(function () {
-                            introVideo.muted = false;
-                        }, 1000);
-                        playButton.remove();
-                    }).catch(function (error) {
-                        console.error('点击后播放失败:', error);
-                        // 如果点击后仍然失败，提供跳过选项
-                        playButton.textContent = '无法播放，点击跳过';
-                        playButton.addEventListener('click', function () {
-                            // 跳过视频
-                            const skipIntro = document.getElementById('skip-intro');
-                            skipIntro.click();
-                        }, { once: true });
-                    });
-                }
+                introVideo.play().then(function () {
+                    playButton.remove();
+                    setTimeout(() => { introVideo.muted = false; }, 1000);
+                }).catch(function (error) {
+                    console.error('点击后播放失败:', error);
+                    playButton.textContent = '无法播放，点击跳过';
+                    playButton.onclick = function () {
+                        const skipIntro = document.getElementById('skip-intro');
+                        skipIntro.click();
+                    };
+                });
             });
 
-            // 添加到视频容器
-            const videoContainer = introVideo.parentElement;
             videoContainer.style.position = 'relative';
             videoContainer.appendChild(playButton);
         }
 
         function attemptPlayback() {
             const introVideo = document.getElementById('intro-video');
-            console.log('尝试播放，当前状态:', introVideo.readyState);
-
             const playPromise = introVideo.play();
 
             if (playPromise !== undefined) {
                 playPromise.then(function () {
                     console.log("视频自动播放成功");
-                    // 成功后如果用户有互动，可以取消静音
-                    document.addEventListener('touchstart', function unmute() {
-                        introVideo.muted = false;
-                        document.removeEventListener('touchstart', unmute);
-                    }, { once: true });
                 }).catch(function (error) {
                     console.error("自动播放失败:", error);
                     showPlayButton();
                 });
             } else {
-                console.log("播放方法未返回Promise，可能是较旧的浏览器");
-                // 旧版浏览器的处理
                 showPlayButton();
             }
         }
@@ -1172,35 +1129,27 @@
         document.addEventListener('DOMContentLoaded', function () {
             const video = document.getElementById('intro-video');
 
-            // 添加错误事件监听
+            // 添加视频错误事件监听
             video.addEventListener('error', function (e) {
                 console.error('视频加载错误:', e);
-                // 记录每个source的错误
                 const sources = video.querySelectorAll('source');
                 sources.forEach(source => {
                     console.log('尝试加载:', source.src, source.type);
                 });
             });
 
-            // 添加每个source的错误监听
+            // 为每个source添加错误监听
             const sources = video.querySelectorAll('source');
             sources.forEach(source => {
                 source.addEventListener('error', function (e) {
                     console.error('Source加载错误:', source.src, e);
                 });
-            });
 
-            // 设置正确的视频路径
-            sources.forEach(source => {
-                // 确保使用相对路径且以./开头
+                // 修正路径
                 if (!source.src.startsWith('./') && !source.src.startsWith('http')) {
                     source.src = `./${source.src.replace(/^\//, '')}`;
+                    console.log('修正后的视频路径:', source.src);
                 }
-            });
-
-            // 添加视频元数据加载事件
-            video.addEventListener('loadedmetadata', function () {
-                console.log('视频元数据已加载', video.videoWidth, video.videoHeight);
             });
 
             // 强制重新加载视频
