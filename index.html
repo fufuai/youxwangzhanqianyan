@@ -230,9 +230,9 @@
         <div class="video-intro-content">
             <h1 class="video-title">成人游戏天堂</h1>
             <p class="video-description">这里为您呈现最精彩的成人游戏资源，满足您的一切幻想。每款游戏都经过精心挑选，确保为您带来极致体验。</p>
-            <video id="intro-video" controls poster="封面/1.jpg" playsinline webkit-playsinline>
-                <source src="/videx/1.mp4" type="video/mp4">
-
+            <video id="intro-video" controls poster="封面/1.jpg" playsinline webkit-playsinline muted>
+                <source src="videx/1.mp4" type="video/mp4">
+                <source src="videx/1.webm" type="video/webm">
                 您的浏览器不支持视频标签。
             </video>
             <button id="skip-intro">立即进入</button>
@@ -487,6 +487,18 @@
 
         // 添加新的函数用于处理视频播放的各种回退方案
         function playVideoWithFallback() {
+            // 确保视频已经设置了静音属性（解决自动播放策略问题）
+            introVideo.muted = true;
+
+            // 修正视频路径，确保使用相对路径
+            if (introVideo.querySelector('source').src.startsWith('/')) {
+                const sources = introVideo.querySelectorAll('source');
+                sources.forEach(source => {
+                    source.src = source.src.replace(/^\//, '');
+                });
+                introVideo.load();
+            }
+
             // 首先检查视频是否已加载并准备好播放
             if (introVideo.readyState >= 2) {
                 attemptPlayback();
@@ -505,6 +517,11 @@
             if (playPromise !== undefined) {
                 playPromise.then(function () {
                     console.log("视频自动播放成功");
+                    // 成功后如果用户有互动，可以取消静音
+                    document.addEventListener('touchstart', function unmute() {
+                        introVideo.muted = false;
+                        document.removeEventListener('touchstart', unmute);
+                    }, { once: true });
                 }).catch(function (error) {
                     console.log("自动播放失败:", error);
 
@@ -526,7 +543,13 @@
                     playButton.style.zIndex = '2000';
 
                     playButton.addEventListener('click', function () {
+                        // 尝试先设置为静音以绕过自动播放限制
+                        introVideo.muted = true;
                         introVideo.play().then(function () {
+                            // 播放成功后可以取消静音
+                            setTimeout(function () {
+                                introVideo.muted = false;
+                            }, 1000);
                             playButton.remove();
                         }).catch(function () {
                             // 如果仍然失败，直接跳过视频
@@ -541,6 +564,25 @@
                 });
             }
         }
+
+        // 在页面底部添加这段代码以确保视频在iOS Safari上能播放
+        document.addEventListener('DOMContentLoaded', function () {
+            // 处理iOS Safari特别的播放问题
+            if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                const video = document.getElementById('intro-video');
+                video.setAttribute('playsinline', '');
+                video.setAttribute('webkit-playsinline', '');
+
+                // 确保视频路径正确
+                const sources = video.querySelectorAll('source');
+                sources.forEach(source => {
+                    if (source.src.startsWith('/')) {
+                        source.src = source.src.replace(/^\//, '');
+                    }
+                });
+                video.load();
+            }
+        });
 
         // 页面加载动画
         window.addEventListener('load', function () {
