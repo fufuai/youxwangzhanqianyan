@@ -361,6 +361,9 @@
                 mainContent.style.display = 'block';
                 // 检查年龄验证
                 checkAgeVerification();
+
+                // 确保公告栏动画正常运行
+                setTimeout(restartAnnouncementAnimations, 100); // 短暂延迟以确保DOM已完全加载
             } else {
                 // 新会话且未看过介绍，显示图片介绍
                 imageIntro.style.display = 'flex';
@@ -384,6 +387,10 @@
             setIntroViewedInSession();
             // 检查年龄验证
             checkAgeVerification();
+
+            // 添加以下代码修复公告栏动画暂停问题
+            // 重启所有公告动画
+            restartAnnouncementAnimations();
         });
 
         // 页面加载时检查状态
@@ -907,6 +914,35 @@
                 menuToggle.classList.remove('active');
                 nav.classList.remove('active');
             }
+        });
+
+        // 通用函数：重启公告栏动画
+        function restartAnnouncementAnimations() {
+            const announcements = document.querySelectorAll('.announcement');
+            if (announcements.length === 0) return; // 如果元素还未加载，不执行后续操作
+
+            announcements.forEach(announcement => {
+                announcement.style.animationPlayState = 'running';
+                // 如果仍然没有运行，尝试重启动画
+                if (window.getComputedStyle(announcement).animationPlayState !== 'running') {
+                    announcement.style.animation = 'none';
+                    // 强制重绘
+                    announcement.offsetHeight;
+                    // 重新应用原动画
+                    if (announcement.classList.contains('announcement-1')) {
+                        announcement.style.animation = 'scroll1 40s linear infinite';
+                    } else if (announcement.classList.contains('announcement-2')) {
+                        announcement.style.animation = 'scroll2 35s linear infinite';
+                    } else if (announcement.classList.contains('announcement-3')) {
+                        announcement.style.animation = 'scroll3 30s linear infinite';
+                    }
+                }
+            });
+        }
+
+        // 页面完全加载后运行（包括所有资源）
+        window.addEventListener('load', function () {
+            restartAnnouncementAnimations();
         });
 
         // 如果需要显示介绍，从当前已知的图片中选择一张
