@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
     <title>LIANG NV BA</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="global-fonts.css">
@@ -104,6 +106,42 @@
             max-width: 100%;
             max-height: 70vh;
             margin-bottom: 20px;
+            background-color: #000;
+            /* 添加背景色以防止透明视频 */
+            object-fit: contain;
+            /* 确保视频适应容器 */
+        }
+
+        /* 移动设备视频播放按钮样式 */
+        .mobile-play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 15px 30px;
+            background-color: rgba(255, 105, 180, 0.8);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 2000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.05);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
         }
 
         /* 隐藏视频时长 */
@@ -149,6 +187,17 @@
                 max-height: 50vh;
                 margin-bottom: 10px;
             }
+
+            /* 为移动设备添加强调样式，确保视频容器有可见边界 */
+            .video-intro-content {
+                padding: 10px;
+            }
+
+            /* 为视频容器添加明显的边框和背景，以便调试 */
+            #intro-video {
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                background-color: #000;
+            }
         }
 
         .video-title {
@@ -181,7 +230,7 @@
         <div class="video-intro-content">
             <h1 class="video-title">成人游戏天堂</h1>
             <p class="video-description">这里为您呈现最精彩的成人游戏资源，满足您的一切幻想。每款游戏都经过精心挑选，确保为您带来极致体验。</p>
-            <video id="intro-video" controls autoplay>
+            <video id="intro-video" controls preload="metadata" poster="封面/1.jpg" playsinline webkit-playsinline>
                 <source src="videx/20250405_2338452025420315551.mp4" type="video/mp4">
                 <source src="videx/20250405_2338452025420315551.webm" type="video/webm">
                 您的浏览器不支持视频标签。
@@ -402,6 +451,8 @@
         skipIntro.addEventListener('click', function () {
             videoIntro.style.display = 'none';
             mainContent.style.display = 'block';
+            // 暂停视频以释放资源
+            introVideo.pause();
             // 设置当前会话已经看过视频
             setVideoWatchedInSession();
             // 检查年龄验证
@@ -412,71 +463,84 @@
         document.addEventListener('DOMContentLoaded', function () {
             showAppropriateContent();
 
-            // 确保隐藏视频时长显示
-            const videoElement = document.getElementById('intro-video');
-            if (videoElement) {
-                // 尝试移除所有时间显示元素
-                const hideTimeElements = function () {
-                    // 尝试查找并隐藏时间显示元素
-                    const mediaControls = videoElement.shadowRoot
-                        ? videoElement.shadowRoot.querySelector('.media-controls')
-                        : null;
-
-                    if (mediaControls) {
-                        const timeElements = mediaControls.querySelectorAll('.time-display, .time-remaining-display, .current-time-display');
-                        timeElements.forEach(el => {
-                            el.style.display = 'none';
-                        });
-                    }
-                };
-
-                // 尝试多次调用以确保隐藏（有些浏览器可能延迟加载控件）
-                hideTimeElements();
-                setTimeout(hideTimeElements, 500);
-                setTimeout(hideTimeElements, 1000);
-            }
-
-            // 如果需要显示视频，尝试自动播放
+            // 如果需要显示视频，使用更可靠的方式尝试播放
             if (!isPageRefresh() && !checkVideoWatchedInSession()) {
-                // 尝试直接自动播放带声音的视频
-                const playPromise = introVideo.play();
-
-                if (playPromise !== undefined) {
-                    playPromise.then(function () {
-                        console.log("视频自动播放成功（带声音）");
-                        // 视频成功自动播放
-                    }).catch(function (error) {
-                        console.log("带声音自动播放失败，尝试其他方法: ", error);
-
-                        // 尝试使用用户交互来解锁音频
-                        const unlockButton = document.createElement('button');
-                        unlockButton.textContent = '点击开始播放';
-                        unlockButton.style.position = 'absolute';
-                        unlockButton.style.top = '50%';
-                        unlockButton.style.left = '50%';
-                        unlockButton.style.transform = 'translate(-50%, -50%)';
-                        unlockButton.style.padding = '15px 25px';
-                        unlockButton.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
-                        unlockButton.style.color = 'black';
-                        unlockButton.style.border = 'none';
-                        unlockButton.style.borderRadius = '5px';
-                        unlockButton.style.cursor = 'pointer';
-                        unlockButton.style.fontSize = '20px';
-                        unlockButton.style.zIndex = '1010';
-
-                        unlockButton.addEventListener('click', function () {
-                            introVideo.play();
-                            this.remove();
-                        });
-
-                        videoIntro.appendChild(unlockButton);
-                    });
+                // 添加可见性监听，当页面可见时尝试播放
+                if (document.visibilityState === 'visible') {
+                    playVideoWithFallback();
                 } else {
-                    // 旧浏览器或不支持Promise的情况
-                    console.log("浏览器不支持Promise方式的视频播放");
+                    document.addEventListener('visibilitychange', function onVisibilityChange() {
+                        if (document.visibilityState === 'visible') {
+                            playVideoWithFallback();
+                            document.removeEventListener('visibilitychange', onVisibilityChange);
+                        }
+                    });
                 }
+
+                // 为移动设备添加触摸监听，通过用户交互解锁播放
+                document.addEventListener('touchstart', function playOnFirstTouch() {
+                    playVideoWithFallback();
+                    document.removeEventListener('touchstart', playOnFirstTouch);
+                }, { once: true });
             }
         });
+
+        // 添加新的函数用于处理视频播放的各种回退方案
+        function playVideoWithFallback() {
+            // 首先检查视频是否已加载并准备好播放
+            if (introVideo.readyState >= 2) {
+                attemptPlayback();
+            } else {
+                introVideo.addEventListener('loadeddata', attemptPlayback, { once: true });
+                // 确保视频已加载元数据
+                if (introVideo.readyState === 0) {
+                    introVideo.load();
+                }
+            }
+        }
+
+        function attemptPlayback() {
+            const playPromise = introVideo.play();
+
+            if (playPromise !== undefined) {
+                playPromise.then(function () {
+                    console.log("视频自动播放成功");
+                }).catch(function (error) {
+                    console.log("自动播放失败:", error);
+
+                    // 对于移动设备，显示明显的播放按钮
+                    const playButton = document.createElement('button');
+                    playButton.textContent = '点击播放视频';
+                    playButton.className = 'mobile-play-button';
+                    playButton.style.position = 'absolute';
+                    playButton.style.top = '50%';
+                    playButton.style.left = '50%';
+                    playButton.style.transform = 'translate(-50%, -50%)';
+                    playButton.style.padding = '15px 30px';
+                    playButton.style.backgroundColor = 'rgba(255, 105, 180, 0.8)';
+                    playButton.style.color = 'white';
+                    playButton.style.border = 'none';
+                    playButton.style.borderRadius = '5px';
+                    playButton.style.fontSize = '20px';
+                    playButton.style.cursor = 'pointer';
+                    playButton.style.zIndex = '2000';
+
+                    playButton.addEventListener('click', function () {
+                        introVideo.play().then(function () {
+                            playButton.remove();
+                        }).catch(function () {
+                            // 如果仍然失败，直接跳过视频
+                            skipIntro.click();
+                        });
+                    });
+
+                    // 添加到视频容器
+                    const videoContainer = introVideo.parentElement;
+                    videoContainer.style.position = 'relative';
+                    videoContainer.appendChild(playButton);
+                });
+            }
+        }
 
         // 页面加载动画
         window.addEventListener('load', function () {
