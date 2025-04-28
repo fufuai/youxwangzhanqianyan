@@ -104,11 +104,6 @@
             max-width: 100%;
             max-height: 70vh;
             margin-bottom: 20px;
-            /* 添加固定的宽高比，与封面保持一致 */
-            aspect-ratio: 16 / 9;
-            width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
         }
 
         /* 隐藏视频时长 */
@@ -154,19 +149,6 @@
                 max-height: 50vh;
                 margin-bottom: 10px;
             }
-
-            /* 调整视频封面在移动设备上的显示 */
-            .video-poster-container {
-                max-height: 50vh;
-                margin-bottom: 10px;
-            }
-
-            /* 调整播放按钮大小 */
-            .play-button-overlay {
-                font-size: 60px;
-                width: 80px;
-                height: 80px;
-            }
         }
 
         .video-title {
@@ -190,125 +172,6 @@
         #main-content {
             display: none;
         }
-
-        /* 轮播图样式 */
-        .intro-slideshow-container {
-            width: 100%;
-            max-width: 800px;
-            margin: 20px auto;
-            position: relative;
-        }
-
-        .intro-slideshow {
-            width: 100%;
-            position: relative;
-        }
-
-        .intro-slide {
-            display: none;
-            text-align: center;
-        }
-
-        .intro-slide img {
-            width: 100%;
-            max-height: 400px;
-            object-fit: cover;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        /* 轮播图切换动画 */
-        .fade {
-            animation-name: fade;
-            animation-duration: 1.5s;
-        }
-
-        @keyframes fade {
-            from {
-                opacity: .4
-            }
-
-            to {
-                opacity: 1
-            }
-        }
-
-        /* 轮播图导航点 */
-        .intro-slideshow-dots {
-            text-align: center;
-            margin: 15px 0;
-        }
-
-        .dot {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            margin: 0 5px;
-            background-color: rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .active-dot,
-        .dot:hover {
-            background-color: rgba(255, 105, 180, 0.8);
-        }
-
-        /* 视频封面样式 */
-        .video-poster-container {
-            position: relative;
-            max-width: 100%;
-            max-height: 70vh;
-            margin-bottom: 20px;
-            cursor: pointer;
-            overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-            /* 添加固定的宽高比，与视频保持一致 */
-            aspect-ratio: 16 / 9;
-            width: 100%;
-        }
-
-        #video-poster {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            /* 确保图片居中裁剪 */
-            transition: transform 0.3s ease;
-        }
-
-        .video-poster-container:hover #video-poster {
-            transform: scale(1.05);
-        }
-
-        .play-button-overlay {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 80px;
-            color: rgba(255, 255, 255, 0.8);
-            background-color: rgba(0, 0, 0, 0.3);
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: all 0.3s ease;
-        }
-
-        .play-button-overlay i {
-            margin-left: 6px;
-            /* 调整播放图标位置 */
-        }
-
-        .video-poster-container:hover .play-button-overlay {
-            background-color: rgba(255, 105, 180, 0.6);
-            transform: translate(-50%, -50%) scale(1.1);
-        }
     </style>
 </head>
 
@@ -318,53 +181,11 @@
         <div class="video-intro-content">
             <h1 class="video-title">成人游戏天堂</h1>
             <p class="video-description">这里为您呈现最精彩的成人游戏资源，满足您的一切幻想。每款游戏都经过精心挑选，确保为您带来极致体验。</p>
-
-            <!-- 添加视频封面 -->
-            <div class="video-poster-container">
-                <img id="video-poster" src="image1/[Espacia Korea]/24.jpg" alt="视频封面">
-                <div class="play-button-overlay">
-                    <i class="fas fa-play-circle"></i>
-                </div>
-            </div>
-
-            <video id="intro-video" controls autoplay playsinline preload="metadata"
-                poster="image1/[Espacia Korea]/24.jpg"
-                style="display: none; width: 100%; aspect-ratio: 16/9; border-radius: 10px;">
+            <video id="intro-video" controls autoplay>
                 <source src="/videx/1.mp4" type="video/mp4">
-                <source src="/videx/1.webm" type="video/webm">
-                <source src="/videx/1.ogg" type="video/ogg">
                 您的浏览器不支持视频标签。
             </video>
             <button id="skip-intro">立即进入</button>
-
-            <!-- 添加轮播图 -->
-            <div class="intro-slideshow-container">
-                <div class="intro-slideshow">
-                    <div class="intro-slide fade">
-                        <img src="image1/Fantasy Factory [21P]/6.jpg" alt="促销图片1">
-                    </div>
-                    <div class="intro-slide fade">
-                        <img src="image1/Fantasy Factory [21P]/18.jpg" alt="促销图片2">
-                    </div>
-                    <div class="intro-slide fade">
-                        <img src="image1/[Espacia Korea]/15.jpg" alt="促销图片3">
-                    </div>
-                    <div class="intro-slide fade">
-                        <img src="image1/[Espacia Korea]/18.jpg" alt="促销图片4">
-                    </div>
-                    <div class="intro-slide fade">
-                        <img src="image1/Neyrodesu - Rin Tohsaka [23P]/15.jpg" alt="促销图片5">
-                    </div>
-                </div>
-                <div class="intro-slideshow-dots">
-                    <span class="dot" onclick="currentSlide(1)"></span>
-                    <span class="dot" onclick="currentSlide(2)"></span>
-                    <span class="dot" onclick="currentSlide(3)"></span>
-                    <span class="dot" onclick="currentSlide(4)"></span>
-                    <span class="dot" onclick="currentSlide(5)"></span>
-                </div>
-            </div>
-
             <p class="video-description">点击上方按钮开始您的私密探索之旅，发现更多刺激内容！</p>
 
             <!-- 添加额外内容以测试滚动效果 -->
@@ -524,14 +345,6 @@
         const videoIntro = document.getElementById('video-intro');
         const skipIntro = document.getElementById('skip-intro');
         const mainContent = document.getElementById('main-content');
-        const videoPoster = document.querySelector('.video-poster-container');
-
-        // 点击视频封面时播放视频
-        videoPoster.addEventListener('click', function () {
-            videoPoster.style.display = 'none';
-            introVideo.style.display = 'block';
-            introVideo.play();
-        });
 
         // 检查当前会话是否已经看过视频（只在当前会话有效，关闭页面后失效）
         function checkVideoWatchedInSession() {
@@ -563,11 +376,6 @@
                 // 新会话且未看过视频，显示视频介绍
                 videoIntro.style.display = 'flex';
                 mainContent.style.display = 'none';
-                // 确保视频是隐藏的，而封面是显示的
-                introVideo.style.display = 'none';
-                if (videoPoster) {
-                    videoPoster.style.display = 'block';
-                }
             }
         }
 
@@ -627,69 +435,9 @@
                 setTimeout(hideTimeElements, 1000);
             }
 
-            // 初始化轮播图
-            let slideIndex = 0;
-            showSlides();
-
-            function showSlides() {
-                const slides = document.getElementsByClassName("intro-slide");
-                const dots = document.getElementsByClassName("dot");
-
-                // 隐藏所有幻灯片
-                for (let i = 0; i < slides.length; i++) {
-                    slides[i].style.display = "none";
-                }
-
-                // 移除所有点的激活状态
-                for (let i = 0; i < dots.length; i++) {
-                    dots[i].className = dots[i].className.replace(" active-dot", "");
-                }
-
-                // 增加幻灯片索引
-                slideIndex++;
-
-                // 循环回到第一张
-                if (slideIndex > slides.length) {
-                    slideIndex = 1;
-                }
-
-                // 显示当前幻灯片并激活对应的点
-                slides[slideIndex - 1].style.display = "block";
-                dots[slideIndex - 1].className += " active-dot";
-
-                // 每3秒切换一次幻灯片
-                setTimeout(showSlides, 3000);
-            }
-
-            // 为了支持点击点切换幻灯片
-            window.currentSlide = function (n) {
-                slideIndex = n - 1;
-                const slides = document.getElementsByClassName("intro-slide");
-                const dots = document.getElementsByClassName("dot");
-
-                // 隐藏所有幻灯片
-                for (let i = 0; i < slides.length; i++) {
-                    slides[i].style.display = "none";
-                }
-
-                // 移除所有点的激活状态
-                for (let i = 0; i < dots.length; i++) {
-                    dots[i].className = dots[i].className.replace(" active-dot", "");
-                }
-
-                // 显示选定的幻灯片并激活对应的点
-                slides[slideIndex].style.display = "block";
-                dots[slideIndex].className += " active-dot";
-            };
-
             // 如果需要显示视频，尝试自动播放
             if (!isPageRefresh() && !checkVideoWatchedInSession()) {
-                // 我们现在使用封面，不需要尝试自动播放视频
-                // 用户会点击封面开始播放
-                console.log("准备好了视频封面，等待用户点击播放");
-
-                // 移除以下自动播放的代码
-                /*
+                // 尝试直接自动播放带声音的视频
                 const playPromise = introVideo.play();
 
                 if (playPromise !== undefined) {
@@ -726,7 +474,6 @@
                     // 旧浏览器或不支持Promise的情况
                     console.log("浏览器不支持Promise方式的视频播放");
                 }
-                */
             }
         });
 
@@ -942,6 +689,10 @@
             { link: 'youxixiangqing/SLG大人的童话剧场 ~讨债子爵~官方中文版+全回想【1.2G】.html', price: '2021.01.11', tag: ['SLG', 'PC',] },
             { link: 'youxixiangqing/ACT哥特少女勇与魔城2 SiNiSistar2 V1.0.1 官方中文正式版+存档[新作][4.1G].html', price: '2021.01.11', tag: ['ACT', 'PC',] },
 
+            { link: 'youxixiangqing/RPGNTR鬼姬 鸣神 NTR鬼姫 ナルカミラ v1.20 AI汉化 [1.2G].html', price: '2021.01.11', tag: ['RPG', 'PC',] },
+            { link: 'youxixiangqing/SLG爱欲之都0.2.3官中版【PC+安卓13G更新】.html', price: '2021.01.11', tag: ['SLG', 'PC', '安卓'] },
+            { link: 'youxixiangqing/SLG简单的日子0.19.4AI版【PC+安卓7.96G更新】.html', price: '2021.01.11', tag: ['SLG', 'PC', '安卓'] },
+            { link: 'youxixiangqing/RPG我真的非常爱我的母亲~尽管我是她的儿子我们还是发生性关系！1.0汉化版【PC+安卓863MB】.html', price: '2021.01.11', tag: ['RPG', 'PC', '安卓'] },
             { link: 'youxixiangqing/SLG黑山综合医院V2.8.2 官方中文版[更新]【电脑2G】.html', price: '2021.01.11', tag: ['SLG', 'PC',] },
 
             { link: 'youxixiangqing/3D魔女的侵袭：库洛的房间V0.5.2 官方中文步兵版[更新]【电脑2.8G】.html', price: '2021.01.11', tag: ['PC',] },
@@ -1015,7 +766,7 @@
             { link: 'youxixiangqing/SLGAI汉化3D]月光倾心0.02.a AI汉化版【PC+安卓1.9G更新】.html', price: '2020.01.11', tag: ['SLG', 'PC', '安卓'] },
             { link: 'youxixiangqing/RPG心灵旅达1.36 AI汉化版[PC+安卓3.44G].html', price: '2020.01.11', tag: ['RPG', 'PC', '安卓'] },
             { link: 'youxixiangqing/SLG动态更新3D大自然的呼唤Call of Nature[Ch.1 P3 Ver0.4.[PC+安卓2.0G].html', price: '2020.01.11', tag: ['SLG', 'PC', '安卓'] },
-            { link: 'youxixiangqing/[日式ADV新汉化] 催眠即行学园・强势副会长 肉便器调教篇 催眠即ヤリ学園 勝気副会长・肉便器調教編 汉化版 [1.0G].html', price: '2020.01.11', tag: ['ADV', 'PC',] },
+            { link: 'youxixiangqing/[日式ADV新汉化] 催眠即行学园・强势副会长 肉便器调教篇 催眠即ヤリ学園 勝気副会長・肉便器調教編 汉化版 [1.0G].html', price: '2020.01.11', tag: ['ADV', 'PC',] },
         ];
 
         // 获取所有标签按钮
