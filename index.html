@@ -230,8 +230,8 @@
         <div class="video-intro-content">
             <h1 class="video-title">成人游戏天堂</h1>
             <p class="video-description">这里为您呈现最精彩的成人游戏资源，满足您的一切幻想。每款游戏都经过精心挑选，确保为您带来极致体验。</p>
-            <video id="intro-video" controls preload="metadata" poster="封面/1.jpg" playsinline webkit-playsinline>
-
+            <video id="intro-video" controls poster="封面/1.jpg" playsinline webkit-playsinline>
+                <source src="videx/intro-video.mp4" type="video/mp4">
                 <source src="videx/20250405_2338452025420315551.webm" type="video/webm">
                 您的浏览器不支持视频标签。
             </video>
@@ -787,10 +787,6 @@
             { link: 'youxixiangqing/SLG像素互动中文职场的30天 官方中文版+存档【新作490M】.html', price: '2021.01.11', tag: ['SLG', 'PC',] },
 
 
-            { link: 'youxixiangqing/SLG情欲风暴Ep1va1.0.2汉化版【PC+安卓更新】.html', price: '2021.01.11', tag: ['SLG', 'PC', '安卓'] },
-            { link: 'youxixiangqing/SLG欲望小镇0.85AI版【PC+安卓更新】.html', price: '2021.01.11', tag: ['SLG', 'PC', '安卓'] },
-            { link: 'youxixiangqing/SLG欲望学院S2第二季AI版【PC+安卓更新】.html', price: '2021.01.11', tag: ['SLG', 'PC', '安卓'] },
-            { link: 'youxixiangqing/SLG欲望学院S1第一季AI版【PC+安卓更新】.html', price: '2021.01.11', tag: ['SLG', 'PC', '安卓'] },
             { link: 'youxixiangqing/SLG新生也疯狂S2Ep.4P1AI版【PC+安卓更新】.html', price: '2021.01.11', tag: ['SLG', 'PC', '安卓'] },
             { link: 'youxixiangqing/SLG船长的奇妙冒险2.8AI版【PC+安卓更新】.html', price: '2021.01.11', tag: ['SLG', 'PC', '安卓'] },
             { link: 'youxixiangqing/SLG深渊欲望0.1.1AI版【PC+安卓更新】.html', price: '2021.01.11', tag: ['SLG', 'PC', '安卓'] },
@@ -1059,6 +1055,13 @@
             localStorage.setItem('ageConfirmed', 'true'); // 记录用户已确认
             window.location.href = 'https://www.google.com'; // 重定向到其他网站
         });
+
+        document.body.addEventListener('touchstart', function () {
+            introVideo.load();
+            introVideo.play().catch(function (error) {
+                console.log('播放失败:', error);
+            });
+        }, { once: true });
     </script>
 </body>
 
