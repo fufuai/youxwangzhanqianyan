@@ -183,9 +183,12 @@
             }
 
             #intro-video {
-                max-width: 100%;
+                width: 100%;
                 max-height: 50vh;
-                margin-bottom: 10px;
+                object-fit: contain;
+                background-color: #000;
+                display: block;
+                margin: 0 auto;
             }
 
             /* 为移动设备添加强调样式，确保视频容器有可见边界 */
@@ -221,6 +224,16 @@
         #main-content {
             display: none;
         }
+
+        /* 增强视频控件 */
+        video::-webkit-media-controls-panel {
+            opacity: 1 !important;
+        }
+
+        /* 修复iOS上的全屏问题 */
+        video::-webkit-media-controls-fullscreen-button {
+            display: none !important;
+        }
     </style>
 </head>
 
@@ -230,10 +243,14 @@
         <div class="video-intro-content">
             <h1 class="video-title">成人游戏天堂</h1>
             <p class="video-description">这里为您呈现最精彩的成人游戏资源，满足您的一切幻想。每款游戏都经过精心挑选，确保为您带来极致体验。</p>
-            <video id="intro-video" preload="metadata" controls poster="封面/1.jpg" playsinline webkit-playsinline
-                x5-playsinline x5-video-player-type="h5" x5-video-player-fullscreen="true" muted>
+            <video id="intro-video" playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"
+                preload="metadata" poster="封面/1.jpg" muted loop>
                 <source src="videx/1.mp4" type="video/mp4">
                 <source src="videx/20250405_2338452025420315551.webm" type="video/webm">
+                <!-- 在video标签中添加作为备用 -->
+                <source
+                    src="data:video/mp4;base64,AAAAIGZ0eXBpc29tAAACAGlzb21pc28yYXZjMW1wNDEAAAAIZnJlZQAAA+NtZGF0AAACqQYF//+q3EXpvebZSLeWLNgg2SPu73gyNjQgLSBjb3JlIDE0MiAtIEguMjY0L01QRUctNCBBVkMgY29kZWMgLSBDb3B5bGVmdCAyMDAzLTIwMTggLSBodHRwOi8vd3d3LnZpZGVvbGFuLm9yZy94MjY0Lmh0bWwgLSBvcHRpb25zOiBjYWJhYz0xIHJlZj0zIGRlYmxvY2s9MTowOjAgYW5hbHlzZT0weDM6MHgxMTMgbWU9aGV4IHN1Ym1lPTcgcHN5PTEgcHN5X3JkPTEuMDA6MC4wMCBtaXhlZF9yZWY9MSBtZV9yYW5nZT0xNiBjaHJvbWFfbWU9MSB0cmVsbGlzPTEgOHg4ZGN0PTEgY3FtPTAgZGVhZHpvbmU9MjEsMTEgZmFzdF9wc2tpcD0xIGNocm9tYV9xcF9vZmZzZXQ9LTIgdGhyZWFkcz02IGxvb2thaGVhZF90aHJlYWRzPTEgc2xpY2VkX3RocmVhZHM9MCBucj0wIGRlY2ltYXRlPTEgaW50ZXJsYWNlZD0wIGJsdXJheV9jb21wYXQ9MCBjb25zdHJhaW5lZF9pbnRyYT0wIGJmcmFtZXM9MyBiX3B5cmFtaWQ9MiBiX2FkYXB0PTEgYl9iaWFzPTAgZGlyZWN0PTEgd2VpZ2h0Yj0xIG9wZW5fZ29wPTAgd2VpZ2h0cD0yIGtleWludD0yNTAga2V5aW50X21pbj0yNSBzY2VuZWN1dD00MCBpbnRyYV9yZWZyZXNoPTAgcmNfbG9va2FoZWFkPTQwIHJjPWNyZiBtYnRyZWU9MSBjcmY9MjMuMCBxY29tcD0wLjYwIHFwbWluPTAgcXBtYXg9NjkgcXBzdGVwPTQgaXBfcmF0aW89MS40MCBhcT0xOjEuMDAAgAAAABpliIQn93xgJUfOzCT2FIjZEe0ZJ+JjCFmCAALIgAAAAA9mYmFyDWxhY29wIGF0ZXMAAm+BAAFnm3BhdmMxgRQA3+A/wABAB0gQgA7g7QJzLmMBAwIAAAIAAAAoHiCxAQCHAC8vD2CB6AAAAwAAAwAAJeQh3QvIdGTDgAAAAsAAADlKxz+dgA7gADAAEAAJaQiyAECfAAvdAMVqEAAAAAFl7bPl"
+                    type="video/mp4">
                 您的浏览器不支持视频标签。
             </video>
             <button id="skip-intro">立即进入</button>
@@ -1156,233 +1173,6 @@
             // 强制重新加载视频
             video.load();
         });
-
-        // 在DOMContentLoaded中添加视频检测和错误处理
-        document.addEventListener('DOMContentLoaded', function () {
-            // 确保DOM元素存在
-            const introVideo = document.getElementById('intro-video');
-            const videoIntro = document.getElementById('video-intro');
-
-            if (!introVideo || !videoIntro) {
-                console.error('找不到视频相关元素!');
-                return;
-            }
-
-            // 添加专门的错误处理器
-            introVideo.addEventListener('error', function (e) {
-                console.error('视频加载错误:', e);
-                // 记录错误详情
-                if (introVideo.error) {
-                    console.error('错误代码:', introVideo.error.code, '错误信息:', introVideo.error.message);
-                }
-                // 显示播放按钮或直接跳过
-                showPlayButton();
-            }, true);
-
-            // 为每个source添加错误监听
-            const sources = introVideo.querySelectorAll('source');
-            sources.forEach(source => {
-                source.addEventListener('error', function (e) {
-                    console.error('Source加载错误:', source.src);
-                    // 尝试使用备用视频
-                    tryBackupVideo();
-                });
-            });
-
-            // 监听状态变化
-            introVideo.addEventListener('loadstart', () => console.log('视频开始加载'));
-            introVideo.addEventListener('loadedmetadata', () => {
-                console.log('视频元数据已加载', introVideo.videoWidth, introVideo.videoHeight);
-                if (introVideo.videoWidth === 0 || introVideo.videoHeight === 0) {
-                    console.error('视频尺寸为0，可能是加载失败');
-                    tryBackupVideo();
-                }
-            });
-            introVideo.addEventListener('canplay', () => console.log('视频可以播放但可能会缓冲'));
-            introVideo.addEventListener('canplaythrough', () => console.log('视频可以流畅播放'));
-
-            // 检查iOS设备
-            if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-                console.log('检测到iOS设备，应用特殊处理');
-                introVideo.setAttribute('playsinline', '');
-                introVideo.setAttribute('webkit-playsinline', '');
-                introVideo.setAttribute('x5-playsinline', '');
-                introVideo.setAttribute('x5-video-player-type', 'h5');
-                introVideo.setAttribute('x5-video-player-fullscreen', 'true');
-            }
-
-            // 检查Android设备
-            if (/Android/i.test(navigator.userAgent)) {
-                console.log('检测到Android设备，应用特殊处理');
-                introVideo.setAttribute('x5-video-player-type', 'h5');
-                introVideo.setAttribute('x5-video-player-fullscreen', 'true');
-            }
-        });
-
-        // 使用备用视频的函数
-        function tryBackupVideo() {
-            const introVideo = document.getElementById('intro-video');
-
-            // 先尝试移除所有source并重新添加
-            const sources = introVideo.querySelectorAll('source');
-            const sourceUrls = Array.from(sources).map(s => ({ src: s.src, type: s.type }));
-
-            // 清空现有sources
-            while (introVideo.firstChild) {
-                introVideo.removeChild(introVideo.firstChild);
-            }
-
-            // 逆序重新添加sources（可能对某些浏览器有帮助）
-            sourceUrls.reverse().forEach(sourceInfo => {
-                const source = document.createElement('source');
-                source.src = sourceInfo.src;
-                source.type = sourceInfo.type;
-                introVideo.appendChild(source);
-            });
-
-            // 强制重新加载
-            introVideo.load();
-
-            // 如果仍然失败，使用base64编码的极小视频
-            setTimeout(function () {
-                if (introVideo.readyState < 2) {
-                    console.log('使用备用内联视频');
-
-                    // 创建一个1x1像素的MP4视频作为备用
-                    const tinyVideoBase64 = 'data:video/mp4;base64,AAAAIGZ0eXBpc29tAAACAGlzb21pc28yYXZjMW1wNDEAAAAIZnJlZQAAA7RtZGF0AAACrQYF//+13EXpvebZSLeWLNgg2SPu73gyNjQgLSBjb3JlIDE0MiByMjQ4OSAtIEguMjY0L01QRUctNCBBVkMgY29kZWMgLSBDb3B5bGVmdCAyMDAzLTIwMTggLSBodHRwOi8vd3d3LnZpZGVvbGFuLm9yZy94MjY0Lmh0bWwgLSBvcHRpb25zOiBjYWJhYz0xIHJlZj0zIGRlYmxvY2s9MTowOjAgYW5hbHlzZT0weDM6MHgxMTMgbWU9aGV4IHN1Ym1lPTcgcHN5PTEgcHN5X3JkPTEuMDA6MC4wMCBtaXhlZF9yZWY9MSBtZV9yYW5nZT0xNiBjaHJvbWFfbWU9MSB0cmVsbGlzPTEgOHg4ZGN0PTEgY3FtPTAgZGVhZHpvbmU9MjEsMTEgZmFzdF9wc2tpcD0xIGNocm9tYV9xcF9vZmZzZXQ9LTIgdGhyZWFkcz02IGxvb2thaGVhZF90aHJlYWRzPTEgc2xpY2VkX3RocmVhZHM9MCBucj0wIGRlY2ltYXRlPTEgaW50ZXJsYWNlZD0wIGJsdXJheV9jb21wYXQ9MCBjb25zdHJhaW5lZF9pbnRyYT0wIGJmcmFtZXM9MyBiX3B5cmFtaWQ9MiBiX2FkYXB0PTEgYl9iaWFzPTAgZGlyZWN0PTEgd2VpZ2h0Yj0xIG9wZW5fZ29wPTAgd2VpZ2h0cD0yIGtleWludD1pbmZpbml0ZSBrZXlpbnRfbWluPTI5IHNjZW5lY3V0PTQwIGludHJhX3JlZnJlc2g9MCByY19sb29rYWhlYWQ9NDAgcmM9Y3JmIG1idHJlZT0xIGNyZj0yMy4wIHFjb21wPTAuNjAgcXBtaW49MCBxcG1heD02OSBxcHN0ZXA9NCBpcF9yYXRpbz0xLjQwIGFxPTE6MS4wMACAAAAAOWWIhAA3//728P4FNjuZQQAAAu5tb292AAAAbG12aGQAAAAAAAAAAAAAAAAAAAPoAAAAZAABAAABAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAAACd3RyYWsAAABcdGtoZAAAAAMAAAAAAAAAAAAAAAEAAAAAAAAAZAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAEAAAAAAQAAAAEAAAAAAAAABaG1kaWEAAAAgbWRoZAAAAAAAAAAAAAAAAAAAMgAAAAMAVcQAAAAAAC1oZGxyAAAAAAAAAAB2aWRlAAAAAAAAAAAAAAAAVmlkZW9IYW5kbGVyAAAAASltaW5mAAAAFHZtaGQAAAABAAAAAAAAAAAAAAAkZGluZgAAABxkcmVmAAAAAAAAAAEAAAAMdXJsIAAAAAEAAADpc3RibAAAAJlzdHNkAAAAAAAAAAEAAACJYXZjMQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAABAEAAAPAAAB4YAAAAAHMYTSAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4AAAAAOAAAAMgAAAAAAAJYCAgFjIIe/AAV4d7lfBT1UdGXUUYLzBwsAAAAoYQAAAAAABjUGAgFjIBe/gBWF3u18FQFjIBe/gBYXe7XwU9VHRl1FGC8wcKAAAAHCuYAAAAAAMyAgFjIBe/gBWZmZmZmbmZmVlZWVhZVVVUUCgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABjUGAAU+dGF0Y2sAFnWgAFPnbWRhdGEXhaAXT4RAAAB0gAEAAABkAAAAAADgMFNTADIABgAEdVVAAZAZCjAAAAAAAACLxBAAYJBoIBAAIAABCaQbAUAIAAABmjcBABqJkgIAGAAACNxnEAAckiICABgAAAZ8HhAAF5CCAAAYAAB2bCEQABcggIABgAABZl4GEAAXCBggAGAABuqkthAAFuiCgAGAAAC3LqYQABbIkoABgAALitI2EAAWyIKAAYAABVnIkhAAFoiCAAGAAADPGBYQABaIECAAYAABnrQuEAAWSIKAAYAABPYELhAAFkiCgAGAAAEcGi4QABYoEoABgAAEeNQyEAAWCJKAAYAABI/YMhAAFgiSgAGAAALkZDIQABXoggABgAAAPIgyEAAV6IIAAYAABAFIMhAAFciCAAGAAAUSSDIQABXIgoABgAAE71AyEAAVqBKAAYAAA+IgMhAAFagSgAGAAARTmDIQABWIEoABgAADozQyEAAViBKAAYAAA2VMMhAAFWgSgAGAAAK0FDIQABVoEoABgAADNrQyEAAVSBKAAYAAAdWUMhAAFUgSgAGAAAJZlDIQABUoEoABgAACLCQyEAAVKBKAAYAAAdqsMhAAFQgSgAGAAAGLLDIQABUIEoABgAAB4ywyEAAU6BKAAYAAAvMsMhAAFOgSgAGAAAJ8LDIQABTIEoABgAADkCwyEAAUyBKAAYAAAr8sMhAAFKgSgAGAAANbLDIQABSoEoABgAACtCwyEAAUiBKAAYAAAmwsMhAAFIgSgAGAAAPfbDIQABRoEoABgAADq2wyEAAUaBKAAYAAAwIsMhAAFEgSgAGAAAMSLDIQABRIEoABgAADjCwyEAAUSBKAAYAAAxosLhAAE+gSgAGAAAKHMC4QABPoEoABgAAC2+wuEAAT6BKAAYAAAvPsLhAAE8gSgAGAAALb7C4QABPIEoABgAADRWwuEAATqBKAAYAAA1fsLhAAE6gSgAGAAAMD7C4QABOoEoABgAADTewuEAATiBKAAYAAA6fsLhAAE4gSgAGAAANG7C4QABOIEoABgAADK+wuEAATaBKAAYAAAdXsLhAAE2gSgAGAAAHU7C4QAAQ1URAAABsv4AAH8nQAADX/wAA0AAAADV/wAAwQAAADJfwAAuQAAAB2v8AC5AAAAdb/AAAAAAaM1NgIBYzZx5DRVBYoADLXO7XwUxmp+KMJTCAAAAAAAAAAAAAAAA==';
-
-                    const fallbackSource = document.createElement('source');
-                    fallbackSource.src = tinyVideoBase64;
-                    fallbackSource.type = 'video/mp4';
-
-                    // 清除现有sources
-                    while (introVideo.firstChild) {
-                        introVideo.removeChild(introVideo.firstChild);
-                    }
-
-                    introVideo.appendChild(fallbackSource);
-                    introVideo.load();
-
-                    // 绕过视频，直接显示按钮
-                    showPlayButton();
-                }
-            }, 5000);
-        }
-
-        // 修改显示播放按钮函数，保证显示
-        function showPlayButton() {
-            const introVideo = document.getElementById('intro-video');
-            const videoContainer = introVideo.parentElement;
-
-            // 防止创建多个按钮
-            if (document.querySelector('.mobile-play-button')) {
-                return;
-            }
-
-            // 创建明显的播放按钮
-            const playButton = document.createElement('button');
-            playButton.textContent = '点击播放视频';
-            playButton.className = 'mobile-play-button';
-            playButton.style.position = 'absolute';
-            playButton.style.top = '50%';
-            playButton.style.left = '50%';
-            playButton.style.transform = 'translate(-50%, -50%)';
-            playButton.style.padding = '15px 30px';
-            playButton.style.backgroundColor = 'rgba(255, 105, 180, 0.8)';
-            playButton.style.color = 'white';
-            playButton.style.border = 'none';
-            playButton.style.borderRadius = '5px';
-            playButton.style.fontSize = '20px';
-            playButton.style.cursor = 'pointer';
-            playButton.style.zIndex = '2000';
-
-            // 添加点击事件，包括失败处理
-            playButton.addEventListener('click', function () {
-                // 如果有很多人遇到播放问题，可以直接跳过视频
-                const skipIntro = document.getElementById('skip-intro');
-                skipIntro.click();
-
-                /* 以下代码可以尝试播放，但如果持续有黑屏问题，可以直接使用上面的跳过
-                playButton.textContent = '加载中...';
-                
-                // 尝试播放视频
-                introVideo.muted = true;
-                introVideo.play().then(function() {
-                    playButton.remove();
-                    setTimeout(() => { introVideo.muted = false; }, 1000);
-                }).catch(function(error) {
-                    console.error('点击后播放失败:', error);
-                    playButton.textContent = '无法播放，点击跳过';
-                    playButton.onclick = function() {
-                        const skipIntro = document.getElementById('skip-intro');
-                        skipIntro.click();
-                    };
-                });
-                */
-            });
-
-            // 设置视频容器为相对定位
-            videoContainer.style.position = 'relative';
-            videoContainer.appendChild(playButton);
-        }
-
-        // 修改原始播放函数，更新视频检测逻辑
-        function playVideoWithFallback() {
-            const introVideo = document.getElementById('intro-video');
-            if (!introVideo) {
-                console.error('找不到intro-video元素');
-                return;
-            }
-
-            // 确保视频静音
-            introVideo.muted = true;
-
-            // 修复视频路径
-            const sources = introVideo.querySelectorAll('source');
-            let hasValidSource = false;
-
-            sources.forEach(source => {
-                // 检查视频源是否有效
-                if (source.src) {
-                    hasValidSource = true;
-
-                    // 修正视频路径为相对路径
-                    if (source.src.startsWith('/')) {
-                        source.src = source.src.replace(/^\//, '');
-                    }
-                }
-            });
-
-            // 如果没有有效源，或者视频文件有问题，直接显示按钮
-            if (!hasValidSource || introVideo.error) {
-                console.error('视频源无效或视频加载出错');
-                showPlayButton();
-                return;
-            }
-
-            // 超时检测 - 5秒后如果视频仍然没准备好，则显示播放按钮
-            const timeout = setTimeout(() => {
-                if (introVideo.readyState < 2) {
-                    console.log('视频加载超时');
-                    showPlayButton();
-                }
-            }, 5000);
-
-            // 尝试播放，优先跳过自动播放逻辑，直接显示播放按钮
-            showPlayButton();
-
-            /* 如果想继续尝试自动播放，可以取消注释下面的代码
-            if (introVideo.readyState >= 2) {
-                clearTimeout(timeout);
-                attemptPlayback();
-            } else {
-                introVideo.addEventListener('loadeddata', () => {
-                    clearTimeout(timeout);
-                    attemptPlayback();
-                }, { once: true });
-            }
-            */
-        }
     </script>
 </body>
 
