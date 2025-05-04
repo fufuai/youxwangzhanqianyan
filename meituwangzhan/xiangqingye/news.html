@@ -408,137 +408,6 @@
         .news-card {
             cursor: pointer;
         }
-
-        /* 添加标签样式 */
-        .tabs {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-
-        .tab {
-            padding: 12px 20px;
-            background-color: rgba(255, 240, 245, 0.8);
-            border-radius: 25px;
-            margin: 0 8px 10px 8px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .tab.active {
-            background-color: #ff4081;
-            color: white;
-            box-shadow: 0 5px 15px rgba(255, 64, 129, 0.3);
-            transform: translateY(-3px);
-        }
-
-        .tab:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(255, 64, 129, 0.2);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        body.dark-mode .tab {
-            background-color: rgba(30, 20, 30, 0.9);
-            color: #eee;
-        }
-
-        body.dark-mode .tab.active {
-            background-color: #ff4081;
-            color: white;
-        }
-
-        /* 响应式标签 */
-        @media (max-width: 768px) {
-            .tabs {
-                justify-content: flex-start;
-                overflow-x: auto;
-                padding-bottom: 5px;
-                margin-left: 10px;
-                margin-right: 10px;
-                flex-wrap: nowrap;
-                -webkit-overflow-scrolling: touch;
-                position: relative;
-                scroll-behavior: smooth;
-            }
-
-            .tab {
-                flex: 0 0 auto;
-                white-space: nowrap;
-                padding: 10px 15px;
-                margin: 0 5px;
-                font-size: 0.9rem;
-            }
-
-            .tabs-container {
-                position: relative;
-                margin-bottom: 30px;
-            }
-
-            .tab-scroll-arrow {
-                position: absolute;
-                right: 5px;
-                top: 50%;
-                transform: translateY(-50%);
-                width: 35px;
-                height: 35px;
-                background-color: rgba(255, 64, 129, 0.8);
-                color: white;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 1.2rem;
-                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-                z-index: 10;
-                cursor: pointer;
-                animation: pulse 1.5s infinite;
-            }
-
-            @keyframes pulse {
-                0% {
-                    opacity: 0.7;
-                    transform: translateY(-50%) scale(1);
-                }
-
-                50% {
-                    opacity: 1;
-                    transform: translateY(-50%) scale(1.1);
-                }
-
-                100% {
-                    opacity: 0.7;
-                    transform: translateY(-50%) scale(1);
-                }
-            }
-
-            body.dark-mode .tab-scroll-arrow {
-                background-color: rgba(156, 39, 176, 0.8);
-            }
-        }
     </style>
 </head>
 
@@ -552,409 +421,304 @@
             <p class="gallery-subtitle">探索私密美学，感受独特魅力</p>
         </div>
 
-        <div class="tabs-container">
-            <div class="tabs">
-                <div class="tab active" data-tab="tab1">全部写真</div>
-                <div class="tab" data-tab="tab2">国内写真</div>
-                <div class="tab" data-tab="tab3">日本专区</div>
-                <div class="tab" data-tab="tab4">韩国专区</div>
-                <div class="tab" data-tab="tab5">Cosplay</div>
-                <div class="tab" data-tab="tab6">制服诱惑</div>
-                <div class="tab" data-tab="tab7">私房写真</div>
-            </div>
-            <div class="tab-scroll-arrow">→</div>
-        </div>
-
-        <div class="tab-content active" id="tab1">
-            <div class="news-grid">
-                <div class="news-card" data-id="1">
-                    <img src="../image/[雲少女写真] 写SchoolGirl.II [27P]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>魅惑蕾丝系列新品发布</h3>
-                        <p class="news-date">2024-03-20</p>
-                        <p class="news-text">这套性感到爆的蕾丝系列让你欲罢不能，超薄半透设计让那些骚浪的曲线若隐若现，真他妈的诱人...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
-                </div>
-
-                <div class="news-card" data-id="2">
-                    <img src="../image/六味帝皇酱 - 溪水体操服 [60P]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>湿身诱惑特辑</h3>
-                        <p class="news-date">2024-03-18</p>
-                        <p class="news-text">这组湿身照真是骚出了新高度，那些被淋湿的衣服紧贴在身上，简直就像没穿一样，每一条曲线都让人血脉喷张...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
-                </div>
-
-                <div class="news-card" data-id="3">
-                    <img src="../image/周叽是可爱兔兔 体操服 [31P]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>制服诱惑主题月度佳作</h3>
-                        <p class="news-date">2024-03-15</p>
-                        <p class="news-text">这批制服写真简直淫荡至极，那些看似规矩的制服下藏着最放荡的身体。超短裙若隐若现，衬衫扣子若有似无地解开...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
-                </div>
-
-                <div class="news-card" data-id="4">
-                    <img src="../image/木绵绵OwO NO.028 浴巾兔子 [42P]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>浴巾兔女郎私房照</h3>
-                        <p class="news-date">2024-03-12</p>
-                        <p class="news-text">刚洗完澡的尤物只裹一条浴巾，湿漉漉的身体和若隐若现的曲线让人欲火焚身...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
-                </div>
-
-                <div class="news-card" data-id="5">
-                    <img src="../image/逐月su-网吧历险记 [23P]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>网吧里的欲望邂逅</h3>
-                        <p class="news-date">2024-03-10</p>
-                        <p class="news-text">深夜网吧里的大胆露出，紧身衣下的完美身材，这种公共场合的刺激感让人欲罢不能...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
-                </div>
-
-                <div class="news-card" data-id="6">
-                    <img src="../image/团子系列 工口少女 [66P]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>工口少女的私密时光</h3>
-                        <p class="news-date">2024-03-05</p>
-                        <p class="news-text">这套写真尺度大到让人窒息，工口系列的极致演绎，每一个姿势都在挑战你的忍耐极限...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
-                </div>
-
-                <div class="news-card" data-id="7">
-                    <img src="../image/衣衫半遮若隐若现着衣爆乳 [30P]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>着衣爆乳系列</h3>
-                        <p class="news-date">2024-03-01</p>
-                        <p class="news-text">紧身衣物下呼之欲出的丰满，那种要爆炸的视觉冲击力让人血脉喷张，简直是视觉盛宴...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
-                </div>
-
-                <div class="news-card" data-id="8">
-                    <img src="../image/虎森森 体操服 [36P]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>体操服下的诱人身姿</h3>
-                        <p class="news-date">2024-02-25</p>
-                        <p class="news-text">紧身体操服勾勒出完美曲线，动作间的走光和露底，让人想入非非，简直是罪恶的化身...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
-                </div>
-
-                <div class="news-card" data-id="9">
-                    <img src="../image/六味帝皇酱午后少女 [84P]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>午后少女的秘密时光</h3>
-                        <p class="news-date">2024-02-20</p>
-                        <p class="news-text">阳光洒在少女微醺的肌肤上，午后的慵懒与情欲让她忍不住在独处时展现最私密的一面...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
-                </div>
-
-                <div class="news-card" data-id="10">
-                    <img src="../image/肉肉番外[49P]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>肉肉番外私密合集</h3>
-                        <p class="news-date">2024-02-15</p>
-                        <p class="news-text">这套番外写真尺度大到让人窒息，每个姿势都在挑逗你最原始的欲望...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
-                </div>
-
-                <div class="news-card" data-id="11">
-                    <img src="../image/软妹摇摇乐[73P]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>软妹摇摇乐性感写真</h3>
-                        <p class="news-date">2024-02-10</p>
-                        <p class="news-text">这组软妹写真带你领略极致诱惑，那些刻意的扭动和挑逗让人欲火焚身...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
-                </div>
-
-                <div class="news-card" data-id="12">
-                    <img src="../image/孙乐乐 [15P]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>孙乐乐性感私房照</h3>
-                        <p class="news-date">2024-02-05</p>
-                        <p class="news-text">这套私房写真展现了最原始的诱惑，每一个动作都是赤裸裸的勾引，让人看了就想犯罪...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
-                </div>
-
-                <div class="news-card" data-id="13">
-                    <img src="../image/Fantasy Factory [21P]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>Fantasy Factory幻想工厂</h3>
-                        <p class="news-date">2024-01-28</p>
-                        <p class="news-text">走进幻想工厂，这里生产最淫荡的欲望和最放肆的幻想，让你彻底释放内心的渴望...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
-                </div>
-
-                <div class="news-card" data-id="14">
-                    <img src="../image/Coser@周叽是可爱兔兔 Vol.012： 体操服 [31P]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>周叽兔兔体操服诱惑</h3>
-                        <p class="news-date">2024-01-20</p>
-                        <p class="news-text">这套体操服写真将诱惑升级，紧身衣下的完美曲线让人欲火焚身，忍不住想要撕开那层布料...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
-                </div>
-
-                <div class="news-card" data-id="15">
-                    <img src="../image/Iori Kogawa(古川伊織) [101P]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>古川伊織限定写真</h3>
-                        <p class="news-date">2024-01-15</p>
-                        <p class="news-text">日本顶级写真女星古川伊織的最新尺度写真，极致诱惑展现东方女性的妩媚与放荡...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
-                </div>
-
-                <div class="news-card" data-id="16">
-                    <img src="../image/Neyrodesu - Rin Tohsaka [23P]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>远坂凛Cosplay限定</h3>
-                        <p class="news-date">2024-01-10</p>
-                        <p class="news-text">Cosplay与情色的完美结合，这组远坂凛写真将二次元角色带入现实世界的欲望中...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
-                </div>
-
-                <div class="news-card" data-id="17">
-                    <img src="../image/Pure Media Vol.76 Song Hana[70P]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>Song Hana纯美媒体</h3>
-                        <p class="news-date">2024-01-05</p>
-                        <p class="news-text">韩国性感女神Song Hana的最新写真，东方美女的性感与放荡在镜头前毫无保留...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
-                </div>
-
-                <div class="news-card" data-id="18">
-                    <img src="../image/[Espacia Korea]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>Espacia Korea韩国诱惑</h3>
-                        <p class="news-date">2023-12-28</p>
-                        <p class="news-text">韩国风情写真的极致演绎，东方女性特有的含蓄与放荡的完美结合，让人欲罢不能...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
-                </div>
-
-                <div class="news-card" data-id="19">
-                    <img src="../image/[いくみ]いくみと温泉(ROM) [95P]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>いくみと温泉私密写真</h3>
-                        <p class="news-date">2023-12-20</p>
-                        <p class="news-text">日本温泉写真的极致演绎，湿漉漉的肌肤和朦胧的水汽创造出最诱人的视觉盛宴...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
+        <div class="news-grid">
+            <div class="news-card" data-id="1">
+                <img src="../image/[雲少女写真] 写SchoolGirl.II [27P]/1.jpg" alt="情趣写真">
+                <div class="news-content">
+                    <h3>魅惑蕾丝系列新品发布</h3>
+                    <p class="news-date">2024-03-20</p>
+                    <p class="news-text">这套性感到爆的蕾丝系列让你欲罢不能，超薄半透设计让那些骚浪的曲线若隐若现，真他妈的诱人...</p>
+                    <a href="#" class="read-more">查看详情</a>
                 </div>
             </div>
-        </div>
 
-        <div class="tab-content" id="tab2">
-            <div class="news-grid">
-                <!-- 国内写真 -->
-                <div class="news-card" data-id="3">
-                    <img src="../image/周叽是可爱兔兔 体操服 [31P]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>制服诱惑主题月度佳作</h3>
-                        <p class="news-date">2024-03-15</p>
-                        <p class="news-text">这批制服写真简直淫荡至极，那些看似规矩的制服下藏着最放荡的身体。超短裙若隐若现，衬衫扣子若有似无地解开...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
-                </div>
-
-                <div class="news-card" data-id="10">
-                    <img src="../image/肉肉番外[49P]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>肉肉番外私密合集</h3>
-                        <p class="news-date">2024-02-15</p>
-                        <p class="news-text">这套番外写真尺度大到让人窒息，每个姿势都在挑逗你最原始的欲望...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
-                </div>
-
-                <div class="news-card" data-id="11">
-                    <img src="../image/软妹摇摇乐[73P]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>软妹摇摇乐性感写真</h3>
-                        <p class="news-date">2024-02-10</p>
-                        <p class="news-text">这组软妹写真带你领略极致诱惑，那些刻意的扭动和挑逗让人欲火焚身...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
-                </div>
-
-                <div class="news-card" data-id="12">
-                    <img src="../image/孙乐乐 [15P]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>孙乐乐性感私房照</h3>
-                        <p class="news-date">2024-02-05</p>
-                        <p class="news-text">这套私房写真展现了最原始的诱惑，每一个动作都是赤裸裸的勾引，让人看了就想犯罪...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
-                </div>
-
-                <div class="news-card" data-id="14">
-                    <img src="../image/Coser@周叽是可爱兔兔 Vol.012： 体操服 [31P]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>周叽兔兔体操服诱惑</h3>
-                        <p class="news-date">2024-01-20</p>
-                        <p class="news-text">这套体操服写真将诱惑升级，紧身衣下的完美曲线让人欲火焚身，忍不住想要撕开那层布料...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
+            <div class="news-card" data-id="2">
+                <img src="../image/六味帝皇酱 - 溪水体操服 [60P]/1.jpg" alt="情趣写真">
+                <div class="news-content">
+                    <h3>湿身诱惑特辑</h3>
+                    <p class="news-date">2024-03-18</p>
+                    <p class="news-text">这组湿身照真是骚出了新高度，那些被淋湿的衣服紧贴在身上，简直就像没穿一样，每一条曲线都让人血脉喷张...</p>
+                    <a href="#" class="read-more">查看详情</a>
                 </div>
             </div>
-        </div>
 
-        <div class="tab-content" id="tab3">
-            <div class="news-grid">
-                <!-- 日本专区 -->
-                <div class="news-card" data-id="15">
-                    <img src="../image/Iori Kogawa(古川伊織) [101P]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>古川伊織限定写真</h3>
-                        <p class="news-date">2024-01-15</p>
-                        <p class="news-text">日本顶级写真女星古川伊織的最新尺度写真，极致诱惑展现东方女性的妩媚与放荡...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
-                </div>
-
-                <div class="news-card" data-id="19">
-                    <img src="../image/[いくみ]いくみと温泉(ROM) [95P]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>いくみと温泉私密写真</h3>
-                        <p class="news-date">2023-12-20</p>
-                        <p class="news-text">日本温泉写真的极致演绎，湿漉漉的肌肤和朦胧的水汽创造出最诱人的视觉盛宴...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
+            <div class="news-card" data-id="3">
+                <img src="../image/周叽是可爱兔兔 体操服 [31P]/1.jpg" alt="情趣写真">
+                <div class="news-content">
+                    <h3>制服诱惑主题月度佳作</h3>
+                    <p class="news-date">2024-03-15</p>
+                    <p class="news-text">这批制服写真简直淫荡至极，那些看似规矩的制服下藏着最放荡的身体。超短裙若隐若现，衬衫扣子若有似无地解开...</p>
+                    <a href="#" class="read-more">查看详情</a>
                 </div>
             </div>
-        </div>
 
-        <div class="tab-content" id="tab4">
-            <div class="news-grid">
-                <!-- 韩国专区 -->
-                <div class="news-card" data-id="17">
-                    <img src="../image/Pure Media Vol.76 Song Hana[70P]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>Song Hana纯美媒体</h3>
-                        <p class="news-date">2024-01-05</p>
-                        <p class="news-text">韩国性感女神Song Hana的最新写真，东方美女的性感与放荡在镜头前毫无保留...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
-                </div>
-
-                <div class="news-card" data-id="18">
-                    <img src="../image/[Espacia Korea]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>Espacia Korea韩国诱惑</h3>
-                        <p class="news-date">2023-12-28</p>
-                        <p class="news-text">韩国风情写真的极致演绎，东方女性特有的含蓄与放荡的完美结合，让人欲罢不能...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
+            <div class="news-card" data-id="4">
+                <img src="../image/木绵绵OwO NO.028 浴巾兔子 [42P]/1.jpg" alt="情趣写真">
+                <div class="news-content">
+                    <h3>浴巾兔女郎私房照</h3>
+                    <p class="news-date">2024-03-12</p>
+                    <p class="news-text">刚洗完澡的尤物只裹一条浴巾，湿漉漉的身体和若隐若现的曲线让人欲火焚身...</p>
+                    <a href="#" class="read-more">查看详情</a>
                 </div>
             </div>
-        </div>
 
-        <div class="tab-content" id="tab5">
-            <div class="news-grid">
-                <!-- Cosplay -->
-                <div class="news-card" data-id="16">
-                    <img src="../image/Neyrodesu - Rin Tohsaka [23P]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>远坂凛Cosplay限定</h3>
-                        <p class="news-date">2024-01-10</p>
-                        <p class="news-text">Cosplay与情色的完美结合，这组远坂凛写真将二次元角色带入现实世界的欲望中...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
+            <div class="news-card" data-id="5">
+                <img src="../image/逐月su-网吧历险记 [23P]/1.jpg" alt="情趣写真">
+                <div class="news-content">
+                    <h3>网吧里的欲望邂逅</h3>
+                    <p class="news-date">2024-03-10</p>
+                    <p class="news-text">深夜网吧里的大胆露出，紧身衣下的完美身材，这种公共场合的刺激感让人欲罢不能...</p>
+                    <a href="#" class="read-more">查看详情</a>
                 </div>
             </div>
-        </div>
 
-        <div class="tab-content" id="tab6">
-            <div class="news-grid">
-                <!-- 制服诱惑 -->
-                <div class="news-card" data-id="3">
-                    <img src="../image/周叽是可爱兔兔 体操服 [31P]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>制服诱惑主题月度佳作</h3>
-                        <p class="news-date">2024-03-15</p>
-                        <p class="news-text">这批制服写真简直淫荡至极，那些看似规矩的制服下藏着最放荡的身体。超短裙若隐若现，衬衫扣子若有似无地解开...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
-                </div>
-
-                <div class="news-card" data-id="8">
-                    <img src="../image/虎森森 体操服 [36P]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>体操服下的诱人身姿</h3>
-                        <p class="news-date">2024-02-25</p>
-                        <p class="news-text">紧身体操服勾勒出完美曲线，动作间的走光和露底，让人想入非非，简直是罪恶的化身...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
-                </div>
-
-                <div class="news-card" data-id="14">
-                    <img src="../image/Coser@周叽是可爱兔兔 Vol.012： 体操服 [31P]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>周叽兔兔体操服诱惑</h3>
-                        <p class="news-date">2024-01-20</p>
-                        <p class="news-text">这套体操服写真将诱惑升级，紧身衣下的完美曲线让人欲火焚身，忍不住想要撕开那层布料...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
+            <div class="news-card" data-id="6">
+                <img src="../image/团子系列 工口少女 [66P]/1.jpg" alt="情趣写真">
+                <div class="news-content">
+                    <h3>工口少女的私密时光</h3>
+                    <p class="news-date">2024-03-05</p>
+                    <p class="news-text">这套写真尺度大到让人窒息，工口系列的极致演绎，每一个姿势都在挑战你的忍耐极限...</p>
+                    <a href="#" class="read-more">查看详情</a>
                 </div>
             </div>
-        </div>
 
-        <div class="tab-content" id="tab7">
-            <div class="news-grid">
-                <!-- 私房写真 -->
-                <div class="news-card" data-id="4">
-                    <img src="../image/木绵绵OwO NO.028 浴巾兔子 [42P]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>浴巾兔女郎私房照</h3>
-                        <p class="news-date">2024-03-12</p>
-                        <p class="news-text">刚洗完澡的尤物只裹一条浴巾，湿漉漉的身体和若隐若现的曲线让人欲火焚身...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
+            <div class="news-card" data-id="7">
+                <img src="../image/衣衫半遮若隐若现着衣爆乳 [30P]/1.jpg" alt="情趣写真">
+                <div class="news-content">
+                    <h3>着衣爆乳系列</h3>
+                    <p class="news-date">2024-03-01</p>
+                    <p class="news-text">紧身衣物下呼之欲出的丰满，那种要爆炸的视觉冲击力让人血脉喷张，简直是视觉盛宴...</p>
+                    <a href="#" class="read-more">查看详情</a>
                 </div>
+            </div>
 
-                <div class="news-card" data-id="6">
-                    <img src="../image/团子系列 工口少女 [66P]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>工口少女的私密时光</h3>
-                        <p class="news-date">2024-03-05</p>
-                        <p class="news-text">这套写真尺度大到让人窒息，工口系列的极致演绎，每一个姿势都在挑战你的忍耐极限...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
+            <div class="news-card" data-id="8">
+                <img src="../image/虎森森 体操服 [36P]/1.jpg" alt="情趣写真">
+                <div class="news-content">
+                    <h3>体操服下的诱人身姿</h3>
+                    <p class="news-date">2024-02-25</p>
+                    <p class="news-text">紧身体操服勾勒出完美曲线，动作间的走光和露底，让人想入非非，简直是罪恶的化身...</p>
+                    <a href="#" class="read-more">查看详情</a>
                 </div>
+            </div>
 
-                <div class="news-card" data-id="9">
-                    <img src="../image/六味帝皇酱午后少女 [84P]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>午后少女的秘密时光</h3>
-                        <p class="news-date">2024-02-20</p>
-                        <p class="news-text">阳光洒在少女微醺的肌肤上，午后的慵懒与情欲让她忍不住在独处时展现最私密的一面...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
+            <div class="news-card" data-id="9">
+                <img src="../image/六味帝皇酱午后少女 [84P]/1.jpg" alt="情趣写真">
+                <div class="news-content">
+                    <h3>午后少女的秘密时光</h3>
+                    <p class="news-date">2024-02-20</p>
+                    <p class="news-text">阳光洒在少女微醺的肌肤上，午后的慵懒与情欲让她忍不住在独处时展现最私密的一面...</p>
+                    <a href="#" class="read-more">查看详情</a>
                 </div>
+            </div>
 
-                <div class="news-card" data-id="12">
-                    <img src="../image/孙乐乐 [15P]/1.jpg" alt="情趣写真">
-                    <div class="news-content">
-                        <h3>孙乐乐性感私房照</h3>
-                        <p class="news-date">2024-02-05</p>
-                        <p class="news-text">这套私房写真展现了最原始的诱惑，每一个动作都是赤裸裸的勾引，让人看了就想犯罪...</p>
-                        <a href="#" class="read-more">查看详情</a>
-                    </div>
+            <div class="news-card" data-id="10">
+                <img src="../image/幼水铃衣 温泉体操服 [86P]/1.jpg" alt="情趣写真">
+                <div class="news-content">
+                    <h3>温泉体操服魅惑</h3>
+                    <p class="news-date">2024-02-15</p>
+                    <p class="news-text">湿润温泉与紧身体操服的完美结合，水汽蒸腾中那若隐若现的身体曲线，让人欲火焚身...</p>
+                    <a href="#" class="read-more">查看详情</a>
+                </div>
+            </div>
+
+            <div class="news-card" data-id="11">
+                <img src="../image/幼水铃衣 晨醒 [65P]/1.jpg" alt="情趣写真">
+                <div class="news-content">
+                    <h3>少女的晨间秘事</h3>
+                    <p class="news-date">2024-02-10</p>
+                    <p class="news-text">刚睡醒的少女衣衫不整，慵懒而放荡的姿态，让你感受最原始的晨间欲望...</p>
+                    <a href="#" class="read-more">查看详情</a>
+                </div>
+            </div>
+
+            <div class="news-card" data-id="12">
+                <img src="../image/幼水铃衣 小猫猫 [26P]/1.jpg" alt="情趣写真">
+                <div class="news-content">
+                    <h3>猫娘的撩人姿态</h3>
+                    <p class="news-date">2024-02-05</p>
+                    <p class="news-text">带着猫耳装束的尤物，像猫儿一样慵懒又放荡，在猫爪下欲拒还迎的姿态让人欲罢不能...</p>
+                    <a href="#" class="read-more">查看详情</a>
+                </div>
+            </div>
+
+            <div class="news-card" data-id="13">
+                <img src="../image/幼水铃衣 周末郊游 [63P]/1.jpg" alt="情趣写真">
+                <div class="news-content">
+                    <h3>野外郊游的放荡时刻</h3>
+                    <p class="news-date">2024-01-30</p>
+                    <p class="news-text">自然环境下的大胆露出，在无人的郊外尽情展现最原始的欲望，刺激感让人血脉喷张...</p>
+                    <a href="#" class="read-more">查看详情</a>
+                </div>
+            </div>
+
+            <div class="news-card" data-id="14">
+                <img src="../image/幼水铃衣 双马尾 [80P]/1.jpg" alt="情趣写真">
+                <div class="news-content">
+                    <h3>双马尾少女的禁忌诱惑</h3>
+                    <p class="news-date">2024-01-25</p>
+                    <p class="news-text">清纯双马尾与大胆姿势的反差，青涩外表下掩藏的放荡灵魂，让人有罪恶般的快感...</p>
+                    <a href="#" class="read-more">查看详情</a>
+                </div>
+            </div>
+
+            <div class="news-card" data-id="15">
+                <img src="../image/幼水铃衣 午间更衣室 [76P]/1.jpg" alt="情趣写真">
+                <div class="news-content">
+                    <h3>更衣室的偷情瞬间</h3>
+                    <p class="news-date">2024-01-20</p>
+                    <p class="news-text">公共更衣室内大胆半裸，随时可能被发现的刺激感，让这套写真成为最销魂的午间禁忌...</p>
+                    <a href="#" class="read-more">查看详情</a>
+                </div>
+            </div>
+
+            <div class="news-card" data-id="16">
+                <img src="../image/幼水铃衣 你的电子女友 [36P]/1.jpg" alt="情趣写真">
+                <div class="news-content">
+                    <h3>电子女友的虚拟调教</h3>
+                    <p class="news-date">2024-01-15</p>
+                    <p class="news-text">科技感与情欲的完美结合，沉浸式体验最贴心的电子女友，满足你不敢言说的隐秘欲望...</p>
+                    <a href="#" class="read-more">查看详情</a>
+                </div>
+            </div>
+
+            <div class="news-card" data-id="17">
+                <img src="../image/软妹摇摇乐[73P]/1.jpg" alt="情趣写真">
+                <div class="news-content">
+                    <h3>软妹的摇摆瞬间</h3>
+                    <p class="news-date">2024-01-10</p>
+                    <p class="news-text">柔软身段的极致展现，各种姿势下的晃动与摇摆，让人忍不住想要亲手感受那份柔软...</p>
+                    <a href="#" class="read-more">查看详情</a>
+                </div>
+            </div>
+
+            <div class="news-card" data-id="18">
+                <img src="../image/肉肉番外[49P]/1.jpg" alt="情趣写真">
+                <div class="news-content">
+                    <h3>肉感尤物的私密档案</h3>
+                    <p class="news-date">2024-01-05</p>
+                    <p class="news-text">丰满曲线的极致展现，肉感十足的身体在镜头前毫无保留，让你体验视觉上的最强冲击...</p>
+                    <a href="#" class="read-more">查看详情</a>
+                </div>
+            </div>
+
+            <div class="news-card" data-id="19">
+                <img src="../image/孙乐乐 [15P]/1.jpg" alt="情趣写真">
+                <div class="news-content">
+                    <h3>私密写真独家放送</h3>
+                    <p class="news-date">2024-01-01</p>
+                    <p class="news-text">限量独家写真首次曝光，最私密的姿势与视角，让你感受前所未有的视觉震撼...</p>
+                    <a href="#" class="read-more">查看详情</a>
+                </div>
+            </div>
+
+            <div class="news-card" data-id="20">
+                <img src="../image/Coser@轩萧学姐 - 黑丝竞泳 [50P]/1.jpg" alt="情趣写真">
+                <div class="news-content">
+                    <h3>黑丝竞泳火辣特辑</h3>
+                    <p class="news-date">2023-12-25</p>
+                    <p class="news-text">紧身泳衣配黑丝的绝妙组合，每一寸肌肤和曲线都被紧密包裹，性感到让人窒息...</p>
+                    <a href="#" class="read-more">查看详情</a>
+                </div>
+            </div>
+
+            <div class="news-card" data-id="21">
+                <img src="../image/Coser@许岚lan - 白丝水手服 [41P]/1.jpg" alt="情趣写真">
+                <div class="news-content">
+                    <h3>白丝水手服的禁忌诱惑</h3>
+                    <p class="news-date">2023-12-15</p>
+                    <p class="news-text">学院风的白丝水手服与大胆姿势的强烈反差，青涩外表下隐藏的是欲求不满的放荡灵魂...</p>
+                    <a href="#" class="read-more">查看详情</a>
+                </div>
+            </div>
+
+            <div class="news-card" data-id="22">
+                <img src="../image/Coser@羽生三未 - 万圣黑丝女仆 [38P]/1.jpg" alt="情趣写真">
+                <div class="news-content">
+                    <h3>万圣节黑丝女仆派对</h3>
+                    <p class="news-date">2023-12-05</p>
+                    <p class="news-text">万圣节与女仆装的完美结合，黑丝点缀下的服侍姿态，让人忍不住想亲手调教这位不听话的女仆...</p>
+                    <a href="#" class="read-more">查看详情</a>
+                </div>
+            </div>
+
+            <div class="news-card" data-id="23">
+                <img src="../image/Coser@周叽是可爱兔兔 Vol.012： 体操服 [31P]/1.jpg" alt="情趣写真">
+                <div class="news-content">
+                    <h3>兔女郎体操服诱惑</h3>
+                    <p class="news-date">2023-11-25</p>
+                    <p class="news-text">兔耳朵与紧身体操服的绝妙组合，各种弯腰姿势下的若隐若现，简直让人欲罢不能...</p>
+                    <a href="#" class="read-more">查看详情</a>
+                </div>
+            </div>
+
+            <div class="news-card" data-id="24">
+                <img src="../image/Coser@けん研 けんけん - くの一忍法お色気の術dl写真集 Part3 [55P]/1.jpg" alt="情趣写真">
+                <div class="news-content">
+                    <h3>忍者美少女的媚术</h3>
+                    <p class="news-date">2023-11-15</p>
+                    <p class="news-text">日式忍者装束下的诱惑姿态，使出浑身解数的媚术，让人彻底沦陷在这位女忍的温柔乡中...</p>
+                    <a href="#" class="read-more">查看详情</a>
+                </div>
+            </div>
+
+            <div class="news-card" data-id="25">
+                <img src="../image/Pure Media Vol.76 Song Hana[70P]/1.jpg" alt="情趣写真">
+                <div class="news-content">
+                    <h3>纯媒体尤物的私密写真</h3>
+                    <p class="news-date">2023-11-05</p>
+                    <p class="news-text">精致面容与完美身材的绝妙结合，每一个姿势都充满艺术感与情欲，是视觉与欲望的双重盛宴...</p>
+                    <a href="#" class="read-more">查看详情</a>
+                </div>
+            </div>
+
+            <div class="news-card" data-id="26">
+                <img src="../image/[いくみ]いくみと温泉(ROM) [95P]/1.jpg" alt="情趣写真">
+                <div class="news-content">
+                    <h3>温泉嬉戏的湿身诱惑</h3>
+                    <p class="news-date">2023-10-25</p>
+                    <p class="news-text">日式温泉中的放荡时刻，湿漉漉的身体在水汽缭绕中若隐若现，最私密的地方也不介意展示...</p>
+                    <a href="#" class="read-more">查看详情</a>
+                </div>
+            </div>
+
+            <div class="news-card" data-id="27">
+                <img src="../image/Neyrodesu - Rin Tohsaka [23P]/1.jpg" alt="情趣写真">
+                <div class="news-content">
+                    <h3>动漫少女的三次元演绎</h3>
+                    <p class="news-date">2023-10-15</p>
+                    <p class="news-text">完美还原二次元角色的同时添加了更多情色元素，让你体验真人版动漫女神的极致魅力...</p>
+                    <a href="#" class="read-more">查看详情</a>
+                </div>
+            </div>
+
+            <div class="news-card" data-id="28">
+                <img src="../image/Iori Kogawa(古川伊織) [101P]/1.jpg" alt="情趣写真">
+                <div class="news-content">
+                    <h3>日系艺术写真集锦</h3>
+                    <p class="news-date">2023-10-05</p>
+                    <p class="news-text">日本顶级模特的极致演绎，从清纯到大胆，多种风格兼具，满足你对东方女性的所有幻想...</p>
+                    <a href="#" class="read-more">查看详情</a>
+                </div>
+            </div>
+
+            <div class="news-card" data-id="29">
+                <img src="../image/Fantasy Factory [21P]/1.jpg" alt="情趣写真">
+                <div class="news-content">
+                    <h3>幻想工厂的梦幻空间</h3>
+                    <p class="news-date">2023-09-25</p>
+                    <p class="news-text">超现实的幻想场景中，模特的每一个姿势都像是从梦中走出，让你沉浸在最美的性幻想中...</p>
+                    <a href="#" class="read-more">查看详情</a>
+                </div>
+            </div>
+
+            <div class="news-card" data-id="30">
+                <img src="../image/[Espacia Korea]/1.jpg" alt="情趣写真">
+                <div class="news-content">
+                    <h3>韩系性感写真专辑</h3>
+                    <p class="news-date">2023-09-15</p>
+                    <p class="news-text">韩国顶级模特的独特气质，完美身材与精致面容的结合，展现东亚女性的极致魅力...</p>
+                    <a href="#" class="read-more">查看详情</a>
                 </div>
             </div>
         </div>
@@ -1074,73 +838,150 @@
                     images: []
                 },
                 10: {
-                    title: "肉肉番外私密合集",
+                    title: "温泉体操服魅惑",
                     date: "2024-02-15",
-                    description: "这套番外写真尺度大到离谱，简直是在挑战观众的忍耐极限。<br><br>这骚货在镜头前毫无保留地展示着自己最放荡的一面，那些姿势和表情欠操到极点。每一个角度都精心设计，就是为了让你看得下面硬邦邦，恨不得立马扑上去。<br><br>特写镜头捕捉到了她最私密部位若隐若现的瞬间，那种视觉冲击简直让人血脉喷张。那些故意的半遮半掩，比直接露出来还他妈的刺激。<br><br>这贱货的眼神里满是挑逗，嘴唇微张，仿佛在说'快来干我'。整套写真散发着一股淫荡至极的气息，让人看了就想犯罪。这种番外特辑的尺度和露骨程度，绝对是最顶级的情色作品。",
-                    imageFolderPath: '../image/肉肉番外[49P]/',
+                    description: "这组温泉体操服写真简直淫荡到没边了，湿漉漉的紧身体操服贴在身上，把每一寸曲线都勾勒得一清二楚，这他妈谁能把持得住？<br><br>那种半透明状态下的身体简直就是视觉强奸，水珠顺着布料滑落的轨迹让人忍不住想伸手触摸。特别是那些故意摆出的姿势，在温泉水汽中若隐若现，简直骚到骨子里去了。<br><br>湿透的体操服下露出若隐若现的内衣边缘，再配上那欲求不满的表情，没有一个男人能抵抗得了这种诱惑。她在温泉中的一举一动都在叫嚣着'来干我'，那种湿热环境下的情欲简直让人窒息。<br><br>看着她湿漉漉的体操服下凸显的每一个部位，还有那些大胆到极点的姿势，绝对让你下面硬得发疼。这种体操服和温泉的组合绝对是顶级的情色艺术，骚到让人直接射出来。",
+                    imageFolderPath: '../image/幼水铃衣 温泉体操服 [86P]/',
                     images: []
                 },
                 11: {
-                    title: "软妹摇摇乐性感写真",
+                    title: "少女的晨间秘事",
                     date: "2024-02-10",
-                    description: "这组软妹写真简直骚到没朋友，那些故意的扭动和挑逗让人欲火焚身。<br><br>这骚货装出一副纯情软妹的样子，实际上浑身上下都散发着欲求不满的气息。那些故意的摇晃和颤动，把所有该强调的部位都展示得淋漓尽致，简直欠操到极点。<br><br>特写镜头下，她那些微微颤抖的部位让人口干舌燥，恨不得立刻扑上去狠狠蹂躏。每一个动作都精心设计，就是为了展示自己最淫荡的一面。<br><br>那种看似无辜实则勾人的眼神，微张的小嘴，还有那些欲拒还迎的姿态，都在诉说着最原始的欲望。这套软妹写真简直就是在挑战你的忍耐力，让你看得血脉喷张，却又不得不憋着。妈的，这谁能忍得住？",
-                    imageFolderPath: '../image/软妹摇摇乐[73P]/',
+                    description: "这组晨醒照片简直淫乱到爆，刚睡醒的样子衣衫不整，露出大片肌肤，那慵懒中带着放荡的样子真他妈欠操。<br><br>被子半掩着的身体若隐若现，睡衣散乱不堪，就像刚被狠狠蹂躏过一样。那种刚睡醒的迷离眼神中带着欲求不满，看得人下面立刻硬邦邦。<br><br>特写镜头捕捉到了她伸懒腰时走光的瞬间，那种不经意间的露出比刻意的裸露更加刺激。她的每一个动作都像是在邀请，明明是最日常的晨间场景，却色情得不得了。<br><br>床上那些凌乱的痕迹和她半遮半掩的姿态，让人忍不住幻想她昨晚经历了什么，又或者想立刻扑上去满足她明显还未消退的欲望。这组照片绝对是最自然也最骚的晨间诱惑。",
+                    imageFolderPath: '../image/幼水铃衣 晨醒 [65P]/',
                     images: []
                 },
                 12: {
-                    title: "孙乐乐性感私房照",
+                    title: "猫娘的撩人姿态",
                     date: "2024-02-05",
-                    description: "这套私房写真简直淫荡到没边了，孙乐乐在镜头前展现了让人窒息的诱惑。<br><br>这骚货的表情和姿势放荡到极点，明明是私人空间却表现得像个欲求不满的荡妇。那些若隐若现的部位和挑逗的动作，绝对是为了勾引人犯罪而设计的。<br><br>特写镜头下，她故意展示的边缘地带简直让人口干舌燥，恨不得立刻扑上去狠狠蹂躏。每一个角度都经过精心设计，就是为了展示她最骚的一面。<br><br>那种勾人的眼神，半开的红唇，还有那些欲拒还迎的姿态，都在叫嚣着'快来干我'。这种私房照的尺度大到离谱，绝对让人看了就想犯罪。",
-                    imageFolderPath: '../image/孙乐乐 [15P]/',
+                    description: "这套猫娘写真简直色情到极点，戴着猫耳的骚货摆出各种欠操的姿势，像猫一样跪趴着，露出最隐私的部位，这谁顶得住？<br><br>她模仿猫咪的动作和表情，时而纯真时而放荡，这种反差感简直让人欲火焚身。那种猫爪般轻挠的动作配上勾人的眼神，明明白白地在说'快来玩我'。<br><br>特写镜头下，她像猫一样舔舐自己的手背，那种色情的暗示简直不能再明显了。而且那些故意摆出的姿势，无论是跪趴还是侧卧，都在展示着最淫荡的一面。<br><br>这种角色扮演下的情色氛围浓烈到窒息，看着她一会儿装纯，一会儿又骚得不行的样子，绝对让你把持不住。整套写真就是为了挑逗观者最原始的欲望，让人产生各种不道德的幻想。",
+                    imageFolderPath: '../image/幼水铃衣 小猫猫 [26P]/',
                     images: []
                 },
                 13: {
-                    title: "Fantasy Factory幻想工厂",
-                    date: "2024-01-28",
-                    description: "这组幻想工厂写真简直色情到爆炸，仿佛走进了一个专门生产欲望的工厂。<br><br>这些尤物们在镜头前毫无保留地展现着自己最淫荡的一面，那些姿势和表情骚到极点。幻想工厂的布景和道具更是让整套写真充满了禁忌的刺激感。<br><br>特写镜头捕捉到了那些若隐若现的部位和勾人的表情，那种视觉冲击简直让人血脉喷张。这些骚货知道怎么用最少的遮挡展现最大的诱惑，每一个动作都在暗示着'快来玩我'。<br><br>整套写真弥漫着一股欲求不满的气息，让人看了就想立刻闯入这个工厂，狠狠地满足这些贱货。这种幻想系列的尺度和创意，绝对是最顶级的情色作品。",
-                    imageFolderPath: '../image/Fantasy Factory [21P]/',
+                    title: "野外郊游的放荡时刻",
+                    date: "2024-01-30",
+                    description: "这组野外郊游写真简直骚到没朋友，在开放的自然环境中如此大胆地展示身体，这骚货绝对是个欠操的婊子。<br><br>在无人的郊外，她故意脱掉外套，露出里面若隐若现的内衣，甚至有几张直接半裸，这种在公共场所暴露的刺激感让她兴奋到不行，眼神中充满了放荡的欲望。<br><br>自然光下的肌肤显得格外诱人，她故意趴在草地上，摆出各种勾人的姿势，就像在说'来草地上干我'。那种随时可能被别人看到的刺激感让整套写真充满了禁忌的快感。<br><br>特写镜头捕捉到了她在树荫下若隐若现的身体，阳光透过叶缝洒在肌肤上的画面简直色情到极点。这种野外露出的主题让整套写真充满了原始的欲望和冒险精神，绝对是最刺激的情色之作。",
+                    imageFolderPath: '../image/幼水铃衣 周末郊游 [63P]/',
                     images: []
                 },
                 14: {
-                    title: "周叽兔兔体操服诱惑",
-                    date: "2024-01-20",
-                    description: "这套体操服写真骚到没边了，周叽这骚货穿着紧身体操服的样子比不穿还要诱人。<br><br>那紧身的弹性面料完美贴合了她的每一寸曲线，简直就是为了勾引人犯罪而设计的。她的每一个动作都有意无意地展示着最私密的部位，那些拉高的裤腿和敞开的领口，他妈的简直欠操到极点。<br><br>特写镜头下，布料紧贴肌肤的画面让人血脉喷张，那种若隐若现的感觉比直接露出来还要刺激。她做着各种体操动作，却每一个都是为了展示自己最淫荡的一面。<br><br>看着这些照片简直让人想入非非，幻想着撕开那层薄薄的布料，狠狠地满足自己的欲望。这套体操服系列绝对是最顶级的情色写真，让人看了就想犯罪。",
-                    imageFolderPath: '../image/Coser@周叽是可爱兔兔 Vol.012： 体操服 [31P]/',
+                    title: "双马尾少女的禁忌诱惑",
+                    date: "2024-01-25",
+                    description: "这套双马尾写真简直淫荡到极点，明明扎着这么清纯的发型，却摆出这么骚的姿势，这种反差感简直让人欲罢不能。<br><br>那种看似青涩实则放荡的气质，给人一种强烈的罪恶感和快感。双马尾被她玩出了新高度，一会儿像个纯情少女，一会儿又骚得像个婊子，这他妈谁受得了？<br><br>特写镜头下，她抓着自己的双马尾，摆出各种挑逗的姿势，那种欲拒还迎的表情简直欠操到极点。偏偏又装作一副天真无邪的样子，这种明显的矛盾给整套写真增添了无限的情色张力。<br><br>看着她一边扯着自己的双马尾，一边做出放荡姿势的样子，简直让人血脉喷张。这种少女风格与成熟诱惑的结合，绝对是最顶级的禁忌写真，让人在罪恶中找到极致的快感。",
+                    imageFolderPath: '../image/幼水铃衣 双马尾 [80P]/',
                     images: []
                 },
                 15: {
-                    title: "古川伊織限定写真",
-                    date: "2024-01-15",
-                    description: "这组古川伊織的写真简直他妈的色情到极点，日本顶级女优的尺度果然不是盖的。<br><br>这骚货在镜头前展现了最专业级的诱惑技巧，每一个动作和表情都经过精心设计，就是为了让你看得下面硬邦邦。那些半遮半掩的姿势比直接露出来还要勾人，真是骚到了骨子里。<br><br>特写镜头下，她那故意流露出的表情简直就是在说'快来干我'，眼神中满是淫荡和渴求。那些若隐若现的部位和刻意的走光，简直就是在挑战你的忍耐极限。<br><br>古川伊織知道怎么利用自己的身体挑起男人最原始的欲望，这组写真的尺度和技巧，绝对是业界顶级水平。看完这些照片，简直让人恨不得立刻飞到日本去找这种极品尤物。",
-                    imageFolderPath: '../image/Iori Kogawa(古川伊織) [101P]/',
+                    title: "更衣室的偷情瞬间",
+                    date: "2024-01-20",
+                    description: "这组更衣室写真简直色情到爆，在公共空间里如此大胆地展示身体，这骚货是真的不要命了。<br><br>半开的更衣室门，随时可能有人进来的刺激感，让她兴奋到不行。那种偷偷摸摸脱衣服的样子，还故意对着镜头露出各种部位，简直就是在勾引犯罪。<br><br>特写镜头捕捉到了她在更衣室镜子前的大胆姿势，那种自恋又放荡的表情，简直让人硬到爆炸。更刺激的是，有几张照片还能看到更衣室门外隐约有人经过的模糊身影，这种随时可能被发现的危险感让整套写真带上了强烈的偷窥快感。<br><br>看着她一件件脱下衣服，从穿戴整齐到几乎全裸的过程，简直就像在观看一场隐秘的午间偷情。这种禁忌场所的大胆展示，绝对是最刺激的情色题材，让人看了就想立刻冲到更衣室去找这种骚货。",
+                    imageFolderPath: '../image/幼水铃衣 午间更衣室 [76P]/',
                     images: []
                 },
                 16: {
-                    title: "远坂凛Cosplay限定",
-                    date: "2024-01-10",
-                    description: "这组远坂凛的Cosplay写真简直淫荡到没朋友，把二次元角色演绎得骚气逼人。<br><br>这骚货穿着还原度极高的远坂凛服装，却做着最放荡的动作，这种反差感简直让人欲罢不能。明明是动漫角色Cosplay，却浑身上下都散发着欲求不满的气息。<br><br>特写镜头下，她故意摆出的姿势简直欠操到极点，那些半遮半掩的部位和挑逗的表情，让人恨不得立刻扑上去狠狠蹂躏。<br><br>这种把纯洁的二次元角色演绎成淫荡欲女的反差，简直是最顶级的情色刺激。她的眼神中满是挑逗，嘴唇微张，仿佛在说'来啊，我就是你的远坂凛'。这套写真的尺度和创意，绝对是Cosplay界最顶级的情色作品。",
-                    imageFolderPath: '../image/Neyrodesu - Rin Tohsaka [23P]/',
+                    title: "电子女友的虚拟调教",
+                    date: "2024-01-15",
+                    description: "这套电子女友主题写真骚到离谱，科技感十足的场景下，这骚货摆出各种等待被调教的姿势，简直欠操到极点。<br><br>她穿着未来感十足的紧身衣，凸显出完美曲线，眼神中充满了对主人的服从和渴求。那种'我是你的私人电子女友，随时可以满足你'的暗示，让整套写真充满了控制与被控制的情色张力。<br><br>特写镜头下，她故意做出各种机械化的动作，却又带着浓烈的情欲，这种人工智能与真实欲望的矛盾混合，简直让人欲火焚身。那些半机械化的装饰和服装下，若隐若现的肉体更是火辣到极点。<br><br>看着她一会儿像个机器人一样服从，一会儿又露出真实的欲望表情，这种'你的专属性爱机器人'的设定简直满足了最邪恶的幻想。整套写真充满了未来感和情色感的完美结合，让人浮想联翩。",
+                    imageFolderPath: '../image/幼水铃衣 你的电子女友 [36P]/',
                     images: []
                 },
                 17: {
-                    title: "Song Hana纯美媒体",
-                    date: "2024-01-05",
-                    description: "这组韩国女神Song Hana的写真简直色情到爆炸，所谓的纯美媒体其实一点都不纯。<br><br>这骚货把韩国女性特有的含蓄与奔放完美结合，表面看似高冷，实际骚到骨子里。那些若隐若现的部位和挑逗的动作，绝对是为了勾引人犯罪而设计的。<br><br>特写镜头下，她那故意流露出的欲望表情简直让人口干舌燥，恨不得立刻扑上去狠狠蹂躏。每一个角度都经过精心设计，就是为了展示她最骚的一面。<br><br>那种看似矜持实则放荡的眼神，微微张开的红唇，还有那些刻意的走光，都在诉说着最原始的欲望。这种韩式情色写真的尺度和技巧，绝对是亚洲顶级水平。看完这些照片，简直让人恨不得立刻飞到韩国去找这种极品尤物。",
-                    imageFolderPath: '../image/Pure Media Vol.76 Song Hana[70P]/',
+                    title: "软妹的摇摆瞬间",
+                    date: "2024-01-10",
+                    description: "这组软妹写真简直色情到极点，柔软的身体在各种姿势下的晃动与摇摆，让人硬得发疼。<br><br>这骚货的身材软得不像话，各种扭曲的姿势都能做出来，简直就是为了性爱而生的尤物。那些故意展示柔软度的动作，无不在暗示着'我很软，你可以随意摆弄'，这谁顶得住？<br><br>特写镜头下，她那软嫩的肌肤和柔韧的身段被展现得淋漓尽致，看着她轻轻一动，全身上下都跟着摇摆起来的样子，简直让人想入非非。她明显知道自己的优势，故意在镜头前做出各种夸张的弯曲动作，展示那不可思议的柔软度。<br><br>最骚的是，她还故意做出那种轻微抖动的动作，让身体的某些部位随之摇晃，这种视觉冲击简直让人窒息。整套写真就是在展示一个道理：越软的妹子越会玩，这种柔软身体的极致展现绝对是顶级情色作品。",
+                    imageFolderPath: '../image/软妹摇摇乐[73P]/',
                     images: []
                 },
                 18: {
-                    title: "Espacia Korea韩国诱惑",
-                    date: "2023-12-28",
-                    description: "这组韩国Espacia写真简直骚到没朋友，完美展现了韩式情色的独特魅力。<br><br>这些韩国骚货表面看似高贵冷艳，实际上浑身上下都透着欲求不满的气息。那些特有的姿势和表情，妈的简直欠操到极点。<br><br>特写镜头下，她们那故意露出的边缘地带简直让人血脉喷张，那种若隐若现的感觉比直接露出来还要刺激。每一个角度都经过精心设计，就是为了展示她们最淫荡的一面。<br><br>那种表面矜持内心放荡的韩式诱惑，简直是最顶级的视觉享受。这些照片里的每一个细节都在挑战你的忍耐力，让你看得下面硬邦邦，却又不得不憋着。这套韩国写真的尺度和质感，绝对是亚洲顶级水平。",
-                    imageFolderPath: '../image/[Espacia Korea]/',
+                    title: "肉感尤物的私密档案",
+                    date: "2024-01-05",
+                    description: "这套肉感写真简直色情到爆炸，丰满的曲线在镜头前毫无保留，每一寸肉感都让人想狠狠蹂躏。<br><br>这尤物知道自己的优势在哪，故意穿紧身衣服凸显那些该死的丰满部位，看得人眼珠子都快掉出来了。那种肉感十足的身材配上勾人的眼神，简直就是行走的春药。<br><br>特写镜头下，她那丰满的部位随着动作微微晃动，这种视觉冲击简直让人硬到爆炸。她知道怎么利用角度让自己看起来更加丰满诱人，每一个姿势都经过精心设计，就是为了展示自己最性感的一面。<br><br>最要命的是她那种欲求不满的表情，配上丰满的身材，简直就是在叫嚣着'快来享用我'。这种肉感十足的写真比那些骨感模特辣眼多了，让人有种真实的触感，恨不得立刻扑上去好好品尝一番。",
+                    imageFolderPath: '../image/肉肉番外[49P]/',
                     images: []
                 },
                 19: {
-                    title: "いくみと温泉私密写真",
-                    date: "2023-12-20",
-                    description: "这组日本温泉写真简直色情到离谱，完美展现了日式情色的独特魅力。<br><br>这骚货在温泉中的样子淫荡至极，湿漉漉的肌肤和朦胧的水汽创造出最诱人的视觉盛宴。那些若隐若现的曲线和挑逗的表情，简直欠操到极点。<br><br>特写镜头下，水珠顺着她的身体滑落的画面让人欲火焚身，那种视觉冲击简直让人下面硬得发疼。温泉的蒸汽若隐若现地遮挡着，却又恰到好处地展示着最诱人的部位。<br><br>她在温泉中的动作和表情放荡到极点，眼神中满是渴求，嘴唇微张，浑身散发着欲求不满的气息。这种日式温泉写真的尺度和氛围，绝对是最顶级的情色体验，让人看了就想立刻飞到日本去找这种极品尤物。",
+                    title: "私密写真独家放送",
+                    date: "2024-01-01",
+                    description: "这组独家写真简直淫荡到没边了，那些平时绝对看不到的角度和姿势，让这套限量作品价值连城。<br><br>这骚货在镜头前完全放开了，做出各种平时不敢想象的大尺度动作，简直欠操到极点。那种赤裸裸的欲望表现，没有任何掩饰和伪装，就是最原始的性感和诱惑。<br><br>特写镜头捕捉到了她最私密部位的细节，那种近距离的视觉冲击绝对让人血脉喷张。她明显知道这是独家内容，所以格外卖力，每一个姿势都做到极致，展现出最诱人的一面。<br><br>这种独家私密的感觉让整套写真充满了专属感，就像她是专门为观者一个人表演的私人尤物。独特的视角和大胆的展示，让这组有限的照片显得异常珍贵，绝对是收藏级别的情色艺术品，看一次硬一次。",
+                    imageFolderPath: '../image/孙乐乐 [15P]/',
+                    images: []
+                },
+                20: {
+                    title: "黑丝竞泳火辣特辑",
+                    date: "2023-12-25",
+                    description: "这组黑丝竞泳写真简直色情到爆炸，紧身的泳衣包裹着完美曲线，再配上他妈的黑丝，这谁能忍得住？<br><br>那种紧绷感让每一寸肌肤和曲线都被凸显到极致，特别是那些刻意设计的开口部位，若隐若现地露出最诱人的地方。黑色丝袜和紧身泳衣的对比，简直是视觉暴击，让人看得下面硬邦邦。<br><br>特写镜头下，可以清晰地看到黑丝质感和紧身泳衣的接缝处，那种细节简直欠操到极点。她明显知道这种组合有多诱人，故意在镜头前做出各种挑逗的泳姿，一会儿俯身，一会儿又撅起，就是要让你看得血脉喷张。<br><br>最骚的是她那些湿身的镜头，水珠顺着黑丝和泳衣的缝隙滑落，那种视觉冲击简直让人窒息。这套黑丝竞泳的组合绝对是顶级的情色创意，让人看一眼就硬，看久了直接射爆。",
+                    imageFolderPath: '../image/Coser@轩萧学姐 - 黑丝竞泳 [50P]/',
+                    images: []
+                },
+                21: {
+                    title: "白丝水手服的禁忌诱惑",
+                    date: "2023-12-15",
+                    description: "这套白丝水手服写真简直骚到没边了，一副清纯学生的外表下，却做着最放荡不堪的动作，这种反差感简直让人欲罢不能。<br><br>那纯白的丝袜包裹着修长的腿，却故意摆出各种欠操的姿势，水手服的领口若有似无地敞开，露出里面的风光。这种青涩外表下隐藏的放荡，简直是犯罪级别的诱惑。<br><br>特写镜头捕捉到了她坐姿时白丝根部的风景，那种若隐若现的感觉比直接露出更加刺激。她明知道这种装扮有多禁忌，却偏偏做出最挑逗的表情，一副'快来玩坏我'的样子，这他妈谁能忍得住？<br><br>最要命的是她那种装作天真却又充满欲望的眼神，配合着水手服的纯洁感，简直就是最强烈的性暗示。这套写真绝对是把禁忌感玩到了极致，让人在罪恶和快感中挣扎，最终忍不住想要狠狠地蹂躏这个'小学生'。",
+                    imageFolderPath: '../image/Coser@许岚lan - 白丝水手服 [41P]/',
+                    images: []
+                },
+                22: {
+                    title: "万圣节黑丝女仆派对",
+                    date: "2023-12-05",
+                    description: "这组万圣节黑丝女仆照片简直淫荡到极点，把节日气氛和服侍精神完美结合，骚得不行。<br><br>她穿着改良版的女仆装，短到几乎遮不住屁股，配上黑丝袜，简直欠操到极点。那种半跪着的服侍姿势，明显在暗示着'主人，请尽情使用我'，这种服从感简直让人硬到爆炸。<br><br>特写镜头下，她故意俯身展示出女仆装下的风光，那若隐若现的内衣和黑丝的接缝处，简直让人口干舌燥。万圣节的一些装饰品被她用来做各种挑逗的动作，那些带有暗示性的玩法，绝对能让人想入非非。<br><br>最要命的是她那种故作顺从却又充满欲望的表情，一会儿装作乖巧的女仆，一会儿又露出放荡的本性，这种反差感简直让人欲罢不能。整套写真就是在告诉你：这么骚的女仆，不好好调教一下简直对不起自己。",
+                    imageFolderPath: '../image/Coser@羽生三未 - 万圣黑丝女仆 [38P]/',
+                    images: []
+                },
+                23: {
+                    title: "兔女郎体操服诱惑",
+                    date: "2023-11-25",
+                    description: "这套兔女郎体操服写真简直色情到爆，把可爱的兔耳朵和紧身的体操服结合在一起，简直就是为了让人硬而设计的。<br><br>紧身的体操服把她的身材勾勒得淋漓尽致，每一个动作都让布料紧绷到极限，那种随时会撕裂的感觉让人血脉喷张。而她头上的兔耳朵，更是增添了一种宠物般的服从感，让人忍不住想要好好'饲养'她。<br><br>特写镜头下，她做出各种体操动作，无论是下腰还是劈叉，都在展示着体操服下若隐若现的风景。她明显知道这些姿势有多么刺激，故意在动作间露出最诱人的部位，简直就是在勾引人犯罪。<br><br>最骚的是她那些模仿兔子的动作，一会儿撅着，一会儿又蹲跳着，配合着饥渴的表情，简直就是在说'快来上我'。这种角色扮演的极致体现，绝对是让人欲火焚身的顶级写真，看完绝对想把这只兔子按在地上狠狠疼爱。",
+                    imageFolderPath: '../image/Coser@周叽是可爱兔兔 Vol.012： 体操服 [31P]/',
+                    images: []
+                },
+                24: {
+                    title: "忍者美少女的媚术",
+                    date: "2023-11-15",
+                    description: "这组忍者媚术写真简直色情到没边了，穿着改良版的忍者服，却做出最放荡的姿势，这他妈谁能忍得住？<br><br>那种日式的忍者装束被她穿出了新高度，故意改短改露，只为了展示更多的肌肤。特别是那些刻意设计的开叉和透视部分，简直就是为了勾引人而存在的。她在镜头前施展各种'忍术'，实际上每一个动作都在散发着'快来干我'的信息。<br><br>特写镜头下，她做出各种仿佛在施展媚术的姿势，手指轻抚自己的身体，眼神迷离，那种欲拒还迎的样子简直欠操到极点。装束上的一些细节，比如半掉不掉的面罩和若隐若现的绑带，更是增添了一种神秘而放荡的氛围。<br><br>最要命的是她那些模仿忍者动作却又充满性暗示的姿势，一会儿装作在施展忍术，一会儿又露出最原始的欲望。这种异国风情的情色写真，绝对能满足那些对东方神秘感有幻想的人，让人忍不住想亲自领教一下这位女忍的'特殊忍术'。",
+                    imageFolderPath: '../image/Coser@けん研 けんけん - くの一忍法お色気の術dl写真集 Part3 [55P]/',
+                    images: []
+                },
+                25: {
+                    title: "纯媒体尤物的私密写真",
+                    date: "2023-11-05",
+                    description: "这组纯媒体写真简直色情到极点，那种高品质摄影下的情色感，让每一张照片都像艺术品一样精致，却又骚得让人硬到爆炸。<br><br>模特的身材简直完美到犯规，每一个曲线都恰到好处，在高端摄影棚的灯光下，显得更加诱人。她知道怎么利用自己的优势，在镜头前摆出各种专业而放荡的姿势，那种自信中带着欲望的表情，简直让人移不开眼。<br><br>特写镜头捕捉到了她身体各部位的完美细节，从锁骨到腰线，从腿部到背部，每一寸肌肤都散发着性感的气息。那些精心设计的姿势，既有艺术感又充满了欲望，这种平衡简直是最高级的情色表现。<br><br>最要命的是她那种高级而不失放荡的气质，明明是最专业的模特，却在镜头前展现出最原始的诱惑。这种高质量的情色写真，绝对是满足视觉和欲望的双重盛宴，让人在欣赏的同时忍不住想入非非，幻想着亲自体验这样的尤物。",
+                    imageFolderPath: '../image/Pure Media Vol.76 Song Hana[70P]/',
+                    images: []
+                },
+                26: {
+                    title: "温泉嬉戏的湿身诱惑",
+                    date: "2023-10-25",
+                    description: "这组温泉写真简直骚到没边了，在日式温泉的氛围中，这骚货毫无保留地展示着湿漉漉的身体，真他妈欠操。<br><br>温泉的水汽让整个画面朦胧又情色，她时而浸泡在水中，时而半身露出，那种若隐若现的感觉比全裸更加刺激。水珠顺着她的身体缓缓滑落，勾勒出完美的曲线，那种湿润感简直让人硬到发疼。<br><br>特写镜头下，她在温泉中做出各种放荡的姿势，有时候故意露出水面的部位，有时候又在水下若隐若现，这种忽明忽暗的诱惑简直让人窒息。她明显知道在这种环境下有多么诱人，眼神中充满了赤裸裸的邀请。<br><br>最刺激的是那些半遮半掩的镜头，温泉的水面刚好遮住关键部位，却又在她的动作中不时露出边缘，这种若即若离的感觉比直接暴露更加让人欲火焚身。整套写真充满了东方情调和原始欲望的完美结合，让人恨不得立刻冲到温泉里与她共浴。",
                     imageFolderPath: '../image/[いくみ]いくみと温泉(ROM) [95P]/',
+                    images: []
+                },
+                27: {
+                    title: "动漫少女的三次元演绎",
+                    date: "2023-10-15",
+                    description: "这组动漫角色COS写真简直淫荡到极点，把二次元的角色完美还原到三次元，却又加入了更多情色元素，这他妈太刺激了。<br><br>她不仅复制了角色的外表和服装，还刻意强调了那些在动漫中只能暗示的情色部分。那种亦真亦假的感觉，让人仿佛在操控着自己最爱的动漫角色，这种幻想感简直让人硬到爆炸。<br><br>特写镜头下，她模仿着动漫中经典的姿势和表情，却又添加了更多挑逗的元素，那种熟悉中的陌生感，给人一种禁忌的快感。服装的一些细节被刻意改动，更加凸显身体的曲线和关键部位，这种微妙的改变简直就是在挑逗那些动漫迷的神经。<br><br>最要命的是她那种完全入戏的表情和动作，仿佛真的就是从二次元走出来的角色，却又带着三次元的肉欲。这种二次元与三次元的完美结合，绝对是满足宅男终极幻想的顶级写真，让人在熟悉的角色中体验全新的情色冲击。",
+                    imageFolderPath: '../image/Neyrodesu - Rin Tohsaka [23P]/',
+                    images: []
+                },
+                28: {
+                    title: "日系艺术写真集锦",
+                    date: "2023-10-05",
+                    description: "这组日系写真简直色情到爆炸，东方女性的那种含蓄中带着放荡的气质，真是他妈的欠操到极点。<br><br>模特的气质兼具了日本女性特有的温顺和隐藏的淫荡，一会儿装作害羞的样子，一会儿又露出饥渴的表情。那种矛盾感简直让人欲罢不能，特别是那些半遮半掩的姿势，比直接露出更加刺激。<br><br>特写镜头下，她那精致的五官和完美的肌肤质感被展现得淋漓尽致，尤其是那种微微湿润的眼神，仿佛在说'请蹂躏我'。服装的设计也很有日本特色，从制服到和服，从清纯到大胆，多种风格轮番上阵，满足各种对日本女性的幻想。<br><br>最骚的是她那种服从中带着引导的姿态，表面上看起来很顺从，实际上却在掌控着观者的欲望。这种东方式的情色表达，比西方直接的裸露更加高级，让人在欣赏的同时，脑海中不断浮现出各种放肆的幻想，想要亲自体验这种既温顺又放荡的极致矛盾。",
+                    imageFolderPath: '../image/Iori Kogawa(古川伊織) [101P]/',
+                    images: []
+                },
+                29: {
+                    title: "幻想工厂的梦幻空间",
+                    date: "2023-09-25",
+                    description: "这组幻想主题写真简直淫荡到没朋友，超现实的场景设计配上放荡的姿势，让人仿佛置身于最美的春梦中，这他妈太刺激了。<br><br>梦幻般的光影效果和奇特的场景布置，为情色内容增添了一层艺术感，却又丝毫不减其淫荡程度。模特在这种环境下，更加大胆地展示自己，仿佛在另一个世界里，可以抛开一切束缚，尽情释放最原始的欲望。<br><br>特写镜头下，她在梦幻背景中的身体曲线被神奇的光影勾勒出来，那种若隐若现的美感简直让人欲火焚身。她的表情也配合着场景，时而迷离，时而大胆，仿佛在邀请观者一起进入她的幻想世界，共同体验最禁忌的快感。<br><br>最要命的是那些刻意设计的场景互动，她与各种奇特道具的结合，暗示着各种不可言说的幻想，给人一种可以在梦境中为所欲为的错觉。这种超现实的情色表达，绝对是满足人们最深层次幻想的顶级写真，让人在视觉冲击中体验前所未有的欲望释放。",
+                    imageFolderPath: '../image/Fantasy Factory [21P]/',
+                    images: []
+                },
+                30: {
+                    title: "韩系性感写真专辑",
+                    date: "2023-09-15",
+                    description: "这组韩系写真简直色情到极点，东亚女性特有的那种精致感和放荡的完美结合，让人硬得发疼。<br><br>韩系模特那种精致到近乎人工的完美外表，配上大胆露骨的姿势，这种反差感简直欠操到极点。她们像人偶一样精致的五官和完美的肌肤，在情色场景中显得尤为刺激，给人一种玩弄艺术品的禁忌快感。<br><br>特写镜头下，那些经过精心修饰的身体部位被展现得淋漓尽致，从精致的锁骨到修长的腿部，每一寸都散发着人造美感和原始欲望的矛盾结合。这种高度现代化的情色表达，让人忍不住想要亲自验证这完美身体的真实触感。<br><br>最骚的是她们那种表面冷淡却又充满欲望的表情，仿佛高高在上的女神，却又在私下渴望被粗暴对待。这种气质上的矛盾，正是韩系情色的独特魅力，让人在征服欲和崇拜欲中来回摇摆，最终忍不住想要彻底占有这种看似高不可攀实则欲求不满的尤物。",
+                    imageFolderPath: '../image/[Espacia Korea]/',
                     images: []
                 }
             };
@@ -1148,7 +989,7 @@
             // 为每个详情项生成图片路径
             for (const id in detailsData) {
                 const item = detailsData[id];
-                for (let i = 1; i <= 10; i++) {
+                for (let i = 1; i <= 6; i++) {
                     item.images.push(`${item.imageFolderPath}${i}.jpg`);
                 }
             }
@@ -1262,58 +1103,6 @@
                         newsText.textContent = shortText;
                     }
                 }
-            });
-
-            // 标签切换功能
-            const tabs = document.querySelectorAll('.tab');
-            const tabContents = document.querySelectorAll('.tab-content');
-            const tabsContainer = document.querySelector('.tabs');
-            const scrollArrow = document.querySelector('.tab-scroll-arrow');
-
-            // 检查是否需要显示滚动箭头（只在移动端显示）
-            function checkScrollArrow() {
-                if (window.innerWidth <= 768) {
-                    if (tabsContainer.scrollWidth > tabsContainer.clientWidth) {
-                        scrollArrow.style.display = 'flex';
-                    } else {
-                        scrollArrow.style.display = 'none';
-                    }
-                } else {
-                    scrollArrow.style.display = 'none';
-                }
-            }
-
-            // 右箭头点击滚动事件
-            scrollArrow.addEventListener('click', function () {
-                tabsContainer.scrollBy({ left: 100, behavior: 'smooth' });
-            });
-
-            // 当用户滚动到最右侧时隐藏箭头
-            tabsContainer.addEventListener('scroll', function () {
-                if (tabsContainer.scrollLeft + tabsContainer.clientWidth >= tabsContainer.scrollWidth - 10) {
-                    scrollArrow.style.opacity = '0';
-                } else {
-                    scrollArrow.style.opacity = '1';
-                }
-            });
-
-            // 在窗口大小改变时检查是否需要显示箭头
-            window.addEventListener('resize', checkScrollArrow);
-
-            // 初始检查
-            checkScrollArrow();
-
-            tabs.forEach(tab => {
-                tab.addEventListener('click', function () {
-                    // 移除所有标签和内容的激活状态
-                    tabs.forEach(t => t.classList.remove('active'));
-                    tabContents.forEach(c => c.classList.remove('active'));
-
-                    // 激活当前标签和对应内容
-                    this.classList.add('active');
-                    const tabId = this.getAttribute('data-tab');
-                    document.getElementById(tabId).classList.add('active');
-                });
             });
         });
     </script>

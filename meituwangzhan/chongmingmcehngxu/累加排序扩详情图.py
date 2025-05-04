@@ -97,7 +97,7 @@ if __name__ == "__main__":
     logging.basicConfig(filename='rename_images.log', level=logging.ERROR)
     
     # 设置要重命名的根目录
-    root_directory = r"F:\YouxiBa1\美图小游戏\image"
+    root_directory = r"F:\YouxiBa1\youxwangzhanqianyan\meituwangzhan\image"
     
     # 开始重命名操作，verbose=True 显示详细信息
     rename_images_in_directory(root_directory, verbose=True)
