@@ -40,6 +40,114 @@
             font-size: 1rem;
         }
 
+        /* Tabs styles */
+        .tabs-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .tabs-scroller {
+            overflow-x: auto;
+            scrollbar-width: none;
+            /* Firefox */
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            flex-grow: 1;
+            scroll-behavior: smooth;
+        }
+
+        .tabs-scroller::-webkit-scrollbar {
+            display: none;
+            /* Chrome, Safari, Opera */
+        }
+
+        .tabs {
+            display: flex;
+            white-space: nowrap;
+            padding: 0 5px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            margin: 0 5px;
+            background-color: rgba(255, 64, 129, 0.1);
+            color: #ff4081;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            outline: none;
+        }
+
+        .tab:hover {
+            background-color: rgba(255, 64, 129, 0.2);
+        }
+
+        .tab.active {
+            background-color: #ff4081;
+            color: white;
+            box-shadow: 0 2px 10px rgba(255, 64, 129, 0.3);
+        }
+
+        .nav-arrow {
+            background-color: rgba(255, 64, 129, 0.1);
+            color: #ff4081;
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            z-index: 5;
+            transition: all 0.3s;
+            margin: 0 5px;
+            flex-shrink: 0;
+        }
+
+        .nav-arrow:hover {
+            background-color: #ff4081;
+            color: white;
+        }
+
+        body.dark-mode .tab {
+            background-color: rgba(255, 128, 171, 0.1);
+            color: #ff80ab;
+        }
+
+        body.dark-mode .tab.active {
+            background-color: #ff80ab;
+            color: #222;
+        }
+
+        body.dark-mode .nav-arrow {
+            background-color: rgba(255, 128, 171, 0.1);
+            color: #ff80ab;
+        }
+
+        body.dark-mode .nav-arrow:hover {
+            background-color: #ff80ab;
+            color: #222;
+        }
+
+        /* Animation for showing/hiding cards */
+        .news-card {
+            transition: transform 0.3s, opacity 0.3s;
+        }
+
+        .news-card.hidden {
+            display: none;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
         .news-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -419,10 +527,27 @@
         <div class="gallery-header">
             <h1 class="gallery-title">情趣写真资讯</h1>
             <p class="gallery-subtitle">探索私密美学，感受独特魅力</p>
+
+            <!-- 添加水平滚动的tab -->
+            <div class="tabs-container">
+                <div class="tabs-scroller">
+                    <div class="tabs">
+                        <button class="tab active" data-category="all">全部</button>
+                        <button class="tab" data-category="lingerie">蕾丝系列</button>
+                        <button class="tab" data-category="uniform">制服诱惑</button>
+                        <button class="tab" data-category="cosplay">角色扮演</button>
+                        <button class="tab" data-category="wetlook">湿身诱惑</button>
+                        <button class="tab" data-category="outdoor">野外写真</button>
+                        <button class="tab" data-category="stockings">黑丝白丝</button>
+                    </div>
+                </div>
+                <button class="nav-arrow prev" aria-label="上一个">&lt;</button>
+                <button class="nav-arrow next" aria-label="下一个">&gt;</button>
+            </div>
         </div>
 
         <div class="news-grid">
-            <div class="news-card" data-id="1">
+            <div class="news-card" data-id="1" data-category="lingerie">
                 <img src="../image/[雲少女写真] 写SchoolGirl.II [27P]/1.jpg" alt="情趣写真">
                 <div class="news-content">
                     <h3>魅惑蕾丝系列新品发布</h3>
@@ -432,7 +557,7 @@
                 </div>
             </div>
 
-            <div class="news-card" data-id="2">
+            <div class="news-card" data-id="2" data-category="wetlook uniform">
                 <img src="../image/六味帝皇酱 - 溪水体操服 [60P]/1.jpg" alt="情趣写真">
                 <div class="news-content">
                     <h3>湿身诱惑特辑</h3>
@@ -442,7 +567,7 @@
                 </div>
             </div>
 
-            <div class="news-card" data-id="3">
+            <div class="news-card" data-id="3" data-category="uniform">
                 <img src="../image/周叽是可爱兔兔 体操服 [31P]/1.jpg" alt="情趣写真">
                 <div class="news-content">
                     <h3>制服诱惑主题月度佳作</h3>
@@ -452,7 +577,7 @@
                 </div>
             </div>
 
-            <div class="news-card" data-id="4">
+            <div class="news-card" data-id="4" data-category="cosplay">
                 <img src="../image/木绵绵OwO NO.028 浴巾兔子 [42P]/1.jpg" alt="情趣写真">
                 <div class="news-content">
                     <h3>浴巾兔女郎私房照</h3>
@@ -462,7 +587,7 @@
                 </div>
             </div>
 
-            <div class="news-card" data-id="5">
+            <div class="news-card" data-id="5" data-category="outdoor">
                 <img src="../image/逐月su-网吧历险记 [23P]/1.jpg" alt="情趣写真">
                 <div class="news-content">
                     <h3>网吧里的欲望邂逅</h3>
@@ -472,7 +597,7 @@
                 </div>
             </div>
 
-            <div class="news-card" data-id="6">
+            <div class="news-card" data-id="6" data-category="cosplay">
                 <img src="../image/团子系列 工口少女 [66P]/1.jpg" alt="情趣写真">
                 <div class="news-content">
                     <h3>工口少女的私密时光</h3>
@@ -482,7 +607,7 @@
                 </div>
             </div>
 
-            <div class="news-card" data-id="7">
+            <div class="news-card" data-id="7" data-category="lingerie">
                 <img src="../image/衣衫半遮若隐若现着衣爆乳 [30P]/1.jpg" alt="情趣写真">
                 <div class="news-content">
                     <h3>着衣爆乳系列</h3>
@@ -492,7 +617,7 @@
                 </div>
             </div>
 
-            <div class="news-card" data-id="8">
+            <div class="news-card" data-id="8" data-category="uniform">
                 <img src="../image/虎森森 体操服 [36P]/1.jpg" alt="情趣写真">
                 <div class="news-content">
                     <h3>体操服下的诱人身姿</h3>
@@ -502,7 +627,7 @@
                 </div>
             </div>
 
-            <div class="news-card" data-id="9">
+            <div class="news-card" data-id="9" data-category="lingerie">
                 <img src="../image/六味帝皇酱午后少女 [84P]/1.jpg" alt="情趣写真">
                 <div class="news-content">
                     <h3>午后少女的秘密时光</h3>
@@ -512,7 +637,7 @@
                 </div>
             </div>
 
-            <div class="news-card" data-id="10">
+            <div class="news-card" data-id="10" data-category="wetlook uniform">
                 <img src="../image/幼水铃衣 温泉体操服 [86P]/1.jpg" alt="情趣写真">
                 <div class="news-content">
                     <h3>温泉体操服魅惑</h3>
@@ -522,7 +647,7 @@
                 </div>
             </div>
 
-            <div class="news-card" data-id="11">
+            <div class="news-card" data-id="11" data-category="lingerie">
                 <img src="../image/幼水铃衣 晨醒 [65P]/1.jpg" alt="情趣写真">
                 <div class="news-content">
                     <h3>少女的晨间秘事</h3>
@@ -532,7 +657,7 @@
                 </div>
             </div>
 
-            <div class="news-card" data-id="12">
+            <div class="news-card" data-id="12" data-category="cosplay">
                 <img src="../image/幼水铃衣 小猫猫 [26P]/1.jpg" alt="情趣写真">
                 <div class="news-content">
                     <h3>猫娘的撩人姿态</h3>
@@ -542,7 +667,7 @@
                 </div>
             </div>
 
-            <div class="news-card" data-id="13">
+            <div class="news-card" data-id="13" data-category="outdoor">
                 <img src="../image/幼水铃衣 周末郊游 [63P]/1.jpg" alt="情趣写真">
                 <div class="news-content">
                     <h3>野外郊游的放荡时刻</h3>
@@ -552,7 +677,7 @@
                 </div>
             </div>
 
-            <div class="news-card" data-id="14">
+            <div class="news-card" data-id="14" data-category="uniform cosplay">
                 <img src="../image/幼水铃衣 双马尾 [80P]/1.jpg" alt="情趣写真">
                 <div class="news-content">
                     <h3>双马尾少女的禁忌诱惑</h3>
@@ -562,7 +687,7 @@
                 </div>
             </div>
 
-            <div class="news-card" data-id="15">
+            <div class="news-card" data-id="15" data-category="outdoor">
                 <img src="../image/幼水铃衣 午间更衣室 [76P]/1.jpg" alt="情趣写真">
                 <div class="news-content">
                     <h3>更衣室的偷情瞬间</h3>
@@ -572,7 +697,7 @@
                 </div>
             </div>
 
-            <div class="news-card" data-id="16">
+            <div class="news-card" data-id="16" data-category="cosplay">
                 <img src="../image/幼水铃衣 你的电子女友 [36P]/1.jpg" alt="情趣写真">
                 <div class="news-content">
                     <h3>电子女友的虚拟调教</h3>
@@ -582,7 +707,7 @@
                 </div>
             </div>
 
-            <div class="news-card" data-id="17">
+            <div class="news-card" data-id="17" data-category="lingerie">
                 <img src="../image/软妹摇摇乐[73P]/1.jpg" alt="情趣写真">
                 <div class="news-content">
                     <h3>软妹的摇摆瞬间</h3>
@@ -592,7 +717,7 @@
                 </div>
             </div>
 
-            <div class="news-card" data-id="18">
+            <div class="news-card" data-id="18" data-category="lingerie">
                 <img src="../image/肉肉番外[49P]/1.jpg" alt="情趣写真">
                 <div class="news-content">
                     <h3>肉感尤物的私密档案</h3>
@@ -602,7 +727,7 @@
                 </div>
             </div>
 
-            <div class="news-card" data-id="19">
+            <div class="news-card" data-id="19" data-category="lingerie">
                 <img src="../image/孙乐乐 [15P]/1.jpg" alt="情趣写真">
                 <div class="news-content">
                     <h3>私密写真独家放送</h3>
@@ -612,7 +737,7 @@
                 </div>
             </div>
 
-            <div class="news-card" data-id="20">
+            <div class="news-card" data-id="20" data-category="wetlook stockings">
                 <img src="../image/Coser@轩萧学姐 - 黑丝竞泳 [50P]/1.jpg" alt="情趣写真">
                 <div class="news-content">
                     <h3>黑丝竞泳火辣特辑</h3>
@@ -622,7 +747,7 @@
                 </div>
             </div>
 
-            <div class="news-card" data-id="21">
+            <div class="news-card" data-id="21" data-category="uniform stockings">
                 <img src="../image/Coser@许岚lan - 白丝水手服 [41P]/1.jpg" alt="情趣写真">
                 <div class="news-content">
                     <h3>白丝水手服的禁忌诱惑</h3>
@@ -632,7 +757,7 @@
                 </div>
             </div>
 
-            <div class="news-card" data-id="22">
+            <div class="news-card" data-id="22" data-category="cosplay stockings">
                 <img src="../image/Coser@羽生三未 - 万圣黑丝女仆 [38P]/1.jpg" alt="情趣写真">
                 <div class="news-content">
                     <h3>万圣节黑丝女仆派对</h3>
@@ -642,7 +767,7 @@
                 </div>
             </div>
 
-            <div class="news-card" data-id="23">
+            <div class="news-card" data-id="23" data-category="cosplay uniform">
                 <img src="../image/Coser@周叽是可爱兔兔 Vol.012： 体操服 [31P]/1.jpg" alt="情趣写真">
                 <div class="news-content">
                     <h3>兔女郎体操服诱惑</h3>
@@ -652,7 +777,7 @@
                 </div>
             </div>
 
-            <div class="news-card" data-id="24">
+            <div class="news-card" data-id="24" data-category="cosplay">
                 <img src="../image/Coser@けん研 けんけん - くの一忍法お色気の術dl写真集 Part3 [55P]/1.jpg" alt="情趣写真">
                 <div class="news-content">
                     <h3>忍者美少女的媚术</h3>
@@ -662,7 +787,7 @@
                 </div>
             </div>
 
-            <div class="news-card" data-id="25">
+            <div class="news-card" data-id="25" data-category="lingerie">
                 <img src="../image/Pure Media Vol.76 Song Hana[70P]/1.jpg" alt="情趣写真">
                 <div class="news-content">
                     <h3>纯媒体尤物的私密写真</h3>
@@ -672,7 +797,7 @@
                 </div>
             </div>
 
-            <div class="news-card" data-id="26">
+            <div class="news-card" data-id="26" data-category="wetlook">
                 <img src="../image/[いくみ]いくみと温泉(ROM) [95P]/1.jpg" alt="情趣写真">
                 <div class="news-content">
                     <h3>温泉嬉戏的湿身诱惑</h3>
@@ -682,7 +807,7 @@
                 </div>
             </div>
 
-            <div class="news-card" data-id="27">
+            <div class="news-card" data-id="27" data-category="cosplay">
                 <img src="../image/Neyrodesu - Rin Tohsaka [23P]/1.jpg" alt="情趣写真">
                 <div class="news-content">
                     <h3>动漫少女的三次元演绎</h3>
@@ -692,7 +817,7 @@
                 </div>
             </div>
 
-            <div class="news-card" data-id="28">
+            <div class="news-card" data-id="28" data-category="lingerie">
                 <img src="../image/Iori Kogawa(古川伊織) [101P]/1.jpg" alt="情趣写真">
                 <div class="news-content">
                     <h3>日系艺术写真集锦</h3>
@@ -702,7 +827,7 @@
                 </div>
             </div>
 
-            <div class="news-card" data-id="29">
+            <div class="news-card" data-id="29" data-category="cosplay">
                 <img src="../image/Fantasy Factory [21P]/1.jpg" alt="情趣写真">
                 <div class="news-content">
                     <h3>幻想工厂的梦幻空间</h3>
@@ -712,7 +837,7 @@
                 </div>
             </div>
 
-            <div class="news-card" data-id="30">
+            <div class="news-card" data-id="30" data-category="lingerie">
                 <img src="../image/[Espacia Korea]/1.jpg" alt="情趣写真">
                 <div class="news-content">
                     <h3>韩系性感写真专辑</h3>
@@ -1104,6 +1229,94 @@
                     }
                 }
             });
+
+            // 添加标签页功能
+            const tabs = document.querySelectorAll('.tab');
+            const tabsScroller = document.querySelector('.tabs-scroller');
+            const prevArrow = document.querySelector('.nav-arrow.prev');
+            const nextArrow = document.querySelector('.nav-arrow.next');
+
+            // 标签页点击事件
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function () {
+                    // 移除所有标签的active类
+                    tabs.forEach(t => t.classList.remove('active'));
+                    // 给当前标签添加active类
+                    this.classList.add('active');
+
+                    // 获取当前标签的类别
+                    const category = this.getAttribute('data-category');
+
+                    // 根据类别筛选卡片
+                    newsCards.forEach(card => {
+                        const cardCategories = card.getAttribute('data-category') || '';
+                        if (category === 'all' || cardCategories.includes(category)) {
+                            card.classList.remove('hidden');
+                            // 添加一个小延迟，让动画更自然
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'scale(1)';
+                            }, 10);
+                        } else {
+                            card.style.opacity = '0';
+                            card.style.transform = 'scale(0.8)';
+                            // 添加一个延迟，让卡片先播放隐藏动画
+                            setTimeout(() => {
+                                card.classList.add('hidden');
+                            }, 300);
+                        }
+                    });
+
+                    // 滚动到当前标签位置
+                    const tabRect = this.getBoundingClientRect();
+                    const scrollerRect = tabsScroller.getBoundingClientRect();
+                    const scrollPos = tabsScroller.scrollLeft + tabRect.left - scrollerRect.left - scrollerRect.width / 2 + tabRect.width / 2;
+
+                    tabsScroller.scrollTo({
+                        left: scrollPos,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // 左右箭头点击事件
+            prevArrow.addEventListener('click', function () {
+                tabsScroller.scrollBy({
+                    left: -200,
+                    behavior: 'smooth'
+                });
+            });
+
+            nextArrow.addEventListener('click', function () {
+                tabsScroller.scrollBy({
+                    left: 200,
+                    behavior: 'smooth'
+                });
+            });
+
+            // 监听滚动事件，在开始和结束位置隐藏相应的箭头
+            tabsScroller.addEventListener('scroll', function () {
+                // 检查是否到达左边界
+                if (tabsScroller.scrollLeft <= 0) {
+                    prevArrow.style.opacity = '0.5';
+                    prevArrow.style.cursor = 'default';
+                } else {
+                    prevArrow.style.opacity = '1';
+                    prevArrow.style.cursor = 'pointer';
+                }
+
+                // 检查是否到达右边界
+                if (tabsScroller.scrollLeft + tabsScroller.clientWidth >= tabsScroller.scrollWidth - 5) {
+                    nextArrow.style.opacity = '0.5';
+                    nextArrow.style.cursor = 'default';
+                } else {
+                    nextArrow.style.opacity = '1';
+                    nextArrow.style.cursor = 'pointer';
+                }
+            });
+
+            // 初始化触发滚动事件，设置箭头状态
+            tabsScroller.dispatchEvent(new Event('scroll'));
         });
     </script>
 </body>
