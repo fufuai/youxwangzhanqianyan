@@ -63,12 +63,12 @@
 
     <div class="tag-filter">
         <button class="tag-button" data-tag="all"><i class="fas fa-th-large"></i> 所有</button>
-        <button class="tag-button" data-tag="PC"><i class="fas fa-desktop"></i> PC</button>
-        <button class="tag-button" data-tag="安卓"><i class="fas fa-mobile-alt"></i> 安卓</button>
-        <button class="tag-button" data-tag="RPG"><i class="fas fa-gamepad"></i> RPG</button>
-        <button class="tag-button" data-tag="SLG"><i class="fas fa-gamepad"></i> SLG</button>
-        <button class="tag-button" data-tag="ADV"><i class="fas fa-gamepad"></i> ADV</button>
-        <button class="tag-button" data-tag="ACT"><i class="fas fa-gamepad"></i> ACT</button>
+        <button class="tag-button" data-tag="写真"><i class="fas fa-camera"></i> 写真</button>
+        <button class="tag-button" data-tag="cosplay"><i class="fas fa-mask"></i> Cosplay</button>
+        <button class="tag-button" data-tag="制服"><i class="fas fa-tshirt"></i> 制服</button>
+        <button class="tag-button" data-tag="清纯"><i class="fas fa-feather"></i> 清纯</button>
+        <button class="tag-button" data-tag="私房"><i class="fas fa-heart"></i> 私房</button>
+        <button class="tag-button" data-tag="创意"><i class="fas fa-magic"></i> 创意</button>
     </div>
 
     <main>
@@ -116,11 +116,72 @@
         </div>
     </div>
 
+    <!-- 樱花雨容器 -->
+    <div id="sakura-container"></div>
+
     <script>
         // 页面加载动画
         window.addEventListener('load', function () {
             document.querySelector('.page-loader').style.display = 'none';
+
+            // 初始化樱花雨效果
+            initSakura();
         });
+
+        // 樱花雨效果
+        function initSakura() {
+            const sakuraContainer = document.getElementById('sakura-container');
+            const maxSakura = 80; // 增加樱花数量，像雨一样密集
+
+            // 创建樱花
+            function createSakura() {
+                if (document.querySelectorAll('.sakura').length >= maxSakura) return;
+
+                const sakura = document.createElement('div');
+                sakura.classList.add('sakura');
+
+                // 随机大小，整体变小一些
+                const size = Math.random() * 15 + 8;
+                sakura.style.width = `${size}px`;
+                sakura.style.height = `${size}px`;
+
+                // 随机位置，覆盖整个屏幕宽度
+                sakura.style.left = `${Math.random() * 100}vw`;
+                sakura.style.top = `-50px`;
+
+                // 随机透明度
+                sakura.style.opacity = Math.random() * 0.6 + 0.4;
+
+                // 随机动画持续时间，加快速度
+                const fallDuration = Math.random() * 3 + 6;
+
+                // 使用更像雨的动画
+                let animationType = 'fallDown';
+                if (Math.random() > 0.5) {
+                    animationType = 'fallDownSlow';
+                }
+
+                sakura.style.animation = `${animationType} ${fallDuration}s linear forwards`;
+
+                // 添加到容器
+                sakuraContainer.appendChild(sakura);
+
+                // 动画结束后移除
+                setTimeout(() => {
+                    if (sakura.parentNode === sakuraContainer) {
+                        sakuraContainer.removeChild(sakura);
+                    }
+                }, fallDuration * 1000);
+            }
+
+            // 初始创建樱花
+            for (let i = 0; i < maxSakura / 2; i++) {
+                setTimeout(createSakura, 50 * i);
+            }
+
+            // 持续创建樱花，更快的间隔
+            setInterval(createSakura, 100);
+        }
 
         // 滚动到顶部按钮
         const scrollToTopButton = document.getElementById('scroll-to-top');
@@ -210,31 +271,31 @@
         // 假设这是每张图片对应的价格数组
         const links = [
 
-            { link: 'xiangqingye/[いくみ]いくみと温泉(ROM) [95P].html', price: '2021.01.11', tag: 'SLG' },
-            { link: 'xiangqingye/[雲少女写真] 写SchoolGirl.II [27P].html', price: '2021.01.11', tag: 'SLG' },
-            { link: 'xiangqingye/周叽是可爱兔兔 体操服 [31P].html', price: '2021.01.11', tag: 'SLG' },
-            { link: 'xiangqingye/Pure Media Vol.76 Song Hana[70P].html', price: '2021.01.11', tag: 'SLG' },
-            { link: 'xiangqingye/虎森森 体操服 [36P].html', price: '2021.01.11', tag: 'SLG' },
+            { link: 'xiangqingye/[いくみ]いくみと温泉(ROM) [95P].html', price: '2021.01.11', tag: '写真' },
+            { link: 'xiangqingye/[雲少女写真] 写SchoolGirlII [27P].html', price: '2021.01.11', tag: '制服' },
+            { link: 'xiangqingye/周叽是可爱兔兔 体操服 [31P].html', price: '2021.01.11', tag: '制服' },
+            { link: 'xiangqingye/Pure Media Vol.76 Song Hana[70P].html', price: '2021.01.11', tag: '写真' },
+            { link: 'xiangqingye/虎森森 体操服 [36P].html', price: '2021.01.11', tag: '制服' },
 
-            { link: 'xiangqingye/木绵绵OwO NO.028 浴巾兔子 [42P].html', price: '2021.01.11', tag: 'SLG' },
-            { link: 'xiangqingye/肉肉番外[49P].html', price: '2021.01.11', tag: 'SLG' },
-            { link: 'xiangqingye/软妹摇摇乐[73P].html', price: '2021.01.11', tag: 'SLG' },
-            { link: 'xiangqingye/孙乐乐 [15P].html', price: '2021.01.11', tag: 'SLG' },
-            { link: 'xiangqingye/团子系列 工口少女 [66P].html', price: '2021.01.11', tag: 'SLG' },
+            { link: 'xiangqingye/木绵绵OwO NO.028 浴巾兔子 [42P].html', price: '2021.01.11', tag: '私房' },
+            { link: 'xiangqingye/肉肉番外[49P].html', price: '2021.01.11', tag: '创意' },
+            { link: 'xiangqingye/软妹摇摇乐[73P].html', price: '2021.01.11', tag: '清纯' },
+            { link: 'xiangqingye/孙乐乐 [15P].html', price: '2021.01.11', tag: '写真' },
+            { link: 'xiangqingye/团子系列 工口少女 [66P].html', price: '2021.01.11', tag: '写真' },
 
-            { link: 'xiangqingye/Coser@周叽是可爱兔兔 Vol.012： 体操服 [31P].html', price: '2021.01.11', tag: 'SLG' },
-            { link: 'xiangqingye/逐月su-网吧历险记 [23P].html', price: '2021.01.11', tag: 'SLG' },
-            { link: 'xiangqingye/六味帝皇酱 - 溪水体操服 [60P].html', price: '2021.01.11', tag: 'SLG' },
-            { link: 'xiangqingye/六味帝皇酱午后少女 [84P].html', price: '2021.01.11', tag: 'SLG' },
+            { link: 'xiangqingye/Coser@周叽是可爱兔兔 Vol.012： 体操服 [31P].html', price: '2021.01.11', tag: 'cosplay' },
+            { link: 'xiangqingye/逐月su-网吧历险记 [23P].html', price: '2021.01.11', tag: 'cosplay' },
+            { link: 'xiangqingye/六味帝皇酱 - 溪水体操服 [60P].html', price: '2021.01.11', tag: '制服' },
+            { link: 'xiangqingye/六味帝皇酱午后少女 [84P].html', price: '2021.01.11', tag: '清纯' },
 
-            { link: 'xiangqingye/Neyrodesu - Rin Tohsaka [23P].html', price: '2021.01.11', tag: 'SLG' },
-            { link: 'xiangqingye/Iori Kogawa(古川伊織) [101P].html', price: '2021.01.11', tag: 'SLG' },
-            { link: 'xiangqingye/[Espacia Korea].html', price: '2021.01.11', tag: 'SLG' },
-            { link: 'xiangqingye/Fantasy Factory [21P].html', price: '2021.01.11', tag: 'SLG' },
-            { link: 'xiangqingye/衣衫半遮若隐若现着衣爆乳 [30P].html', price: '2021.01.11', tag: 'SLG' },
+            { link: 'xiangqingye/Neyrodesu - Rin Tohsaka [23P].html', price: '2021.01.11', tag: 'cosplay' },
+            { link: 'xiangqingye/Iori Kogawa(古川伊織) [101P].html', price: '2021.01.11', tag: '写真' },
+            { link: 'xiangqingye/[Espacia Korea].html', price: '2021.01.11', tag: '写真' },
+            { link: 'xiangqingye/Fantasy Factory [21P].html', price: '2021.01.11', tag: '创意' },
+            { link: 'xiangqingye/衣衫半遮若隐若现着衣爆乳 [30P].html', price: '2021.01.11', tag: '私房' },
 
 
-            { link: 'xiangqingye/XXXXXXXXXXXXXXXXX.html', price: '2021.01.11', tag: 'SLG' },
+            { link: 'xiangqingye/XXXXXXXXXXXXXXXXX.html', price: '2021.01.11', tag: '私房' },
 
 
 
@@ -320,9 +381,14 @@
                 priceElement.textContent = links[i].price;
                 priceElement.classList.add('price');
 
+                const tagElement = document.createElement('span');
+                tagElement.textContent = links[i].tag;
+                tagElement.classList.add('tag');
+
                 link.appendChild(img);
                 link.appendChild(titleElement);
                 link.appendChild(priceElement);
+                link.appendChild(tagElement);
                 card.appendChild(link); // 将链接加入卡片
 
                 imageGallery.appendChild(card); // 添加卡片到画廊
