@@ -15,7 +15,7 @@
 
         body {
             font-family: 'Microsoft YaHei', sans-serif;
-            background-color: #0f0f0f;
+            background-color: #0e0e15;
             color: #fff;
             line-height: 1.6;
         }
@@ -27,9 +27,9 @@
         }
 
         header {
-            background-color: #1a1a1a;
+            background-color: #1a1a25;
             padding: 15px 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -44,7 +44,8 @@
         .logo {
             font-size: 24px;
             font-weight: bold;
-            color: #ff4500;
+            color: #ff66cc;
+            text-shadow: 0 0 5px rgba(255, 102, 204, 0.5);
         }
 
         .nav-menu {
@@ -67,7 +68,7 @@
 
         .nav-menu a:hover,
         .nav-menu a.active {
-            background-color: #ff4500;
+            background-color: #ff66cc;
         }
 
         /* 移动端菜单按钮 */
@@ -91,10 +92,10 @@
             width: 100%;
             max-width: 1000px;
             margin: 30px auto;
-            background-color: #1a1a1a;
+            background-color: #1a1a25;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 15px rgba(255, 102, 204, 0.3);
         }
 
         .video-player {
@@ -118,13 +119,13 @@
             display: flex;
             align-items: center;
             padding: 15px;
-            background-color: #2a2a2a;
+            background-color: #252536;
         }
 
         .play-button {
             width: 40px;
             height: 40px;
-            background-color: #ff4500;
+            background-color: #ff66cc;
             border: none;
             border-radius: 50%;
             color: white;
@@ -136,7 +137,7 @@
         }
 
         .play-button:hover {
-            background-color: #ff5722;
+            background-color: #ff5dc8;
         }
 
         .play-button:focus {
@@ -153,7 +154,7 @@
         }
 
         .progress-bar {
-            background-color: #ff4500;
+            background-color: #ff66cc;
             height: 100%;
             width: 0;
             border-radius: 3px;
@@ -201,12 +202,13 @@
         .video-title {
             font-size: 24px;
             margin-bottom: 10px;
+            color: #ff99dd;
         }
 
         .video-stats {
             display: flex;
             font-size: 14px;
-            color: #aaa;
+            color: #bb88cc;
             margin-top: 8px;
         }
 
@@ -229,8 +231,9 @@
         .section-title {
             font-size: 22px;
             margin-bottom: 20px;
-            border-bottom: 2px solid #ff4500;
+            border-bottom: 2px solid #ff66cc;
             padding-bottom: 10px;
+            color: #ff99dd;
         }
 
         .related-grid {
@@ -241,14 +244,16 @@
         }
 
         .video-card {
-            background-color: #1a1a1a;
+            background-color: #1a1a25;
             border-radius: 8px;
             overflow: hidden;
-            transition: transform 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
 
         .video-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(255, 102, 204, 0.4);
         }
 
         .thumbnail {
@@ -276,6 +281,12 @@
             top: 0;
             left: 0;
             z-index: 1;
+            transition: transform 0.3s;
+        }
+
+        .thumbnail:hover .video-thumbnail img {
+            opacity: 0.8;
+            transform: scale(1.05);
         }
 
         .play-icon {
@@ -285,7 +296,7 @@
             transform: translate(-50%, -50%);
             width: 40px;
             height: 40px;
-            background-color: rgba(255, 69, 0, 0.8);
+            background-color: rgba(255, 102, 204, 0.8);
             border-radius: 50%;
             display: flex;
             justify-content: center;
@@ -302,6 +313,10 @@
             border-width: 8px 0 8px 12px;
             border-color: transparent transparent transparent #fff;
             margin-left: 3px;
+        }
+
+        .thumbnail:hover .play-icon {
+            background-color: rgba(255, 102, 204, 1);
         }
 
         .duration {
@@ -327,15 +342,16 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
             height: 38px;
+            color: #ff99dd;
         }
 
         .card-stats {
             font-size: 12px;
-            color: #aaa;
+            color: #bb88cc;
         }
 
         footer {
-            background-color: #1a1a1a;
+            background-color: #1a1a25;
             padding: 20px 0;
             margin-top: 40px;
         }
@@ -369,7 +385,7 @@
                 top: 70px;
                 left: 0;
                 right: 0;
-                background-color: #1a1a1a;
+                background-color: #1a1a25;
                 box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
                 padding: 10px 0;
                 display: none;
