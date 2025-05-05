@@ -116,7 +116,7 @@
             overflow: hidden;
         }
 
-        .hero-video {
+        .hero video {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -222,7 +222,7 @@
             overflow: hidden;
         }
 
-        .video-thumbnail img {
+        .video-thumbnail video {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -232,7 +232,7 @@
             z-index: 1;
         }
 
-        .thumbnail:hover .video-thumbnail img {
+        .thumbnail:hover .video-thumbnail video {
             opacity: 0.8;
         }
 
@@ -560,11 +560,13 @@
 
     <main class="container">
         <section class="hero">
-            <img src="video/1.gif" alt="热门影片" class="hero-video">
+            <video autoplay muted loop playsinline poster="https://via.placeholder.com/1200x400">
+                <source src="video/video1.mp4" type="video/mp4">
+            </video>
             <div class="hero-content">
                 <h2>《流浪地球2》</h2>
                 <p>在不久的将来，太阳即将毁灭，人类面临生存危机。中国科学家提出"流浪地球"计划，试图带着地球离开太阳系，寻找新家园。</p>
-                <a href="video-player.html?video=1.gif" class="btn">立即观看</a>
+                <a href="video/video1.mp4" class="btn">立即观看</a>
             </div>
         </section>
 
@@ -585,16 +587,18 @@
             <div class="video-grid">
                 <div class="video-card">
                     <div class="thumbnail">
-                        <a href="video-player.html?video=1.gif">
+                        <a href="video/1.mp4">
                             <div class="video-thumbnail">
-                                <img src="video/1.gif" alt="视频缩略图">
+                                <video muted loop autoplay playsinline>
+                                    <source src="video/1.mp4#t=0,4" type="video/mp4">
+                                </video>
                             </div>
                             <div class="play-button"></div>
                         </a>
                         <span class="duration">2:15:30</span>
                     </div>
                     <div class="video-info">
-                        <a href="video-player.html?video=1.gif" style="text-decoration: none; color: inherit;">
+                        <a href="video/1.mp4" style="text-decoration: none; color: inherit;">
                             <h3 class="video-title">长津湖</h3>
                         </a>
                         <p class="channel-name">战争频道</p>
@@ -607,16 +611,18 @@
 
                 <div class="video-card">
                     <div class="thumbnail">
-                        <a href="video-player.html?video=2.gif">
+                        <a href="video/2.mp4">
                             <div class="video-thumbnail">
-                                <img src="video/2.gif" alt="视频缩略图">
+                                <video muted loop autoplay playsinline>
+                                    <source src="video/2.mp4#t=0,4" type="video/mp4">
+                                </video>
                             </div>
                             <div class="play-button"></div>
                         </a>
                         <span class="duration">1:45:22</span>
                     </div>
                     <div class="video-info">
-                        <a href="video-player.html?video=2.gif" style="text-decoration: none; color: inherit;">
+                        <a href="video/2.mp4" style="text-decoration: none; color: inherit;">
                             <h3 class="video-title">你好，李焕英</h3>
                         </a>
                         <p class="channel-name">喜剧频道</p>
@@ -629,16 +635,18 @@
 
                 <div class="video-card">
                     <div class="thumbnail">
-                        <a href="video-player.html?video=3.gif">
+                        <a href="video/video2.mp4">
                             <div class="video-thumbnail">
-                                <img src="video/3.gif" alt="视频缩略图">
+                                <video muted loop autoplay playsinline>
+                                    <source src="video/video2.mp4#t=0,4" type="video/mp4">
+                                </video>
                             </div>
                             <div class="play-button"></div>
                         </a>
                         <span class="duration">1:52:15</span>
                     </div>
                     <div class="video-info">
-                        <a href="video-player.html?video=3.gif" style="text-decoration: none; color: inherit;">
+                        <a href="video/video2.mp4" style="text-decoration: none; color: inherit;">
                             <h3 class="video-title">三体</h3>
                         </a>
                         <p class="channel-name">科幻频道</p>
@@ -651,16 +659,18 @@
 
                 <div class="video-card">
                     <div class="thumbnail">
-                        <a href="video-player.html?video=4.gif">
+                        <a href="video/video3.mp4">
                             <div class="video-thumbnail">
-                                <img src="video/4.gif" alt="视频缩略图">
+                                <video muted loop autoplay playsinline>
+                                    <source src="video/video3.mp4#t=0,4" type="video/mp4">
+                                </video>
                             </div>
                             <div class="play-button"></div>
                         </a>
                         <span class="duration">1:47:03</span>
                     </div>
                     <div class="video-info">
-                        <a href="video-player.html?video=4.gif" style="text-decoration: none; color: inherit;">
+                        <a href="video/video3.mp4" style="text-decoration: none; color: inherit;">
                             <h3 class="video-title">想见你</h3>
                         </a>
                         <p class="channel-name">爱情频道</p>
@@ -678,16 +688,18 @@
             <div class="video-grid">
                 <div class="video-card">
                     <div class="thumbnail">
-                        <a href="video-player.html?video=1.gif">
+                        <a href="video/video1.mp4">
                             <div class="video-thumbnail">
-                                <img src="video/1.gif" alt="视频缩略图">
+                                <video muted loop autoplay playsinline>
+                                    <source src="video/video1.mp4#t=0,4" type="video/mp4">
+                                </video>
                             </div>
                             <div class="play-button"></div>
                         </a>
                         <span class="duration">1:58:42</span>
                     </div>
                     <div class="video-info">
-                        <a href="video-player.html?video=1.gif" style="text-decoration: none; color: inherit;">
+                        <a href="video/video1.mp4" style="text-decoration: none; color: inherit;">
                             <h3 class="video-title">独行月球</h3>
                         </a>
                         <p class="channel-name">科幻频道</p>
@@ -700,16 +712,18 @@
 
                 <div class="video-card">
                     <div class="thumbnail">
-                        <a href="video-player.html?video=2.gif">
+                        <a href="video/video2.mp4">
                             <div class="video-thumbnail">
-                                <img src="video/2.gif" alt="视频缩略图">
+                                <video muted loop autoplay playsinline>
+                                    <source src="video/video2.mp4#t=0,4" type="video/mp4">
+                                </video>
                             </div>
                             <div class="play-button"></div>
                         </a>
                         <span class="duration">42:15</span>
                     </div>
                     <div class="video-info">
-                        <a href="video-player.html?video=2.gif" style="text-decoration: none; color: inherit;">
+                        <a href="video/video2.mp4" style="text-decoration: none; color: inherit;">
                             <h3 class="video-title">狂飙 第8集</h3>
                         </a>
                         <p class="channel-name">犯罪频道</p>
@@ -722,16 +736,18 @@
 
                 <div class="video-card">
                     <div class="thumbnail">
-                        <a href="video-player.html?video=3.gif">
+                        <a href="video/video3.mp4">
                             <div class="video-thumbnail">
-                                <img src="video/3.gif" alt="视频缩略图">
+                                <video muted loop autoplay playsinline>
+                                    <source src="video/video3.mp4#t=0,4" type="video/mp4">
+                                </video>
                             </div>
                             <div class="play-button"></div>
                         </a>
                         <span class="duration">1:45:20</span>
                     </div>
                     <div class="video-info">
-                        <a href="video-player.html?video=3.gif" style="text-decoration: none; color: inherit;">
+                        <a href="video/video3.mp4" style="text-decoration: none; color: inherit;">
                             <h3 class="video-title">满江红</h3>
                         </a>
                         <p class="channel-name">历史频道</p>
@@ -744,16 +760,20 @@
 
                 <div class="video-card">
                     <div class="thumbnail">
-                        <a href="video-player.html?video=4.gif">
+                        <a href="video/Tifa Boobjob POV [HydraFXX] - 3dhentai.co.mp4">
                             <div class="video-thumbnail">
-                                <img src="video/4.gif" alt="视频缩略图">
+                                <video muted loop autoplay playsinline>
+                                    <source src="video/Tifa Boobjob POV [HydraFXX] - 3dhentai.co.mp4#t=0,4"
+                                        type="video/mp4">
+                                </video>
                             </div>
                             <div class="play-button"></div>
                         </a>
                         <span class="duration">45:12</span>
                     </div>
                     <div class="video-info">
-                        <a href="video-player.html?video=4.gif" style="text-decoration: none; color: inherit;">
+                        <a href="video/Tifa Boobjob POV [HydraFXX] - 3dhentai.co.mp4"
+                            style="text-decoration: none; color: inherit;">
                             <h3 class="video-title">三体 第6集</h3>
                         </a>
                         <p class="channel-name">科幻频道</p>
@@ -771,16 +791,18 @@
             <div class="video-grid">
                 <div class="video-card">
                     <div class="thumbnail">
-                        <a href="video-player.html?video=1.gif">
+                        <a href="video/1.mp4">
                             <div class="video-thumbnail">
-                                <img src="video/1.gif" alt="视频缩略图">
+                                <video muted loop autoplay playsinline>
+                                    <source src="video/1.mp4#t=0,4" type="video/mp4">
+                                </video>
                             </div>
                             <div class="play-button"></div>
                         </a>
                         <span class="duration">2:23:15</span>
                     </div>
                     <div class="video-info">
-                        <a href="video-player.html?video=1.gif" style="text-decoration: none; color: inherit;">
+                        <a href="video/1.mp4" style="text-decoration: none; color: inherit;">
                             <h3 class="video-title">让子弹飞</h3>
                         </a>
                         <p class="channel-name">动作频道</p>
@@ -793,16 +815,18 @@
 
                 <div class="video-card">
                     <div class="thumbnail">
-                        <a href="video-player.html?video=2.gif">
+                        <a href="video/video2.mp4">
                             <div class="video-thumbnail">
-                                <img src="video/2.gif" alt="视频缩略图">
+                                <video muted loop autoplay playsinline>
+                                    <source src="video/video2.mp4#t=0,4" type="video/mp4">
+                                </video>
                             </div>
                             <div class="play-button"></div>
                         </a>
                         <span class="duration">1:53:48</span>
                     </div>
                     <div class="video-info">
-                        <a href="video-player.html?video=2.gif" style="text-decoration: none; color: inherit;">
+                        <a href="video/video2.mp4" style="text-decoration: none; color: inherit;">
                             <h3 class="video-title">大话西游</h3>
                         </a>
                         <p class="channel-name">喜剧频道</p>
@@ -815,16 +839,18 @@
 
                 <div class="video-card">
                     <div class="thumbnail">
-                        <a href="video-player.html?video=3.gif">
+                        <a href="video/video3.mp4">
                             <div class="video-thumbnail">
-                                <img src="video/3.gif" alt="视频缩略图">
+                                <video muted loop autoplay playsinline>
+                                    <source src="video/video3.mp4#t=0,4" type="video/mp4">
+                                </video>
                             </div>
                             <div class="play-button"></div>
                         </a>
                         <span class="duration">2:05:33</span>
                     </div>
                     <div class="video-info">
-                        <a href="video-player.html?video=3.gif" style="text-decoration: none; color: inherit;">
+                        <a href="video/video3.mp4" style="text-decoration: none; color: inherit;">
                             <h3 class="video-title">无间道</h3>
                         </a>
                         <p class="channel-name">犯罪频道</p>
@@ -837,16 +863,18 @@
 
                 <div class="video-card">
                     <div class="thumbnail">
-                        <a href="video-player.html?video=4.gif">
+                        <a href="video/video1.mp4">
                             <div class="video-thumbnail">
-                                <img src="video/4.gif" alt="视频缩略图">
+                                <video muted loop autoplay playsinline>
+                                    <source src="video/video1.mp4#t=0,4" type="video/mp4">
+                                </video>
                             </div>
                             <div class="play-button"></div>
                         </a>
                         <span class="duration">1:47:21</span>
                     </div>
                     <div class="video-info">
-                        <a href="video-player.html?video=4.gif" style="text-decoration: none; color: inherit;">
+                        <a href="video/video1.mp4" style="text-decoration: none; color: inherit;">
                             <h3 class="video-title">霸王别姬</h3>
                         </a>
                         <p class="channel-name">剧情频道</p>
@@ -943,6 +971,59 @@
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
+            });
+        });
+
+        // 处理英雄区域视频
+        document.addEventListener('DOMContentLoaded', function () {
+            const heroVideo = document.querySelector('.hero video');
+
+            // 处理视频加载错误
+            heroVideo.addEventListener('error', function () {
+                this.style.display = 'none';
+                this.parentElement.style.backgroundImage = `url(${this.getAttribute('poster')})`;
+                this.parentElement.style.backgroundSize = 'cover';
+                this.parentElement.style.backgroundPosition = 'center';
+            });
+        });
+
+        // 视频缩略图处理
+        document.addEventListener('DOMContentLoaded', function () {
+            const videos = document.querySelectorAll('.video-thumbnail video');
+
+            videos.forEach(video => {
+                // 确保视频加载并显示第一帧
+                video.addEventListener('loadeddata', function () {
+                    // 显示第一帧
+                    if (video.readyState >= 2) {
+                        video.currentTime = 0.5;
+                    }
+                });
+
+                // 错误处理 - 如果视频无法加载
+                video.addEventListener('error', function () {
+                    const videoContainer = this.closest('.video-thumbnail');
+                    videoContainer.style.backgroundColor = '#333';
+                    this.style.display = 'none';
+                });
+
+                // 可见性检测 - 只有在视口中才播放
+                const observer = new IntersectionObserver(
+                    (entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                video.play().catch(e => {
+                                    console.log('自动播放失败', e);
+                                });
+                            } else {
+                                video.pause();
+                            }
+                        });
+                    },
+                    { threshold: 0.1 }
+                );
+
+                observer.observe(video);
             });
         });
     </script>
