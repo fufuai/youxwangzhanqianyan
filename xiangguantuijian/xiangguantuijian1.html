@@ -631,21 +631,21 @@
         </section>
 
         <div class="categories">
-            <div class="category active">全部</div>
-            <div class="category">热门</div>
-            <div class="category">最新</div>
-            <div class="category">奇幻</div>
-            <div class="category">科幻</div>
-            <div class="category">校园</div>
-            <div class="category">冒险</div>
-            <div class="category">职场</div>
-            <div class="category">萌系</div>
+            <div class="category active" data-category="all">全部</div>
+            <div class="category" data-category="hot">热门</div>
+            <div class="category" data-category="new">最新</div>
+            <div class="category" data-category="fantasy">奇幻</div>
+            <div class="category" data-category="scifi">科幻</div>
+            <div class="category" data-category="school">校园</div>
+            <div class="category" data-category="adventure">冒险</div>
+            <div class="category" data-category="workplace">职场</div>
+            <div class="category" data-category="cute">萌系</div>
         </div>
 
         <section>
             <h2 class="section-title">热门推荐</h2>
             <div class="video-grid">
-                <div class="video-card">
+                <div class="video-card" data-categories="hot,fantasy">
                     <div class="thumbnail">
                         <a href="video-player.html?video=1.gif">
                             <div class="video-thumbnail">
@@ -667,7 +667,7 @@
                     </div>
                 </div>
 
-                <div class="video-card">
+                <div class="video-card" data-categories="hot,fantasy,adventure">
                     <div class="thumbnail">
                         <a href="video-player.html?video=2.gif">
                             <div class="video-thumbnail">
@@ -689,7 +689,7 @@
                     </div>
                 </div>
 
-                <div class="video-card">
+                <div class="video-card" data-categories="hot,scifi,adventure">
                     <div class="thumbnail">
                         <a href="video-player.html?video=3.gif">
                             <div class="video-thumbnail">
@@ -711,7 +711,7 @@
                     </div>
                 </div>
 
-                <div class="video-card">
+                <div class="video-card" data-categories="hot,fantasy,cute">
                     <div class="thumbnail">
                         <a href="video-player.html?video=4.gif">
                             <div class="video-thumbnail">
@@ -742,7 +742,7 @@
         <section>
             <h2 class="section-title">最新上线</h2>
             <div class="video-grid">
-                <div class="video-card">
+                <div class="video-card" data-categories="new,scifi">
                     <div class="thumbnail">
                         <a href="video-player.html?video=4.gif">
                             <div class="video-thumbnail">
@@ -764,7 +764,7 @@
                     </div>
                 </div>
 
-                <div class="video-card">
+                <div class="video-card" data-categories="new,fantasy,adventure">
                     <div class="thumbnail">
                         <a href="video-player.html?video=5.gif">
                             <div class="video-thumbnail">
@@ -786,7 +786,7 @@
                     </div>
                 </div>
 
-                <div class="video-card">
+                <div class="video-card" data-categories="new,workplace">
                     <div class="thumbnail">
                         <a href="video-player.html?video=6.gif">
                             <div class="video-thumbnail">
@@ -808,7 +808,7 @@
                     </div>
                 </div>
 
-                <div class="video-card">
+                <div class="video-card" data-categories="new,scifi">
                     <div class="thumbnail">
                         <a href="video-player.html?video=7.gif">
                             <div class="video-thumbnail">
@@ -839,7 +839,7 @@
         <section>
             <h2 class="section-title">经典影片</h2>
             <div class="video-grid">
-                <div class="video-card">
+                <div class="video-card" data-categories="fantasy,school">
                     <div class="thumbnail">
                         <a href="video-player.html?video=8.gif">
                             <div class="video-thumbnail">
@@ -861,7 +861,7 @@
                     </div>
                 </div>
 
-                <div class="video-card">
+                <div class="video-card" data-categories="scifi,adventure">
                     <div class="thumbnail">
                         <a href="video-player.html?video=9.gif">
                             <div class="video-thumbnail">
@@ -883,7 +883,7 @@
                     </div>
                 </div>
 
-                <div class="video-card">
+                <div class="video-card" data-categories="fantasy,scifi">
                     <div class="thumbnail">
                         <a href="video-player.html?video=10.gif">
                             <div class="video-thumbnail">
@@ -905,7 +905,7 @@
                     </div>
                 </div>
 
-                <div class="video-card">
+                <div class="video-card" data-categories="fantasy,cute">
                     <div class="thumbnail">
                         <a href="video-player.html?video=11.gif">
                             <div class="video-thumbnail">
@@ -930,6 +930,13 @@
             <div class="show-more-container">
                 <button class="show-more-btn" data-section="classics"
                     onclick="window.location.href='category-classics.html'">显示更多</button>
+            </div>
+        </section>
+
+        <section id="related-videos">
+            <h2 class="section-title">相关推荐</h2>
+            <div id="related-videos-grid" class="video-grid">
+                <!-- 动态填充相关视频 -->
             </div>
         </section>
     </main>
@@ -991,13 +998,213 @@
             navMenu.classList.toggle('active');
         });
 
-        // 分类选择
+        // 分类选择与视频筛选
         const categories = document.querySelectorAll('.category');
+        const videoCards = document.querySelectorAll('.video-card');
+        const relatedVideosSection = document.getElementById('related-videos');
+        const relatedVideosGrid = document.getElementById('related-videos-grid');
+
+        // 所有视频数据(实际应用中这些数据可以从API获取)
+        const allVideos = [
+            {
+                id: '1',
+                title: '午夜邂逅',
+                channel: '都市情缘',
+                views: '1200万播放',
+                rating: '8.9分',
+                thumbnail: 'video/1.gif',
+                duration: '45:30',
+                categories: ['hot', 'fantasy']
+            },
+            {
+                id: '2',
+                title: '幻境诱惑',
+                channel: '奇幻世界',
+                views: '986万播放',
+                rating: '8.5分',
+                thumbnail: 'video/2.gif',
+                duration: '38:22',
+                categories: ['hot', 'fantasy', 'adventure']
+            },
+            {
+                id: '3',
+                title: '未来恋人',
+                channel: '科幻频道',
+                views: '1500万播放',
+                rating: '9.2分',
+                thumbnail: 'video/3.gif',
+                duration: '42:15',
+                categories: ['hot', 'scifi', 'adventure']
+            },
+            {
+                id: '4',
+                title: '梦幻相遇',
+                channel: '浪漫频道',
+                views: '768万播放',
+                rating: '9.0分',
+                thumbnail: 'video/4.gif',
+                duration: '37:03',
+                categories: ['hot', 'fantasy', 'cute']
+            },
+            {
+                id: '5',
+                title: '虚拟爱恋',
+                channel: '科幻频道',
+                views: '598万播放',
+                rating: '8.3分',
+                thumbnail: 'video/4.gif',
+                duration: '41:42',
+                categories: ['new', 'scifi']
+            },
+            {
+                id: '6',
+                title: '电子幻境 第2集',
+                channel: '互动影片',
+                views: '725万播放',
+                rating: '9.1分',
+                thumbnail: 'video/5.gif',
+                duration: '42:15',
+                categories: ['new', 'fantasy', 'adventure']
+            },
+            {
+                id: '7',
+                title: '幻想情人',
+                channel: '都市情缘',
+                views: '682万播放',
+                rating: '8.2分',
+                thumbnail: 'video/6.gif',
+                duration: '39:20',
+                categories: ['new', 'workplace']
+            },
+            {
+                id: '8',
+                title: '赛博女神 第3集',
+                channel: '科幻频道',
+                views: '824万播放',
+                rating: '8.9分',
+                thumbnail: 'video/7.gif',
+                duration: '35:12',
+                categories: ['new', 'scifi']
+            },
+            {
+                id: '9',
+                title: '魔法学院',
+                channel: '奇幻世界',
+                views: '2100万播放',
+                rating: '9.2分',
+                thumbnail: 'video/8.gif',
+                duration: '43:15',
+                categories: ['fantasy', 'school']
+            },
+            {
+                id: '10',
+                title: '星际邂逅',
+                channel: '科幻频道',
+                views: '1850万播放',
+                rating: '9.5分',
+                thumbnail: 'video/9.gif',
+                duration: '38:48',
+                categories: ['scifi', 'adventure']
+            },
+            {
+                id: '11',
+                title: '虚拟世界',
+                channel: '互动频道',
+                views: '1620万播放',
+                rating: '9.3分',
+                thumbnail: 'video/10.gif',
+                duration: '40:33',
+                categories: ['fantasy', 'scifi']
+            },
+            {
+                id: '12',
+                title: '梦境漫游',
+                channel: '奇幻世界',
+                views: '1380万播放',
+                rating: '9.6分',
+                thumbnail: 'video/11.gif',
+                duration: '37:21',
+                categories: ['fantasy', 'cute']
+            }
+        ];
+
+        // 创建视频卡片的辅助函数
+        function createVideoCard(video) {
+            return `
+                <div class="video-card" data-categories="${video.categories.join(',')}">
+                    <div class="thumbnail">
+                        <a href="video-player.html?video=${video.thumbnail}">
+                            <div class="video-thumbnail">
+                                <img src="${video.thumbnail}" alt="视频缩略图">
+                            </div>
+                            <div class="play-button"></div>
+                        </a>
+                        <span class="duration">${video.duration}</span>
+                    </div>
+                    <div class="video-info">
+                        <a href="video-player.html?video=${video.thumbnail}" style="text-decoration: none; color: inherit;">
+                            <h3 class="video-title">${video.title}</h3>
+                        </a>
+                        <p class="channel-name">${video.channel}</p>
+                        <div class="stats">
+                            <span>${video.views}</span>
+                            <span>${video.rating}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 显示相关视频
+        function showRelatedVideos(category) {
+            // 如果是"全部"类别，随机展示4个视频
+            if (category === 'all') {
+                const shuffled = [...allVideos].sort(() => 0.5 - Math.random());
+                const selected = shuffled.slice(0, 4);
+
+                relatedVideosGrid.innerHTML = selected.map(video => createVideoCard(video)).join('');
+                relatedVideosSection.style.display = 'block';
+                return;
+            }
+
+            // 找出符合当前分类的视频
+            const filteredVideos = allVideos.filter(video =>
+                video.categories.includes(category)
+            ).slice(0, 4); // 最多展示4个
+
+            if (filteredVideos.length > 0) {
+                relatedVideosGrid.innerHTML = filteredVideos.map(video => createVideoCard(video)).join('');
+                relatedVideosSection.style.display = 'block';
+            } else {
+                relatedVideosSection.style.display = 'none';
+            }
+        }
+
+        // 初始显示全部分类的相关视频
+        showRelatedVideos('all');
 
         categories.forEach(category => {
             category.addEventListener('click', () => {
+                // 更新选中的分类样式
                 document.querySelector('.category.active').classList.remove('active');
                 category.classList.add('active');
+
+                // 获取所选分类
+                const selectedCategory = category.getAttribute('data-category');
+
+                // 筛选视频
+                videoCards.forEach(card => {
+                    const cardCategories = card.getAttribute('data-categories');
+
+                    if (selectedCategory === 'all' || cardCategories.includes(selectedCategory)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                // 更新相关推荐
+                showRelatedVideos(selectedCategory);
             });
         });
 
@@ -1020,6 +1227,7 @@
             });
         });
     </script>
+    <script src="search.js"></script>
 </body>
 
 </html>
