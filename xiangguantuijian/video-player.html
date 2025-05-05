@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#1a1a1a">
+    <title>视频播放器 - LANGNVBA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background-color: #0f0f0f;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        header {
+            background-color: #1a1a1a;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff4500;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-left: 20px;
+        }
+
+        .nav-menu a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            background-color: #ff4500;
+        }
+
+        /* 移动端菜单按钮 */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            height: 3px;
+            width: 100%;
+            background-color: #fff;
+            border-radius: 3px;
+        }
+
+        .player-container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 30px auto;
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .video-player {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            /* 16:9 Aspect Ratio */
+            background-color: #000;
+        }
+
+        .gif-display {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background-color: #2a2a2a;
+        }
+
+        .play-button {
+            width: 40px;
+            height: 40px;
+            background-color: #ff4500;
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+        }
+
+        .play-button:hover {
+            background-color: #ff5722;
+        }
+
+        .play-button:focus {
+            outline: none;
+        }
+
+        .progress-container {
+            flex: 1;
+            background-color: #444;
+            height: 6px;
+            border-radius: 3px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress-bar {
+            background-color: #ff4500;
+            height: 100%;
+            width: 0;
+            border-radius: 3px;
+            transition: width 0.1s;
+        }
+
+        .time-display {
+            margin-left: 15px;
+            font-size: 14px;
+            color: #ccc;
+        }
+
+        .volume-control {
+            margin-left: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .volume-icon {
+            margin-right: 8px;
+            color: #ccc;
+        }
+
+        .volume-slider {
+            width: 80px;
+            background-color: #444;
+            height: 4px;
+            border-radius: 2px;
+        }
+
+        .fullscreen-button {
+            margin-left: 15px;
+            color: #ccc;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .video-info {
+            padding: 20px;
+            border-bottom: 1px solid #333;
+        }
+
+        .video-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .video-stats {
+            display: flex;
+            font-size: 14px;
+            color: #aaa;
+            margin-top: 8px;
+        }
+
+        .video-stats span {
+            margin-right: 15px;
+        }
+
+        .video-description {
+            padding: 20px;
+            color: #ddd;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .related-videos {
+            margin-top: 30px;
+            padding: 0 15px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ff4500;
+            padding-bottom: 10px;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .video-card {
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .thumbnail {
+            position: relative;
+            height: 0;
+            padding-top: 56.25%;
+            /* 16:9 Aspect Ratio */
+            overflow: hidden;
+        }
+
+        .video-thumbnail {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 69, 0, 0.8);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .play-icon:before {
+            content: "";
+            display: block;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 8px 0 8px 12px;
+            border-color: transparent transparent transparent #fff;
+            margin-left: 3px;
+        }
+
+        .duration {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+            z-index: 2;
+        }
+
+        .card-info {
+            padding: 10px;
+        }
+
+        .card-title {
+            font-size: 14px;
+            margin-bottom: 5px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 38px;
+        }
+
+        .card-stats {
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        footer {
+            background-color: #1a1a1a;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+
+        .copyright {
+            text-align: center;
+            color: #aaa;
+            font-size: 12px;
+        }
+
+        /* 媒体查询 - 平板设备 */
+        @media (max-width: 992px) {
+            .video-title {
+                font-size: 20px;
+            }
+        }
+
+        /* 媒体查询 - 移动设备 */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+            }
+
+            .nav-menu {
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background-color: #1a1a1a;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+                padding: 10px 0;
+                display: none;
+                z-index: 101;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-menu li {
+                margin: 0;
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-menu a {
+                padding: 12px;
+                width: 100%;
+            }
+
+            .player-controls {
+                flex-wrap: wrap;
+                padding: 10px;
+            }
+
+            .volume-control {
+                margin-left: 0;
+                margin-top: 10px;
+                width: 100%;
+            }
+
+            .volume-slider {
+                width: 100%;
+            }
+
+            .related-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .video-title {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <div class="logo">LANGNVBA</div>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="xiangguantuijian1.html">首页</a></li>
+                <li><a href="#">电影</a></li>
+                <li><a href="#">电视剧</a></li>
+                <li><a href="#">动漫</a></li>
+                <li><a href="#">纪录片</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="player-container">
+            <div class="video-player">
+                <img src="" alt="视频内容" class="gif-display" id="mainGif">
+            </div>
+            <div class="player-controls">
+                <button class="play-button" id="playBtn">▶</button>
+                <div class="progress-container" id="progressContainer">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                <div class="time-display" id="timeDisplay">00:00 / 00:00</div>
+                <div class="volume-control">
+                    <span class="volume-icon">🔊</span>
+                    <div class="volume-slider"></div>
+                </div>
+                <button class="fullscreen-button" id="fullscreenBtn">⛶</button>
+            </div>
+            <div class="video-info">
+                <h1 class="video-title" id="videoTitle">视频标题</h1>
+                <div class="video-stats">
+                    <span id="viewCount">0 次观看</span>
+                    <span id="likeCount">0 点赞</span>
+                    <span id="uploadDate">上传日期: 2023-10-01</span>
+                </div>
+            </div>
+            <div class="video-description" id="videoDescription">
+                这里是视频描述内容...
+            </div>
+        </div>
+
+        <div class="related-videos">
+            <h2 class="section-title">相关视频</h2>
+            <div class="related-grid">
+                <div class="video-card">
+                    <div class="thumbnail">
+                        <a href="video-player.html?video=1.gif">
+                            <div class="video-thumbnail">
+                                <img src="video/1.gif" alt="视频缩略图">
+                                <div class="play-icon"></div>
+                            </div>
+                            <span class="duration">2:15:30</span>
+                        </a>
+                    </div>
+                    <div class="card-info">
+                        <a href="video-player.html?video=1.gif" style="text-decoration: none; color: inherit;">
+                            <h3 class="card-title">长津湖</h3>
+                        </a>
+                        <div class="card-stats">
+                            <span>1200万播放</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <div class="thumbnail">
+                        <a href="video-player.html?video=2.gif">
+                            <div class="video-thumbnail">
+                                <img src="video/2.gif" alt="视频缩略图">
+                                <div class="play-icon"></div>
+                            </div>
+                            <span class="duration">1:45:22</span>
+                        </a>
+                    </div>
+                    <div class="card-info">
+                        <a href="video-player.html?video=2.gif" style="text-decoration: none; color: inherit;">
+                            <h3 class="card-title">你好，李焕英</h3>
+                        </a>
+                        <div class="card-stats">
+                            <span>986万播放</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <div class="thumbnail">
+                        <a href="video-player.html?video=3.gif">
+                            <div class="video-thumbnail">
+                                <img src="video/3.gif" alt="视频缩略图">
+                                <div class="play-icon"></div>
+                            </div>
+                            <span class="duration">1:52:15</span>
+                        </a>
+                    </div>
+                    <div class="card-info">
+                        <a href="video-player.html?video=3.gif" style="text-decoration: none; color: inherit;">
+                            <h3 class="card-title">三体</h3>
+                        </a>
+                        <div class="card-stats">
+                            <span>1500万播放</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <div class="thumbnail">
+                        <a href="video-player.html?video=4.gif">
+                            <div class="video-thumbnail">
+                                <img src="video/4.gif" alt="视频缩略图">
+                                <div class="play-icon"></div>
+                            </div>
+                            <span class="duration">1:47:03</span>
+                        </a>
+                    </div>
+                    <div class="card-info">
+                        <a href="video-player.html?video=4.gif" style="text-decoration: none; color: inherit;">
+                            <h3 class="card-title">想见你</h3>
+                        </a>
+                        <div class="card-stats">
+                            <span>768万播放</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="copyright">
+                <p>© 2023 LANGNVBA 版权所有 | 京ICP备12345678号-1</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 移动端菜单切换
+            const menuToggle = document.getElementById('menuToggle');
+            const navMenu = document.getElementById('navMenu');
+
+            menuToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+
+            // 获取URL参数
+            const urlParams = new URLSearchParams(window.location.search);
+            const videoParam = urlParams.get('video');
+
+            // 获取DOM元素
+            const mainGif = document.getElementById('mainGif');
+            const videoTitle = document.getElementById('videoTitle');
+            const viewCount = document.getElementById('viewCount');
+            const likeCount = document.getElementById('likeCount');
+            const uploadDate = document.getElementById('uploadDate');
+            const videoDescription = document.getElementById('videoDescription');
+            const playBtn = document.getElementById('playBtn');
+            const progressBar = document.getElementById('progressBar');
+            const progressContainer = document.getElementById('progressContainer');
+            const timeDisplay = document.getElementById('timeDisplay');
+            const fullscreenBtn = document.getElementById('fullscreenBtn');
+
+            // 设置视频路径
+            const videoPath = videoParam ? `video/${videoParam}` : 'video/1.gif';
+            mainGif.src = videoPath;
+
+            // 根据视频参数设置相关信息
+            switch (videoParam) {
+                case '1.gif':
+                    videoTitle.textContent = '长津湖';
+                    viewCount.textContent = '1200万 次观看';
+                    likeCount.textContent = '86.5万 点赞';
+                    uploadDate.textContent = '上传日期: 2023-09-15';
+                    videoDescription.textContent = '《长津湖》是由陈凯歌、徐克、林超贤联合执导，吴京、易烊千玺、朱亚文等主演的战争片。电影讲述了抗美援朝战争中，中国人民志愿军第9兵团进入长津湖地区作战的故事。';
+                    break;
+                case '2.gif':
+                    videoTitle.textContent = '你好，李焕英';
+                    viewCount.textContent = '986万 次观看';
+                    likeCount.textContent = '72.3万 点赞';
+                    uploadDate.textContent = '上传日期: 2023-08-22';
+                    videoDescription.textContent = '《你好，李焕英》是由贾玲执导的喜剧片，讲述了女孩贾晓玲因为一次意外穿越回到过去，与年轻时代的母亲李焕英相遇的故事。该片温情演绎了母女之间深厚的亲情，引发观众共鸣。';
+                    break;
+                case '3.gif':
+                    videoTitle.textContent = '三体';
+                    viewCount.textContent = '1500万 次观看';
+                    likeCount.textContent = '98.7万 点赞';
+                    uploadDate.textContent = '上传日期: 2023-10-05';
+                    videoDescription.textContent = '《三体》是根据刘慈欣同名小说改编的科幻剧，讲述了地球人类文明与三体文明之间的接触、交流、碰撞的故事。该剧展现了宏大的宇宙观和深刻的哲学思考，引发观众对人类命运的深思。';
+                    break;
+                case '4.gif':
+                    videoTitle.textContent = '想见你';
+                    viewCount.textContent = '768万 次观看';
+                    likeCount.textContent = '65.1万 点赞';
+                    uploadDate.textContent = '上传日期: 2023-07-08';
+                    videoDescription.textContent = '《想见你》是一部台湾奇幻爱情剧，讲述了一个关于时空穿越的爱情故事。女主角黄雨萱因为一场意外，魂穿回到1998年，附身在陈韵如身上，与李子维展开了一段跨越时空的恋情。';
+                    break;
+                default:
+                    videoTitle.textContent = '精彩视频';
+                    viewCount.textContent = '100万 次观看';
+                    likeCount.textContent = '10万 点赞';
+                    uploadDate.textContent = '上传日期: 2023-10-01';
+                    videoDescription.textContent = '这是一段精彩的视频内容，希望您能喜欢！';
+            }
+
+            // 模拟进度条功能
+            let totalDuration = 60; // 假设GIF总长60秒
+            let currentTime = 0;
+            let isPlaying = true;
+
+            // 播放/暂停按钮
+            playBtn.addEventListener('click', function () {
+                isPlaying = !isPlaying;
+                playBtn.textContent = isPlaying ? '▶' : '⏸';
+
+                if (isPlaying) {
+                    mainGif.style.opacity = 1;
+                } else {
+                    mainGif.style.opacity = 0.5;
+                }
+            });
+
+            // 进度条点击
+            progressContainer.addEventListener('click', function (e) {
+                const rect = progressContainer.getBoundingClientRect();
+                const ratio = (e.clientX - rect.left) / rect.width;
+                currentTime = ratio * totalDuration;
+                updateProgress();
+            });
+
+            // 添加移动端触摸支持
+            let touchStartX = 0;
+            let touchStartTime = 0;
+
+            // 视频区域触摸事件 - 播放/暂停切换
+            mainGif.addEventListener('touchstart', function (e) {
+                touchStartX = e.touches[0].clientX;
+                touchStartTime = Date.now();
+            });
+
+            // 双击检测变量
+            let lastTap = 0;
+            let tapTimeout;
+
+            mainGif.addEventListener('touchend', function (e) {
+                const touchEndX = e.changedTouches[0].clientX;
+                const touchEndTime = Date.now();
+                const timeDiff = touchEndTime - touchStartTime;
+                const screenWidth = window.innerWidth;
+
+                // 如果是点击而不是滑动
+                if (Math.abs(touchEndX - touchStartX) < 10 && timeDiff < 300) {
+                    // 检测双击
+                    const tapTime = new Date().getTime();
+                    const tapLength = tapTime - lastTap;
+
+                    clearTimeout(tapTimeout);
+
+                    if (tapLength < 500 && tapLength > 0) {
+                        // 双击处理
+                        if (touchEndX < screenWidth / 2) {
+                            // 双击左侧 - 后退10秒
+                            currentTime = Math.max(0, currentTime - 10);
+                        } else {
+                            // 双击右侧 - 前进10秒
+                            currentTime = Math.min(totalDuration, currentTime + 10);
+                        }
+                        updateProgress();
+
+                        // 显示跳转提示
+                        const skipInfo = document.createElement('div');
+                        skipInfo.style.position = 'absolute';
+                        skipInfo.style.top = '50%';
+                        skipInfo.style.left = touchEndX < screenWidth / 2 ? '20%' : '80%';
+                        skipInfo.style.transform = 'translate(-50%, -50%)';
+                        skipInfo.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+                        skipInfo.style.color = 'white';
+                        skipInfo.style.padding = '10px 15px';
+                        skipInfo.style.borderRadius = '5px';
+                        skipInfo.style.zIndex = '10';
+                        skipInfo.textContent = touchEndX < screenWidth / 2 ? '⏪ 后退10秒' : '⏩ 前进10秒';
+
+                        const videoPlayer = document.querySelector('.video-player');
+                        videoPlayer.appendChild(skipInfo);
+
+                        setTimeout(() => {
+                            videoPlayer.removeChild(skipInfo);
+                        }, 1000);
+                    } else {
+                        // 单击 - 延迟执行，给双击留时间
+                        tapTimeout = setTimeout(() => {
+                            // 切换播放/暂停状态
+                            isPlaying = !isPlaying;
+                            playBtn.textContent = isPlaying ? '▶' : '⏸';
+                            mainGif.style.opacity = isPlaying ? 1 : 0.5;
+                        }, 200);
+                    }
+
+                    lastTap = tapTime;
+                }
+            });
+
+            // 进度条触摸拖动支持
+            progressContainer.addEventListener('touchstart', function (e) {
+                const rect = progressContainer.getBoundingClientRect();
+                const ratio = (e.touches[0].clientX - rect.left) / rect.width;
+                currentTime = ratio * totalDuration;
+                updateProgress();
+            });
+
+            progressContainer.addEventListener('touchmove', function (e) {
+                e.preventDefault();
+                const rect = progressContainer.getBoundingClientRect();
+                const ratio = (e.touches[0].clientX - rect.left) / rect.width;
+                // 确保比例在0到1之间
+                const boundedRatio = Math.max(0, Math.min(1, ratio));
+                currentTime = boundedRatio * totalDuration;
+                updateProgress();
+            });
+
+            // 检测设备方向变化，优化全屏体验
+            window.addEventListener('orientationchange', function () {
+                // 如果在全屏模式下并且横屏
+                if (document.fullscreenElement && (window.orientation === 90 || window.orientation === -90)) {
+                    // 可以添加一些优化横屏全屏体验的代码
+                }
+            });
+
+            // 全屏按钮
+            fullscreenBtn.addEventListener('click', function () {
+                const playerElement = document.querySelector('.player-container');
+
+                if (!document.fullscreenElement) {
+                    if (playerElement.requestFullscreen) {
+                        playerElement.requestFullscreen();
+                    } else if (playerElement.webkitRequestFullscreen) {
+                        playerElement.webkitRequestFullscreen();
+                    } else if (playerElement.msRequestFullscreen) {
+                        playerElement.msRequestFullscreen();
+                    }
+                } else {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    } else if (document.webkitExitFullscreen) {
+                        document.webkitExitFullscreen();
+                    } else if (document.msExitFullscreen) {
+                        document.msExitFullscreen();
+                    }
+                }
+            });
+
+            // 更新进度条和时间显示
+            function updateProgress() {
+                const ratio = currentTime / totalDuration;
+                progressBar.style.width = (ratio * 100) + '%';
+
+                const minutes = Math.floor(currentTime / 60);
+                const seconds = Math.floor(currentTime % 60);
+                const totalMinutes = Math.floor(totalDuration / 60);
+                const totalSeconds = Math.floor(totalDuration % 60);
+
+                timeDisplay.textContent = `${padZero(minutes)}:${padZero(seconds)} / ${padZero(totalMinutes)}:${padZero(totalSeconds)}`;
+            }
+
+            // 格式化时间显示
+            function padZero(num) {
+                return (num < 10) ? '0' + num : num;
+            }
+
+            // 定时更新进度
+            setInterval(function () {
+                if (isPlaying) {
+                    currentTime += 0.1;
+                    if (currentTime > totalDuration) {
+                        currentTime = 0;
+                    }
+                    updateProgress();
+                }
+            }, 100);
+        });
+    </script>
+</body>
+
+</html>
