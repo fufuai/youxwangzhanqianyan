@@ -16,7 +16,7 @@
     <div class="container">
         <div class="game-header">
             <h1 class="game-title">详情介绍</h1>
-            <p class="game-subtitle">标题：游戏名称</p>
+            <p class="game-subtitle">痴漢電車</p>
         </div>
 
         <div class="main-image">
@@ -48,14 +48,23 @@
 
         <div class="action-buttons">
             <button class="action-button" onclick="startGame()">开始游戏</button>
-            <a href="" class="action-button download">下载游戏</a>
+            <a href="https://share.feijipan.com/s/k4HoefIT?" class="action-button download">下载游戏</a>
             <a href="https://qm.qq.com/q/IekbXKmPAG" class="action-button service">联系客服</a>
         </div>
 
         <div class="info-card">
             <h3>游戏故事</h3>
             <p class="story-text">
-                段落XXXXXXXXXXXXXXXXXXXXXX
+                主角像往常一樣被電視機的嘈雜聲音吵醒，而不是鬧鐘。他的身體有著強烈的不適感，頭像鉛一樣重而且不時抽痛。
+
+                他完全厭惡一個上班族的生活，早上起床，工作到深夜，然後回家睡覺。
+
+                今天，他比平時要坐的通勤列車，在他從站台上心不在焉地凝視的時候，一個女孩站在他的面前。
+
+                他被女孩絲般的黑髮，透亮的白皙肌膚，最重要的是，她那對污垢一無所知的明亮眼睛迷住了，他的意識瞬間被那個陌生的女孩奪走。
+
+                就在他受到的衝擊吹散了全身的慵懶與疲勞的同時，他的心中湧出了「我要弄髒這個女孩」的扭曲念頭。不知不覺中，他已經向這女孩的身體伸出了手……
+
             </p>
         </div>
 
@@ -74,7 +83,7 @@
         <div class="info-card">
             <h3>更新日志</h3>
             <div class="changelog-item">
-                <h4>v1.04更新说明</h4>
+                <h4>更新说明</h4>
                 <ul>
                     <li>修复内容装备属性限制异常修正</li>
                     <li>调整后的限制标准与原先几乎保持相同平衡性</li>
@@ -159,7 +168,7 @@
 
     <script>
         // 全局变量
-        const imageFolderPath = '../image3/XXXXXXXXXXXXXXXXXXX/';
+        const imageFolderPath = '../image3/痴漢電車/';
         const totalImages = 7;
         let currentGalleryIndex = 0;
         let galleryImages = [];
@@ -185,7 +194,7 @@
             imageContainer.innerHTML = '';
 
             // 加载前6张描述图
-            for (let i = 0; i < 6; i++) {
+            for (let i = 0; i < 11; i++) {
                 const imgElement = createImageElement(i + 2);
                 imageContainer.appendChild(imgElement);
                 galleryImages.push(imgElement.querySelector('img').src);
