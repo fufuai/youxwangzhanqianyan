@@ -320,6 +320,259 @@
             text-align: center;
             margin-bottom: 20px;
         }
+
+        /* 悬浮客服按钮样式 */
+        .floating-service {
+            position: fixed;
+            right: 20px;
+            bottom: 100px;
+            z-index: 999;
+        }
+
+        .qq-service {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #ff9d00;
+            color: #000;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .qq-service:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .qq-service i {
+            font-size: 24px;
+            margin-top: 8px;
+        }
+
+        .qq-service span {
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* 签到按钮样式 */
+        .checkin-btn {
+            background-color: #ff9d00;
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            padding: 2px 8px;
+            font-size: 0.9em;
+            font-weight: bold;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .checkin-btn:hover {
+            background-color: #ffb740;
+        }
+
+        .checkin-btn.disabled {
+            background-color: #888;
+            cursor: not-allowed;
+        }
+
+        /* 积分链接样式 */
+        .points-link {
+            color: #ff9d00;
+            text-decoration: underline;
+            margin-left: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .points-link:hover {
+            color: #ffb740;
+        }
+
+        /* 积分兑换模态框 */
+        .points-redemption-content {
+            max-width: 700px;
+            width: 90%;
+        }
+
+        .points-items {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        /* 确保在小屏幕上仍然保持两列 */
+        @media (max-width: 576px) {
+            .points-items {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .points-item {
+                padding: 10px;
+            }
+
+            .points-item h4 {
+                font-size: 0.9rem;
+            }
+        }
+
+        .points-item {
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 1px solid #555;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .points-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-color: #ff9d00;
+        }
+
+        .points-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .points-item h4 {
+            color: #ff9d00;
+            margin-bottom: 5px;
+        }
+
+        .points-item .points-cost {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .points-item .redeem-btn {
+            background-color: #ff9d00;
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .points-item .redeem-btn:hover {
+            background-color: #ffb740;
+        }
+
+        .points-item .redeem-btn.disabled {
+            background-color: #888;
+            cursor: not-allowed;
+        }
+
+        /* 积分兑换横幅 */
+        .points-banner {
+            max-width: 1200px;
+            margin: 10px auto;
+            padding: 0 15px;
+        }
+
+        .points-banner-content {
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #ff9d00 0%, #ff6a00 100%);
+            border-radius: 8px;
+            padding: 12px 15px;
+            color: #000;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .points-icon {
+            font-size: 1.8rem;
+            margin-right: 15px;
+        }
+
+        .points-info {
+            flex-grow: 1;
+        }
+
+        .points-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 3px;
+            margin-top: 0;
+        }
+
+        .points-info p {
+            margin: 0;
+            opacity: 0.8;
+            font-size: 0.85rem;
+        }
+
+        .points-action {
+            margin-left: 15px;
+        }
+
+        .points-btn {
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 6px 12px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .points-btn:hover {
+            background-color: #333;
+            transform: translateY(-2px);
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .points-banner-content {
+                padding: 10px;
+            }
+
+            .points-icon {
+                font-size: 1.5rem;
+                margin-right: 10px;
+            }
+
+            .points-info h3 {
+                font-size: 1rem;
+            }
+
+            .points-info p {
+                font-size: 0.8rem;
+            }
+
+            .points-btn {
+                padding: 5px 10px;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .points-banner-content {
+                flex-direction: row;
+                text-align: left;
+            }
+
+            .points-info p {
+                display: none;
+                /* 在非常小的屏幕上隐藏描述文字 */
+            }
+        }
     </style>
 </head>
 
@@ -351,10 +604,26 @@
                 欢迎来到会员中心！成为会员享受更多专属特权和内容。
             </div>
             <div class="announcement announcement-2">
-                黄金会员限时特惠，原价￥99，现在只需￥69！
+                黄金会员限时特惠，原价￥88，现在只需￥69！加入官方QQ群需要黄金会员等级！
             </div>
             <div class="announcement announcement-3">
-                每日签到可获取积分，积分可兑换优惠券和礼品！
+                每日签到可获取积分，积分可兑换优惠券和礼品！<button id="daily-checkin" class="checkin-btn">今日签到</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 积分兑换提示区域 -->
+    <div class="points-banner">
+        <div class="points-banner-content">
+            <div class="points-icon">
+                <i class="fas fa-gift"></i>
+            </div>
+            <div class="points-info">
+                <h3>积分满300可免费下载一款游戏！</h3>
+                <p>每日签到、参与活动可获取积分，积分可兑换游戏、优惠券和会员天数</p>
+            </div>
+            <div class="points-action">
+                <button id="show-points-redemption" class="points-btn">查看积分兑换</button>
             </div>
         </div>
     </div>
@@ -429,21 +698,21 @@
                 <div class="membership-tiers">
                     <div class="tier-card">
                         <h3><i class="fas fa-medal"></i> 普通会员</h3>
-                        <div class="price">￥29/月</div>
+                        <div class="price">￥39/月</div>
                         <ul>
                             <li>每日下载限制10次</li>
                             <li>无广告浏览体验</li>
                             <li>基础内容访问权限</li>
                             <li>基础客服支持</li>
                         </ul>
-                        <button class="btn buy-btn" data-price="29" data-plan="普通会员">立即购买</button>
+                        <button class="btn buy-btn" data-price="39" data-plan="普通会员" data-duration="month">立即购买</button>
                     </div>
                     <div class="tier-card" style="transform: scale(1.05); border-color: #ff9d00;">
                         <div
                             style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background-color: #ff9d00; color: #000; padding: 5px 15px; border-radius: 20px; font-weight: bold;">
                             最受欢迎</div>
                         <h3><i class="fas fa-crown"></i> 黄金会员</h3>
-                        <div class="price">￥69/月</div>
+                        <div class="price">￥69/季度</div>
                         <ul>
                             <li>无限下载次数</li>
                             <li>无广告浏览体验</li>
@@ -451,11 +720,12 @@
                             <li>优先客服支持</li>
                             <li>专属活动参与资格</li>
                         </ul>
-                        <button class="btn buy-btn" data-price="69" data-plan="黄金会员">立即购买</button>
+                        <button class="btn buy-btn" data-price="69" data-plan="黄金会员"
+                            data-duration="quarter">立即购买</button>
                     </div>
                     <div class="tier-card">
                         <h3><i class="fas fa-gem"></i> 钻石会员</h3>
-                        <div class="price">￥99/月</div>
+                        <div class="price">￥99/年</div>
                         <ul>
                             <li>无限下载次数</li>
                             <li>无广告浏览体验</li>
@@ -464,7 +734,7 @@
                             <li>专属活动参与资格</li>
                             <li>独家优惠券</li>
                         </ul>
-                        <button class="btn buy-btn" data-price="99" data-plan="钻石会员">立即购买</button>
+                        <button class="btn buy-btn" data-price="99" data-plan="钻石会员" data-duration="year">立即购买</button>
                     </div>
                 </div>
             </div>
@@ -530,6 +800,14 @@
 
     <button id="scroll-to-top" title="回到顶部"><i class="fas fa-arrow-up"></i></button>
 
+    <!-- 悬浮客服按钮 -->
+    <div class="floating-service">
+        <a href="https://qm.qq.com/q/IekbXKmPAG" class="qq-service" target="_blank" title="联系客服">
+            <i class="fab fa-qq"></i>
+            <span>客服</span>
+        </a>
+    </div>
+
     <!-- 注册模态框 -->
     <div class="modal" id="registerModal">
         <div class="modal-content">
@@ -572,13 +850,50 @@
             <h2 style="color: #ff9d00; text-align: center; margin-bottom: 20px;"><i class="fas fa-crown"></i> <span
                     id="paymentTitle">会员购买</span></h2>
             <div class="payment-qr">
-                <img id="paymentQrCode" src="../meituwangzhan/image1/广告图/1.jpg" alt="支付二维码">
+                <img id="paymentQrCode" src="../image1/2.jpg" alt="支付二维码">
             </div>
             <p style="text-align: center; margin-bottom: 15px;">请使用微信或支付宝扫描上方二维码完成支付</p>
             <p style="text-align: center; color: #ff9d00; font-weight: bold;">支付金额: <span id="paymentAmount">￥69</span>
             </p>
             <div class="form-group" style="margin-top: 20px;">
                 <button id="confirmPayment" style="background-color: #ff9d00; color: #000;">确认已支付</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 积分兑换模态框 -->
+    <div class="modal" id="pointsRedemptionModal">
+        <div class="modal-content points-redemption-content">
+            <span class="close-modal" id="closePointsRedemption">&times;</span>
+            <h2 style="color: #ff9d00; text-align: center; margin-bottom: 20px;"><i class="fas fa-gift"></i> 积分兑换中心</h2>
+            <p style="text-align: center; margin-bottom: 15px;">您当前的积分: <span id="currentPoints"
+                    style="font-weight: bold; color: #ff9d00;">0</span></p>
+
+            <div class="points-items">
+                <div class="points-item">
+                    <img src="../meituwangzhan/封面/1.jpg" alt="游戏1">
+                    <h4>热门游戏1</h4>
+                    <div class="points-cost">300 积分</div>
+                    <button class="redeem-btn" data-points="300" data-item="热门游戏1">兑换</button>
+                </div>
+                <div class="points-item">
+                    <img src="../meituwangzhan/封面/2.jpg" alt="游戏2">
+                    <h4>热门游戏2</h4>
+                    <div class="points-cost">300 积分</div>
+                    <button class="redeem-btn" data-points="300" data-item="热门游戏2">兑换</button>
+                </div>
+                <div class="points-item">
+                    <img src="../meituwangzhan/封面/3.jpg" alt="优惠券">
+                    <h4>会员优惠券</h4>
+                    <div class="points-cost">100 积分</div>
+                    <button class="redeem-btn" data-points="100" data-item="会员优惠券">兑换</button>
+                </div>
+                <div class="points-item">
+                    <img src="../meituwangzhan/封面/4.jpg" alt="VIP天数">
+                    <h4>VIP延长3天</h4>
+                    <div class="points-cost">200 积分</div>
+                    <button class="redeem-btn" data-points="200" data-item="VIP延长3天">兑换</button>
+                </div>
             </div>
         </div>
     </div>
@@ -658,6 +973,9 @@
             if (e.target === paymentModal) {
                 paymentModal.style.display = 'none';
             }
+            if (e.target === pointsRedemptionModal) {
+                pointsRedemptionModal.style.display = 'none';
+            }
         });
 
         // 处理注册表单提交
@@ -722,18 +1040,23 @@
             button.addEventListener('click', () => {
                 const price = button.getAttribute('data-price');
                 const plan = button.getAttribute('data-plan');
+                const duration = button.getAttribute('data-duration');
 
                 paymentTitle.textContent = plan + '购买';
                 paymentAmount.textContent = '￥' + price;
 
+                // 保存当前选择的会员类型和时长到模态框的数据属性中
+                paymentModal.setAttribute('data-selected-plan', plan);
+                paymentModal.setAttribute('data-selected-duration', duration);
+
                 // 根据不同的会员套餐显示不同的二维码
                 // 这里使用现有的广告图做演示，实际应该替换为真实的支付二维码
                 if (plan === '普通会员') {
-                    paymentQrCode.src = '../meituwangzhan/image1/广告图/1.jpg';
+                    paymentQrCode.src = '../image1/2.jpg';
                 } else if (plan === '黄金会员') {
-                    paymentQrCode.src = '../meituwangzhan/image1/广告图/2.jpg';
+                    paymentQrCode.src = '../image1/2.jpg';
                 } else if (plan === '钻石会员') {
-                    paymentQrCode.src = '../meituwangzhan/image1/广告图/3.jpg';
+                    paymentQrCode.src = '../image1/2.jpg';
                 }
 
                 paymentModal.style.display = 'flex';
@@ -747,7 +1070,8 @@
 
         // 确认支付
         confirmPaymentBtn.addEventListener('click', () => {
-            const plan = paymentTitle.textContent.replace('购买', '');
+            const plan = paymentModal.getAttribute('data-selected-plan');
+            const duration = paymentModal.getAttribute('data-selected-duration');
 
             // 获取当前用户数据
             let userData = JSON.parse(localStorage.getItem('userData')) || {
@@ -763,9 +1087,15 @@
             // 更新会员信息
             userData.membershipLevel = plan;
 
-            // 设置到期日期（当前日期加一个月）
+            // 设置到期日期（根据会员类型设置不同的到期时间）
             const expiryDate = new Date();
-            expiryDate.setMonth(expiryDate.getMonth() + 1);
+            if (duration === 'month') {
+                expiryDate.setMonth(expiryDate.getMonth() + 1); // 普通会员一个月
+            } else if (duration === 'quarter') {
+                expiryDate.setMonth(expiryDate.getMonth() + 3); // 黄金会员一个季度
+            } else if (duration === 'year') {
+                expiryDate.setFullYear(expiryDate.getFullYear() + 1); // 钻石会员一年
+            }
             userData.expiryDate = expiryDate.toISOString().split('T')[0];
 
             // 更新本地存储
@@ -803,6 +1133,7 @@
             const userData = JSON.parse(localStorage.getItem('userData'));
             if (userData && userData.registered) {
                 updateProfileData(userData);
+                checkDailyCheckin();
             }
         });
 
@@ -879,7 +1210,173 @@
         });
 
         // 初始化加载第一首歌
-        loadSong(currentSongIndex);
+        try {
+            loadSong(currentSongIndex);
+        } catch (error) {
+            console.log('音乐加载失败，请检查音乐路径');
+        }
+
+        // 签到功能
+        const checkinButton = document.getElementById('daily-checkin');
+
+        checkinButton.addEventListener('click', () => {
+            // 获取用户数据
+            let userData = JSON.parse(localStorage.getItem('userData'));
+
+            if (!userData || !userData.registered) {
+                alert('请先登录或注册账户！');
+
+                // 切换到登录标签
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+
+                const loginButton = document.querySelector('[data-tab="login"]');
+                loginButton.classList.add('active');
+                document.getElementById('login').classList.add('active');
+
+                return;
+            }
+
+            // 检查是否已经签到
+            const today = new Date().toDateString();
+            if (userData.lastCheckin === today) {
+                alert('您今天已经签到过了，明天再来吧！');
+                return;
+            }
+
+            // 增加积分
+            const points = Math.floor(Math.random() * 10) + 1; // 随机1-10积分
+            userData.pointsCount = (userData.pointsCount || 0) + points;
+            userData.lastCheckin = today;
+
+            // 更新本地存储
+            localStorage.setItem('userData', JSON.stringify(userData));
+
+            // 更新个人资料页面
+            updateProfileData(userData);
+
+            // 更新签到按钮状态
+            checkinButton.classList.add('disabled');
+            checkinButton.textContent = '已签到';
+
+            alert(`签到成功！获得${points}积分！`);
+        });
+
+        // 检查今日是否已签到
+        function checkDailyCheckin() {
+            const userData = JSON.parse(localStorage.getItem('userData'));
+            if (userData && userData.lastCheckin === new Date().toDateString()) {
+                checkinButton.classList.add('disabled');
+                checkinButton.textContent = '已签到';
+            } else {
+                checkinButton.classList.remove('disabled');
+                checkinButton.textContent = '今日签到';
+            }
+        }
+
+        // 积分兑换相关功能
+        const pointsRedemptionModal = document.getElementById('pointsRedemptionModal');
+        const closePointsRedemptionBtn = document.getElementById('closePointsRedemption');
+        const showPointsRedemptionBtn = document.getElementById('show-points-redemption');
+        const currentPointsSpan = document.getElementById('currentPoints');
+        const redeemButtons = document.querySelectorAll('.redeem-btn');
+
+        // 显示积分兑换模态框
+        showPointsRedemptionBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            // 获取用户数据
+            const userData = JSON.parse(localStorage.getItem('userData'));
+            if (!userData || !userData.registered) {
+                alert('请先登录或注册账户！');
+
+                // 切换到登录标签
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+
+                const loginButton = document.querySelector('[data-tab="login"]');
+                loginButton.classList.add('active');
+                document.getElementById('login').classList.add('active');
+
+                return;
+            }
+
+            // 更新当前积分显示
+            currentPointsSpan.textContent = userData.pointsCount || 0;
+
+            // 更新按钮状态
+            updateRedeemButtonsState(userData.pointsCount || 0);
+
+            pointsRedemptionModal.style.display = 'flex';
+        });
+
+        // 关闭积分兑换模态框
+        closePointsRedemptionBtn.addEventListener('click', () => {
+            pointsRedemptionModal.style.display = 'none';
+        });
+
+        // 更新兑换按钮状态
+        function updateRedeemButtonsState(points) {
+            redeemButtons.forEach(button => {
+                const requiredPoints = parseInt(button.getAttribute('data-points'));
+                if (points >= requiredPoints) {
+                    button.classList.remove('disabled');
+                    button.disabled = false;
+                } else {
+                    button.classList.add('disabled');
+                    button.disabled = true;
+                }
+            });
+        }
+
+        // 积分兑换
+        redeemButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const requiredPoints = parseInt(button.getAttribute('data-points'));
+                const itemName = button.getAttribute('data-item');
+
+                // 获取用户数据
+                let userData = JSON.parse(localStorage.getItem('userData'));
+                if (!userData || !userData.registered) {
+                    alert('请先登录或注册账户！');
+                    return;
+                }
+
+                // 检查积分是否足够
+                if ((userData.pointsCount || 0) < requiredPoints) {
+                    alert('积分不足，无法兑换！');
+                    return;
+                }
+
+                // 扣除积分
+                userData.pointsCount -= requiredPoints;
+
+                // 记录兑换记录
+                if (!userData.redemptionHistory) {
+                    userData.redemptionHistory = [];
+                }
+
+                userData.redemptionHistory.push({
+                    item: itemName,
+                    points: requiredPoints,
+                    date: new Date().toISOString()
+                });
+
+                // 更新本地存储
+                localStorage.setItem('userData', JSON.stringify(userData));
+
+                // 更新个人资料页面
+                updateProfileData(userData);
+
+                // 更新当前积分显示
+                currentPointsSpan.textContent = userData.pointsCount;
+
+                // 更新按钮状态
+                updateRedeemButtonsState(userData.pointsCount);
+
+                alert(`兑换成功！您已成功兑换 ${itemName}，消耗 ${requiredPoints} 积分。请联系客服获取兑换码！`);
+            });
+        });
     </script>
 </body>
 

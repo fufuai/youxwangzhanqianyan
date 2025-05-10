@@ -4,998 +4,1345 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>调教场景</title>
+    <title>暧昧空间</title>
     <style>
-        body {
-            font-family: 'Microsoft YaHei', sans-serif;
-            background-color: #000;
-            color: #fff;
+        * {
             margin: 0;
             padding: 0;
-            line-height: 1.6;
-            overflow: hidden;
+            box-sizing: border-box;
         }
 
-        .game-container {
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            padding-top: 120px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* 顶部导航栏 */
+        header {
+            background-color: rgba(0, 0, 0, 0.9);
+            box-shadow: 0 2px 10px rgba(255, 105, 180, 0.3);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 105, 180, 0.2);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ff6b91;
+            text-shadow: 0 0 5px rgba(255, 105, 180, 0.5);
+            font-family: 'Times New Roman', Times, serif;
+            letter-spacing: 1px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-left: 25px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #f1a1c1;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: #ff6b91;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(to right, #ff6b91, transparent);
+            transition: width 0.3s;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        /* 搜索框 */
+        .search-box {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            padding: 8px 15px;
+            border: 1px solid #444;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border-radius: 20px;
+            width: 200px;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            border-color: #ff6b91;
+            box-shadow: 0 0 8px rgba(255, 105, 180, 0.5);
+        }
+
+        .search-input::placeholder {
+            color: #999;
+        }
+
+        .search-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-left: -30px;
+            color: #ff6b91;
+        }
+
+        /* 主内容区域 */
+        main {
+            margin-top: 60px;
+            padding: 30px 0 60px;
+            position: relative;
+            overflow: visible;
+            width: 100%;
+        }
+
+        /* 特色小说 */
+        .featured-novel {
+            background-image: linear-gradient(to right, #300313, #450920);
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 40px;
+            display: flex;
+            box-shadow: 0 10px 20px rgba(255, 105, 180, 0.2);
+            border: 1px solid rgba(255, 105, 180, 0.1);
+        }
+
+        .featured-cover {
+            width: 220px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s;
+            filter: brightness(0.9);
+        }
+
+        .featured-cover:hover {
+            transform: translateY(-5px) scale(1.02);
+            filter: brightness(1.1);
+            box-shadow: 0 15px 25px rgba(255, 105, 180, 0.3);
+        }
+
+        .featured-info {
+            margin-left: 30px;
+            color: #f0f0f0;
+        }
+
+        .featured-title {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            color: #ff6b91;
+            font-family: 'Times New Roman', Times, serif;
+            letter-spacing: 1px;
+        }
+
+        .featured-author {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: #f1a1c1;
+            font-style: italic;
+        }
+
+        .featured-description {
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            max-width: 600px;
+            color: #ddd;
+        }
+
+        .read-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: rgba(255, 105, 180, 0.8);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            letter-spacing: 1px;
+            border: none;
+        }
+
+        .read-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(255, 105, 180, 0.5);
+            background-color: #ff6b91;
+        }
+
+        /* 小说分类 */
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 105, 180, 0.3);
+            padding-bottom: 10px;
+        }
+
+        .category-title {
+            font-size: 1.6rem;
+            color: #ff6b91;
+            border-left: 4px solid #ff6b91;
+            padding-left: 15px;
+            font-family: 'Times New Roman', Times, serif;
+            letter-spacing: 1px;
+        }
+
+        .view-all {
+            color: #f1a1c1;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .view-all:hover {
+            color: #ff6b91;
+        }
+
+        /* 小说网格 */
+        .novels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .novel-card {
+            background-color: rgba(30, 30, 30, 0.8);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 105, 180, 0.1);
+            cursor: pointer;
+        }
+
+        .novel-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(255, 105, 180, 0.3);
+        }
+
+        .novel-cover {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            transition: all 0.3s;
+        }
+
+        .novel-card:hover .novel-cover {
+            filter: brightness(1.1);
+            transform: scale(1.03);
+        }
+
+        .novel-info {
+            padding: 15px;
+            border-top: 1px solid rgba(255, 105, 180, 0.1);
+        }
+
+        .novel-title {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: #f1a1c1;
+        }
+
+        .novel-author {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        .novel-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .novel-tag {
+            background-color: rgba(255, 105, 180, 0.15);
+            color: #f1a1c1;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        /* 底部区域 */
+        footer {
+            background-color: #0a0a0a;
+            color: #999;
+            padding: 40px 0;
+            margin-top: 50px;
+            border-top: 1px solid rgba(255, 105, 180, 0.2);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .footer-section {
+            flex: 1;
+            margin-right: 30px;
+        }
+
+        .footer-title {
+            color: #ff6b91;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            font-family: 'Times New Roman', Times, serif;
+            letter-spacing: 1px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #ff6b91;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        /* 响应式设计 */
+        @media screen and (max-width: 768px) {
+            body {
+                padding-top: 200px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                padding: 15px 0;
+            }
+
+            .logo {
+                margin-bottom: 15px;
+            }
+
+            .nav-menu {
+                margin-top: 15px;
+                margin-bottom: 15px;
+            }
+
+            .nav-menu li {
+                margin-left: 15px;
+                margin-right: 15px;
+            }
+
+            main {
+                margin-top: 40px;
+                padding-bottom: 40px;
+            }
+
+            .featured-novel {
+                flex-direction: column;
+                padding: 25px;
+                margin-bottom: 30px;
+                margin-top: 20px;
+                overflow: hidden;
+            }
+
+            .featured-cover {
+                width: 180px;
+                height: 250px;
+                margin-bottom: 30px;
+            }
+
+            .featured-info {
+                margin-left: 0;
+            }
+
+            .read-button {
+                margin-top: 15px;
+                display: block;
+                text-align: center;
+                font-size: 1rem;
+            }
+
+            /* 保持底部三列水平排列 */
+            .footer-content {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .footer-section {
+                flex: 0 0 33.33%;
+                margin-bottom: 20px;
+                padding: 0 10px;
+                margin-right: 0;
+                box-sizing: border-box;
+            }
+
+            .footer-title {
+                font-size: 1rem;
+                margin-bottom: 12px;
+            }
+
+            .footer-links li {
+                margin-bottom: 6px;
+            }
+
+            .footer-links a {
+                font-size: 0.85rem;
+            }
+
+            .footer-bottom {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            body {
+                padding-top: 220px;
+            }
+
+            .novels-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 15px;
+            }
+
+            .novel-cover {
+                height: 220px;
+            }
+
+            /* 小屏幕下确保底部显示正确 */
+            .footer-section {
+                flex: 0 0 33.33%;
+                padding: 0 5px;
+            }
+
+            .footer-title {
+                font-size: 0.9rem;
+            }
+
+            .footer-links a {
+                font-size: 0.75rem;
+            }
+
+            .footer-bottom {
+                font-size: 0.7rem;
+            }
+        }
+
+        /* 详情页样式 */
+        .detail-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #000;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .scene-container {
-            position: relative;
-            width: 100%;
-            height: calc(100% - 80px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        .scene-image {
-            width: auto;
-            height: 100%;
-            max-width: 100%;
-            object-fit: contain;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-            will-change: opacity;
-        }
-
-        .scene-image.loaded {
-            opacity: 1;
-        }
-
-        .dialogue-overlay {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.7);
-            padding: 25px 30px;
-            border-radius: 15px;
-            z-index: 10;
-            text-align: center;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-            max-width: 80%;
-            width: auto;
-            box-shadow: 0 0 20px rgba(255, 105, 180, 0.3);
-            border: 1px solid rgba(255, 105, 180, 0.3);
-            backdrop-filter: blur(5px);
-        }
-
-        .dialogue-overlay.show {
-            opacity: 1;
-        }
-
-        .character-name {
-            color: #ff69b4;
-            font-weight: bold;
-            margin-bottom: 15px;
-            font-size: 1.6em;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7), 0 0 10px rgba(255, 105, 180, 0.5);
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-            will-change: opacity, transform;
-            letter-spacing: 1px;
-            font-family: 'Microsoft YaHei', '微软雅黑', sans-serif;
-            position: relative;
-            display: inline-block;
-        }
-
-        .character-name::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px;
-            height: 2px;
-            background: linear-gradient(to right, transparent, #ff69b4, transparent);
-        }
-
-        .character-name.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .dialogue-text {
-            margin: 0;
-            font-size: 1.4em;
-            line-height: 1.8;
-            color: #fff;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-            will-change: opacity, transform;
-            font-family: 'Microsoft YaHei', '微软雅黑', sans-serif;
-            letter-spacing: 0.5px;
-            padding: 0 10px;
-            text-align: left;
-        }
-
-        .dialogue-text.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .narrative-text {
-            font-style: italic;
-            color: #ffccd5;
-            margin-bottom: 15px;
-            text-align: left;
-        }
-
-        .dialogue-quote {
-            color: #fff;
-            margin-bottom: 10px;
-            text-align: left;
-        }
-
-        .chapter-title {
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #ff69b4;
-            font-size: 1.8em;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7), 0 0 10px rgba(255, 105, 180, 0.5);
-            z-index: 15;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 10px 20px;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 105, 180, 0.3);
-            box-shadow: 0 0 15px rgba(255, 105, 180, 0.3);
-        }
-
-        .chapter-title.show {
-            opacity: 1;
-        }
-
-        .navigation-buttons {
-            position: relative;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 20;
-        }
-
-        .nav-button {
-            min-width: 120px;
-            background-color: rgba(255, 105, 180, 0.8);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 1.2em;
-            white-space: nowrap;
-        }
-
-        .nav-button:hover {
-            background-color: rgba(255, 20, 147, 0.8);
-            transform: scale(1.05);
-        }
-
-        .nav-button:disabled {
-            background-color: rgba(102, 102, 102, 0.5);
-            cursor: not-allowed;
-        }
-
-        .fullscreen-button,
-        .music-control {
-            position: fixed;
-            background-color: #ff69b4;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-            z-index: 30;
-            font-size: 0.9em;
-        }
-
-        .fullscreen-button {
-            top: 10px;
-            right: 10px;
-        }
-
-        .music-control {
-            top: 10px;
-            left: 10px;
-        }
-
-        /* 信息面板样式 */
-        .info-panel {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid rgba(255, 105, 180, 0.3);
-            border-radius: 10px;
-            padding: 15px;
-            width: 250px;
-            z-index: 30;
-            box-shadow: 0 0 15px rgba(255, 105, 180, 0.3);
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
             display: none;
-            transition: opacity 0.3s ease-in-out;
+            overflow-y: auto;
+            padding: 100px 0 50px;
         }
 
-        .info-panel.show {
-            display: block;
-            opacity: 1;
-        }
-
-        .info-title {
-            color: #ff69b4;
-            font-size: 1.2em;
-            font-weight: bold;
-            margin-bottom: 10px;
-            text-align: center;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        .detail-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(20, 20, 20, 0.95);
+            border-radius: 8px;
+            box-shadow: 0 5px 30px rgba(255, 105, 180, 0.2);
+            border: 1px solid rgba(255, 105, 180, 0.2);
             position: relative;
         }
 
-        .close-button {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background-color: rgba(255, 105, 180, 0.7);
-            color: white;
-            border: none;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 14px;
+        .detail-header {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: all 0.3s;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
         }
 
-        .close-button:hover {
-            background-color: rgba(255, 20, 147, 0.9);
+        .detail-cover {
+            width: 250px;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .detail-info {
+            flex: 1;
+            margin-left: 30px;
+            padding-top: 10px;
+        }
+
+        .detail-title {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #ff6b91;
+            text-shadow: 0 0 5px rgba(255, 105, 180, 0.3);
+            font-family: 'Times New Roman', Times, serif;
+            letter-spacing: 1px;
+        }
+
+        .detail-meta {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: #f1a1c1;
+            font-style: italic;
+        }
+
+        .detail-stats {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            color: #ddd;
+        }
+
+        .stat-icon {
+            margin-right: 8px;
+            color: #ff6b91;
+        }
+
+        .detail-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .detail-tag {
+            background-color: rgba(255, 105, 180, 0.15);
+            color: #f1a1c1;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .detail-description {
+            color: #ddd;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+        }
+
+        .detail-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .detail-button {
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s;
+            color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .read-now {
+            background-color: rgba(255, 105, 180, 0.8);
+        }
+
+        .read-now:hover {
+            background-color: #ff6b91;
+            transform: translateY(-3px);
+        }
+
+        .add-favorite {
+            background-color: rgba(60, 60, 60, 0.8);
+            color: #ddd;
+        }
+
+        .add-favorite:hover {
+            background-color: #444;
+            transform: translateY(-3px);
+        }
+
+        .detail-content {
+            margin-top: 40px;
+            background-color: rgba(30, 30, 30, 0.7);
+            padding: 30px;
+            border-radius: 8px;
+        }
+
+        .content-title {
+            font-size: 1.8rem;
+            color: #ff6b91;
+            margin-bottom: 20px;
+            font-family: 'Times New Roman', Times, serif;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        .chapter-content {
+            color: #ddd;
+            line-height: 1.9;
+            font-size: 1.1rem;
+            white-space: pre-line;
+        }
+
+        .chapter-image {
+            max-width: 100%;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .close-detail {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            color: #ff6b91;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: none;
+            border: none;
+            line-height: 1;
+        }
+
+        .close-detail:hover {
+            color: #fff;
             transform: scale(1.1);
         }
 
-        .info-content {
-            color: #fff;
-            font-size: 0.9em;
-            line-height: 1.5;
+        @media screen and (max-width: 768px) {
+            .detail-overlay {
+                padding: 80px 10px 30px;
+            }
+
+            .detail-header {
+                flex-direction: column;
+            }
+
+            .detail-cover {
+                width: 180px;
+                height: 250px;
+                margin-bottom: 20px;
+            }
+
+            .detail-info {
+                margin-left: 0;
+            }
+
+            .detail-title {
+                font-size: 2rem;
+            }
+
+            .detail-buttons {
+                flex-direction: column;
+            }
+
+            .detail-content {
+                padding: 20px 15px;
+            }
         }
 
-        .info-item {
-            margin-bottom: 8px;
+        /* 阅读模式样式 */
+        .reading-mode {
+            display: none;
+            position: relative;
+            padding: 20px;
+            background-color: rgba(20, 20, 20, 0.98);
+            color: #ddd;
+            border-radius: 8px;
+            box-shadow: 0 5px 30px rgba(255, 105, 180, 0.2);
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        .reading-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 105, 180, 0.3);
+        }
+
+        .reading-title {
+            flex: 1;
+            font-size: 1.8rem;
+            color: #ff6b91;
+            margin: 0;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .reading-controls {
+            display: flex;
+            gap: 15px;
+        }
+
+        .control-button {
+            background-color: rgba(60, 60, 60, 0.8);
+            color: #f1a1c1;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .control-button:hover {
+            background-color: rgba(255, 105, 180, 0.5);
+            color: #fff;
+        }
+
+        .reading-chapter {
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            color: #ff6b91;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .reading-content {
+            line-height: 1.9;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            white-space: pre-line;
+        }
+
+        .chapter-image-full {
+            width: 100%;
+            max-width: 100%;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .chapter-navigation {
             display: flex;
             justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 105, 180, 0.3);
         }
 
-        .info-label {
-            color: #ffccd5;
-        }
-
-        .info-value {
+        .nav-chapter {
+            background-color: rgba(255, 105, 180, 0.8);
             color: #fff;
-        }
-
-        /* 开发程度面板样式 */
-        .development-panel {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid rgba(255, 105, 180, 0.3);
-            border-radius: 10px;
-            padding: 15px;
-            width: 250px;
-            z-index: 30;
-            box-shadow: 0 0 15px rgba(255, 105, 180, 0.3);
-            display: none;
-            transition: opacity 0.3s ease-in-out;
-        }
-
-        .development-panel.show {
-            display: block;
-            opacity: 1;
-        }
-
-        .development-title {
-            color: #ff69b4;
-            font-size: 1.2em;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
             font-weight: bold;
-            margin-bottom: 10px;
-            text-align: center;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-            position: relative;
         }
 
-        .development-content {
-            color: #fff;
-            font-size: 0.9em;
-            line-height: 1.5;
+        .nav-chapter:hover {
+            background-color: #ff6b91;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
-        .development-item {
-            margin-bottom: 8px;
+        .nav-chapter:disabled {
+            background-color: rgba(60, 60, 60, 0.5);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
 
-        .development-label {
-            color: #ffccd5;
-            margin-bottom: 5px;
+        .back-to-detail {
+            display: inline-block;
+            margin-top: 20px;
+            color: #f1a1c1;
+            text-decoration: underline;
+            cursor: pointer;
+            transition: color 0.3s;
         }
 
-        .development-bar {
-            height: 15px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            overflow: hidden;
+        .back-to-detail:hover {
+            color: #ff6b91;
         }
 
-        .development-progress {
-            height: 100%;
-            background: linear-gradient(to right, #ff69b4, #ff1493);
-            border-radius: 10px;
-            transition: width 0.5s ease-in-out;
+        .font-size-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-left: 20px;
         }
 
-        .development-value {
-            color: #fff;
-            font-size: 0.8em;
-            text-align: right;
-            margin-top: 2px;
-        }
-
-        .toggle-info-button {
-            position: fixed;
-            top: 10px;
-            right: 100px;
-            background-color: #ff69b4;
-            color: white;
+        .font-button {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            background-color: rgba(60, 60, 60, 0.8);
+            color: #f1a1c1;
             border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
             cursor: pointer;
             transition: all 0.3s;
-            z-index: 30;
-            font-size: 0.9em;
         }
 
-        .toggle-development-button {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            background-color: #ff69b4;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-            z-index: 30;
-            font-size: 0.9em;
-        }
-
-        @media (max-width: 768px) {
-            .scene-container {
-                height: calc(100% - 60px);
-            }
-
-            .dialogue-overlay {
-                padding: 20px;
-                max-width: 90%;
-            }
-
-            .character-name {
-                font-size: 1.3em;
-                margin-bottom: 10px;
-            }
-
-            .dialogue-text {
-                font-size: 1.1em;
-                line-height: 1.6;
-            }
-
-            .navigation-buttons {
-                padding: 10px;
-                gap: 10px;
-            }
-
-            .nav-button {
-                min-width: 100px;
-                padding: 10px 20px;
-                font-size: 1em;
-            }
-
-            .info-panel,
-            .development-panel {
-                width: 200px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .scene-container {
-                height: calc(100% - 50px);
-            }
-
-            .dialogue-overlay {
-                padding: 15px;
-                max-width: 95%;
-            }
-
-            .character-name {
-                font-size: 1.2em;
-                margin-bottom: 8px;
-            }
-
-            .dialogue-text {
-                font-size: 1em;
-                line-height: 1.5;
-            }
-
-            .navigation-buttons {
-                padding: 8px;
-                gap: 8px;
-            }
-
-            .nav-button {
-                min-width: 80px;
-                padding: 8px 16px;
-                font-size: 0.9em;
-            }
-
-            .info-panel,
-            .development-panel {
-                width: 150px;
-                padding: 10px;
-            }
-
-            .toggle-info-button,
-            .toggle-development-button {
-                padding: 6px 12px;
-                font-size: 0.8em;
-            }
+        .font-button:hover {
+            background-color: rgba(255, 105, 180, 0.5);
+            color: #fff;
         }
     </style>
 </head>
 
 <body>
-    <div class="game-container">
-        <div class="scene-container">
-            <img class="scene-image" id="scene-image" src="" alt="场景图片">
-            <div class="chapter-title" id="chapter-title">第一章：初遇</div>
-            <div class="dialogue-overlay">
-                <div class="character-name" id="character-name">美诺子</div>
-                <p class="dialogue-text" id="dialogue-text"></p>
+    <!-- 顶部导航栏 -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">暧昧空间</div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#">首页</a></li>
+                    <li><a href="#">诱惑专区</a></li>
+                    <li><a href="#">人气榜</a></li>
+                    <li><a href="#">私密收藏</a></li>
+                    <li><a href="#">会员专享</a></li>
+                </ul>
+            </nav>
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="寻找你的欢愉...">
+                <button class="search-button">🔍</button>
             </div>
         </div>
+    </header>
 
-        <div class="navigation-buttons">
-            <button class="nav-button" id="prev-button" onclick="prevScene()">上一张</button>
-            <button class="nav-button" id="next-button" onclick="nextScene()">下一张</button>
+    <!-- 主内容区域 -->
+    <main class="container">
+        <!-- 特色小说 -->
+        <section class="featured-novel">
+            <img src="../image1/[Espacia Korea]/1.jpg" alt="特色小说封面" class="featured-cover">
+            <div class="featured-info">
+                <h2 class="featured-title">悦芹之夜</h2>
+                <p class="featured-author">作者：夜色迷离</p>
+                <p class="featured-description">
+                    一段缠绵悱恻的情感旅程，讲述了悦芹与神秘男子之间的欲望交织。在朦胧夜色下，两人的灵与肉相互纠缠，探索着禁忌与快感的边界。这部作品细腻刻画了人性最原始的渴望，带你进入一场感官的极致体验。</p>
+                <a href="#" class="read-button">私密阅读</a>
+            </div>
+        </section>
+
+        <!-- 最新小说 -->
+        <section>
+            <div class="category-header">
+                <h2 class="category-title">午夜新作</h2>
+                <a href="#" class="view-all">查看全部 ></a>
+            </div>
+            <div class="novels-grid">
+                <div class="novel-card">
+                    <img src="../image1/Iori Kogawa(古川伊織) [101P]/1.jpg" alt="小说封面" class="novel-cover">
+                    <div class="novel-info">
+                        <h3 class="novel-title">伊織的秘密</h3>
+                        <p class="novel-author">作者：夜半笙歌</p>
+                        <div class="novel-tags">
+                            <span class="novel-tag">都市</span>
+                            <span class="novel-tag">情色</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="novel-card">
+                    <img src="../image1/[Espacia Korea]/2.jpg" alt="小说封面" class="novel-cover">
+                    <div class="novel-info">
+                        <h3 class="novel-title">深入迷醉</h3>
+                        <p class="novel-author">作者：暗夜之火</p>
+                        <div class="novel-tags">
+                            <span class="novel-tag">禁忌</span>
+                            <span class="novel-tag">情爱</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="novel-card">
+                    <img src="../image1/[Espacia Korea]/3.jpg" alt="小说封面" class="novel-cover">
+                    <div class="novel-info">
+                        <h3 class="novel-title">欲望高潮</h3>
+                        <p class="novel-author">作者：月下佳人</p>
+                        <div class="novel-tags">
+                            <span class="novel-tag">激情</span>
+                            <span class="novel-tag">缠绵</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="novel-card">
+                    <img src="../image1/[Espacia Korea]/4.jpg" alt="小说封面" class="novel-cover">
+                    <div class="novel-info">
+                        <h3 class="novel-title">极致诱惑</h3>
+                        <p class="novel-author">作者：情欲之海</p>
+                        <div class="novel-tags">
+                            <span class="novel-tag">成人</span>
+                            <span class="novel-tag">幻想</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 热门小说 -->
+        <section>
+            <div class="category-header">
+                <h2 class="category-title">欲望热读</h2>
+                <a href="#" class="view-all">查看全部 ></a>
+            </div>
+            <div class="novels-grid">
+                <div class="novel-card">
+                    <img src="../image1/Iori Kogawa(古川伊織) [101P]/10.jpg" alt="小说封面" class="novel-cover">
+                    <div class="novel-info">
+                        <h3 class="novel-title">沉沦之爱</h3>
+                        <p class="novel-author">作者：情迷意乱</p>
+                        <div class="novel-tags">
+                            <span class="novel-tag">忧郁</span>
+                            <span class="novel-tag">诱惑</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="novel-card">
+                    <img src="../image1/Iori Kogawa(古川伊織) [101P]/20.jpg" alt="小说封面" class="novel-cover">
+                    <div class="novel-info">
+                        <h3 class="novel-title">臣服于你</h3>
+                        <p class="novel-author">作者：缠绵之夜</p>
+                        <div class="novel-tags">
+                            <span class="novel-tag">调教</span>
+                            <span class="novel-tag">情爱</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="novel-card">
+                    <img src="../image1/Iori Kogawa(古川伊織) [101P]/30.jpg" alt="小说封面" class="novel-cover">
+                    <div class="novel-info">
+                        <h3 class="novel-title">情欲回忆</h3>
+                        <p class="novel-author">作者：夜色阑珊</p>
+                        <div class="novel-tags">
+                            <span class="novel-tag">暧昧</span>
+                            <span class="novel-tag">往事</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="novel-card">
+                    <img src="../image1/Iori Kogawa(古川伊織) [101P]/40.jpg" alt="小说封面" class="novel-cover">
+                    <div class="novel-info">
+                        <h3 class="novel-title">热情如火</h3>
+                        <p class="novel-author">作者：月光之吻</p>
+                        <div class="novel-tags">
+                            <span class="novel-tag">激情</span>
+                            <span class="novel-tag">狂野</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 完结小说 -->
+        <section>
+            <div class="category-header">
+                <h2 class="category-title">情迷经典</h2>
+                <a href="#" class="view-all">查看全部 ></a>
+            </div>
+            <div class="novels-grid">
+                <div class="novel-card">
+                    <img src="../image1/Iori Kogawa(古川伊織) [101P]/50.jpg" alt="小说封面" class="novel-cover">
+                    <div class="novel-info">
+                        <h3 class="novel-title">倾慕之眼</h3>
+                        <p class="novel-author">作者：夜半星辰</p>
+                        <div class="novel-tags">
+                            <span class="novel-tag">角色</span>
+                            <span class="novel-tag">爱恋</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="novel-card">
+                    <img src="../image1/Iori Kogawa(古川伊織) [101P]/60.jpg" alt="小说封面" class="novel-cover">
+                    <div class="novel-info">
+                        <h3 class="novel-title">缠绵之夜</h3>
+                        <p class="novel-author">作者：情深缘浅</p>
+                        <div class="novel-tags">
+                            <span class="novel-tag">暗恋</span>
+                            <span class="novel-tag">柔情</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="novel-card">
+                    <img src="../image1/Iori Kogawa(古川伊織) [101P]/70.jpg" alt="小说封面" class="novel-cover">
+                    <div class="novel-info">
+                        <h3 class="novel-title">永恒情人</h3>
+                        <p class="novel-author">作者：夜色迷情</p>
+                        <div class="novel-tags">
+                            <span class="novel-tag">纯爱</span>
+                            <span class="novel-tag">浪漫</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="novel-card">
+                    <img src="../image1/Iori Kogawa(古川伊織) [101P]/80.jpg" alt="小说封面" class="novel-cover">
+                    <div class="novel-info">
+                        <h3 class="novel-title">花火之夜</h3>
+                        <p class="novel-author">作者：绯色之梦</p>
+                        <div class="novel-tags">
+                            <span class="novel-tag">浪漫</span>
+                            <span class="novel-tag">情色</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 底部区域 -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-section">
+                <h3 class="footer-title">关于我们</h3>
+                <ul class="footer-links">
+                    <li><a href="#">会员权益</a></li>
+                    <li><a href="#">隐私保障</a></li>
+                    <li><a href="#">内容标准</a></li>
+                    <li><a href="#">免责声明</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3 class="footer-title">服务中心</h3>
+                <ul class="footer-links">
+                    <li><a href="#">付费方式</a></li>
+                    <li><a href="#">常见问题</a></li>
+                    <li><a href="#">会员升级</a></li>
+                    <li><a href="#">联系我们</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3 class="footer-title">作者专区</h3>
+                <ul class="footer-links">
+                    <li><a href="#">创作投稿</a></li>
+                    <li><a href="#">稿费说明</a></li>
+                    <li><a href="#">独家签约</a></li>
+                    <li><a href="#">作品版权</a></li>
+                </ul>
+            </div>
         </div>
+        <div class="container footer-bottom">
+            <p>© 2023 暧昧空间 版权所有 | 仅供成人访问 | 内容均为虚构创作</p>
+        </div>
+    </footer>
 
-        <button class="fullscreen-button" onclick="toggleFullscreen()">全屏</button>
-        <button class="music-control" onclick="toggleMusic()">音乐</button>
-        <button class="toggle-info-button" onclick="toggleInfoPanel();">信息</button>
-        <button class="toggle-development-button" onclick="toggleDevelopmentPanel();">开发度</button>
+    <!-- 详情页覆盖层 -->
+    <div class="detail-overlay" id="detailOverlay">
+        <div class="detail-container">
+            <button class="close-detail" onclick="closeDetail()">&times;</button>
+            <div class="detail-header">
+                <img src="" alt="小说封面" class="detail-cover" id="detailCover">
+                <div class="detail-info">
+                    <h1 class="detail-title" id="detailTitle">小说标题</h1>
+                    <p class="detail-meta" id="detailAuthor">作者：未知</p>
+                    <div class="detail-stats">
+                        <div class="stat-item">
+                            <span class="stat-icon">👁️</span>
+                            <span>28,492 阅读</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">❤️</span>
+                            <span>1,245 喜欢</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">📃</span>
+                            <span>25 章节</span>
+                        </div>
+                    </div>
+                    <div class="detail-tags" id="detailTags">
+                        <!-- 标签将通过JS动态添加 -->
+                    </div>
+                    <p class="detail-description" id="detailDescription">
+                        小说描述内容将在此显示...
+                    </p>
+                    <div class="detail-buttons">
+                        <a href="#" class="detail-button read-now" id="readNowBtn">立即阅读</a>
+                        <a href="#" class="detail-button add-favorite">加入收藏</a>
+                    </div>
+                </div>
+            </div>
+            <div class="detail-content">
+                <h2 class="content-title">章节预览</h2>
+                <div class="chapter-content" id="chapterContent">
+                    <!-- 章节内容将通过JS动态添加 -->
+                </div>
+                <img src="" alt="章节插图" class="chapter-image" id="chapterImage">
+            </div>
+
+            <!-- 阅读模式部分 -->
+            <div class="reading-mode" id="readingMode">
+                <div class="reading-header">
+                    <h2 class="reading-title" id="readingTitle">小说标题</h2>
+                    <div class="reading-controls">
+                        <div class="font-size-controls">
+                            <button class="font-button" onclick="changeFontSize(-1)">-</button>
+                            <button class="font-button" onclick="changeFontSize(1)">+</button>
+                        </div>
+                        <button class="control-button" onclick="toggleDetailView()">返回详情</button>
+                    </div>
+                </div>
+                <h3 class="reading-chapter" id="currentChapter">第一章</h3>
+                <div class="reading-content" id="fullContent">
+                    <!-- 完整的章节内容将通过JS动态添加 -->
+                </div>
+                <img src="" alt="插图" class="chapter-image-full" id="fullChapterImage">
+                <div class="chapter-navigation">
+                    <button class="nav-chapter" id="prevChapter" disabled>上一章</button>
+                    <button class="nav-chapter" id="nextChapter">下一章</button>
+                </div>
+                <span class="back-to-detail" onclick="toggleDetailView()">返回详情页</span>
+            </div>
+        </div>
     </div>
-
-    <!-- 女主信息面板 -->
-    <div class="info-panel" id="info-panel" style="display: none;">
-        <div class="info-title">
-            美诺子信息
-            <button class="close-button" onclick="toggleInfoPanel()">×</button>
-        </div>
-        <div class="info-content">
-            <div class="info-item">
-                <span class="info-label">姓名:</span>
-                <span class="info-value">美诺子</span>
-            </div>
-            <div class="info-item">
-                <span class="info-label">年龄:</span>
-                <span class="info-value">18岁</span>
-            </div>
-            <div class="info-item">
-                <span class="info-label">身高:</span>
-                <span class="info-value">158cm</span>
-            </div>
-            <div class="info-item">
-                <span class="info-label">体重:</span>
-                <span class="info-value">45kg</span>
-            </div>
-            <div class="info-item">
-                <span class="info-label">三围:</span>
-                <span class="info-value">B85(D) W55 H83</span>
-            </div>
-            <div class="info-item">
-                <span class="info-label">性格:</span>
-                <span class="info-value">温顺、害羞、渴望被调教</span>
-            </div>
-            <div class="info-item">
-                <span class="info-label">身份:</span>
-                <span class="info-value">主人的小母狗</span>
-            </div>
-            <div class="info-item">
-                <span class="info-label">敏感带:</span>
-                <span class="info-value">乳头、阴蒂、小穴</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- 开发程度面板 -->
-    <div class="development-panel" id="development-panel" style="display: none;">
-        <div class="development-title">
-            美诺子开发程度
-            <button class="close-button" onclick="toggleDevelopmentPanel()">×</button>
-        </div>
-        <div class="development-content">
-            <div class="development-item">
-                <div class="development-label">乳头敏感度</div>
-                <div class="development-bar">
-                    <div class="development-progress" id="nipple-progress" style="width: 75%"></div>
-                </div>
-                <div class="development-value">75%</div>
-            </div>
-            <div class="development-item">
-                <div class="development-label">小穴开发度</div>
-                <div class="development-bar">
-                    <div class="development-progress" id="pussy-progress" style="width: 60%"></div>
-                </div>
-                <div class="development-value">60%</div>
-            </div>
-            <div class="development-item">
-                <div class="development-label">阴蒂敏感度</div>
-                <div class="development-bar">
-                    <div class="development-progress" id="clit-progress" style="width: 85%"></div>
-                </div>
-                <div class="development-value">85%</div>
-            </div>
-            <div class="development-item">
-                <div class="development-label">肛门开发度</div>
-                <div class="development-bar">
-                    <div class="development-progress" id="anal-progress" style="width: 30%"></div>
-                </div>
-                <div class="development-value">30%</div>
-            </div>
-            <div class="development-item">
-                <div class="development-label">调教顺从度</div>
-                <div class="development-bar">
-                    <div class="development-progress" id="obedience-progress" style="width: 90%"></div>
-                </div>
-                <div class="development-value">90%</div>
-            </div>
-            <div class="development-item">
-                <div class="development-label">高潮敏感度</div>
-                <div class="development-bar">
-                    <div class="development-progress" id="orgasm-progress" style="width: 80%"></div>
-                </div>
-                <div class="development-value">80%</div>
-            </div>
-        </div>
-    </div>
-
-    <audio id="background-music" loop>
-        <source src="../music/background.mp3" type="audio/mpeg">
-    </audio>
 
     <script>
-        // 场景数据
-        const scenes = [
-            // 第一章：初遇
+        // 小说数据
+        const novels = [
             {
-                image: "../image1/[Espacia Korea]/1.jpg",
-                dialogue: "美诺子跪在你面前，双腿微微颤抖，她的身体已经准备好接受你的调教。主人...人家的下面好湿...好想要主人的大肉棒插人家的小穴...请狠狠地惩罚人家..."
+                id: 1,
+                title: "悦芹之夜",
+                author: "夜色迷离",
+                cover: "../image1/[Espacia Korea]/1.jpg",
+                tags: ["官场", "情欲", "成人"],
+                description: "一段缠绵悱恻的情感旅程，讲述了悦芹与神秘男子之间的欲望交织。在朦胧夜色下，两人的灵与肉相互纠缠，探索着禁忌与快感的边界。这部作品细腻刻画了人性最原始的渴望，带你进入一场感官的极致体验。",
+                preview: "夜色渐浓，悦芹站在窗前，望着远处闪烁的灯光，心中泛起一阵涟漪。她的指尖轻轻滑过露出的肩膀，感受着微凉的空气抚过肌肤的触感。\n\n门铃声打破了寂静，她知道，是他来了。\n\n\"你来了，\"她轻声说，打开门，映入眼帘的是那个熟悉又陌生的男人，\"我等你很久了...\"\n\n他没有说话，只是用那双深邃的眼睛注视着她，眼神中流露出的欲望让她感到一阵战栗。当他的手指轻抚她的脸颊时，她知道今晚将再次沉沦在这场无法抗拒的情感漩涡中。",
+                previewImage: "../image1/[Espacia Korea]/2.jpg",
+                chapters: [
+                    {
+                        title: "第一章：夜幕降临",
+                        content: "夜色渐浓，悦芹站在窗前，望着远处闪烁的灯光，心中泛起一阵涟漪。她的指尖轻轻滑过露出的肩膀，感受着微凉的空气抚过肌肤的触感。公司晚宴刚刚结束，她婉拒了所有同事的庆祝邀约，只想一个人静静地享受这难得的平静。\n\n这是她被破格提拔为部门经理的第一天，忙碌了一整天，她终于可以片刻放松。高跟鞋被随意踢开，她光着脚踩在柔软的地毯上，打开一瓶红酒，给自己倒了满满一杯。\n\n手机震动起来，是一条简短的信息：「恭喜。今晚有时间吗？」\n\n发信人是她最不想见，却又最期待见到的人——公司副总裁陈明远，一个已婚男人，也是她这次升职的关键推手。\n\n悦芹犹豫了。她知道他想要什么，也清楚这场游戏的危险性。但内心深处，某种难以言喻的渴望正在蠢蠢欲动。\n\n门铃声打破了寂静，她知道，是他来了。\n\n\"你来了，\"她轻声说，打开门，映入眼帘的是那个熟悉又陌生的男人，\"我等你很久了...\"\n\n他没有说话，只是用那双深邃的眼睛注视着她，眼神中流露出的欲望让她感到一阵战栗。当他的手指轻抚她的脸颊时，她知道今晚将再次沉沦在这场无法抗拒的情感漩涡中。\n\n\"这次升职，谢谢你，\"她凑近他的耳边轻声说道，温热的气息扑在他颈侧。\n\n\"不用谢，\"他的声音低沉而富有磁性，手指轻轻挑起她的下巴，\"你值得这一切，不过...我们都知道，有些事情是需要...回报的。\"\n\n悦芹的眼神暗了暗，她知道接下来会发生什么。那条不应该越过的界线，她早已踏过无数次。每一次都告诉自己是最后一次，每一次却又无法拒绝那诱人的深渊。\n\n月光透过纱帘洒落，在他们交缠的身影上投下斑驳的光影。这一夜很长，却又转瞬即逝。在欲望的世界里，时间似乎失去了意义。",
+                        image: "../image1/[Espacia Korea]/5.jpg"
+                    },
+                    {
+                        title: "第二章：秘密会面",
+                        content: "阳光透过百叶窗洒进办公室，悦芹低头批阅文件，却无法集中注意力。昨晚的记忆不断闪现，那双手、那炙热的唇、那令人战栗的触摸...\n\n\"悦经理，十点半的会议准备好了吗？\"\n\n助理的声音将她拉回现实，她迅速调整表情，保持着职业的微笑：\"准备好了，将材料拿过来吧。\"\n\n会议室里，陈明远正在主持讨论。他西装笔挺，举止得体，完美地扮演着一个成功商人的角色。没人能想到昨晚他们如何疯狂。\n\n当他的目光与她相遇时，表面上波澜不惊，眼底却藏着只有他们才懂的秘密。悦芹微微低头，假装在记录什么，掩饰自己泛红的脸颊。\n\n\"悦经理，这个项目就交给你负责了，\"陈明远的声音平静而专业，\"有任何问题，可以随时来我办公室讨论。\"\n\n办公室里的气氛紧张而暧昧。他们站得很近，却又保持着表面上的礼貌距离。门关上的那一刻，所有伪装瞬间崩塌。\n\n\"我一整天都在想着你，\"他低语，手指滑过她的腰际，\"昨晚的你...令人难忘。\"\n\n\"我们不能这样，\"她试图推开他，声音却因为情欲而颤抖，\"这里是办公室...\"\n\n\"那么，\"他贴近她的耳畔，\"晚上七点，老地方等你。记得穿那件红色的...\"\n\n悦芹闭上眼，她知道自己应该拒绝，应该结束这段不该开始的关系。但当他的唇贴上她的颈侧，一切理智都被抛到九霄云外。\n\n\"好，\"她轻声答应，\"我会准时到。\"",
+                        image: "../image1/[Espacia Korea]/10.jpg"
+                    },
+                    {
+                        title: "第三章：深陷其中",
+                        content: "酒店套房的门再次打开，悦芹走进这个熟悉的空间。每周两次，这里成为了她和陈明远的秘密天堂。\n\n她穿着他喜欢的那条红色连衣裙，头发散落在肩上，手指不安地摩挲着手提包的边缘。这段关系已经持续了三个月，却没有任何减弱的迹象。相反，她发现自己越来越依赖这种刺激，这种被需要、被渴望的感觉。\n\n\"来杯酒？\"陈明远从身后环抱住她，嘴唇轻触她的耳垂。\n\n悦芹点点头，任由他牵着她的手来到沙发前。酒已经准备好了，两杯深红色的液体，像是他们关系的写照——醉人又危险。\n\n\"公司里有人开始议论了，\"她啜饮一口酒，轻声说道，\"关于我的升职，关于我们。\"\n\n\"让他们说去吧，\"他的手指轻抚她的脖颈，\"你的能力有目共睹，不需要向任何人证明什么。\"\n\n\"但如果你妻子知道了呢？\"悦芹终于问出了这个一直埋藏在心底的问题。\n\n陈明远的手微微一顿，然后继续他的爱抚：\"她不会知道的。况且...我们的婚姻早已名存实亡。\"\n\n标准答案，每个出轨的男人都会这么说。悦芹心里清楚，但她选择相信，或者说，她需要一个借口来继续这段关系。\n\n\"够了，\"她转过身，环住他的脖子，\"今晚不谈这些。\"\n\n他的眼神暗了下来，毫不犹豫地吻住她。酒杯滑落在地毯上，发出沉闷的声响，红酒如血般渗透进绒毛。就像这段关系，无声无息地侵蚀着她的理智和道德。\n\n但此刻，悦芹不再关心。在情欲的漩涡中，一切都变得模糊而不重要。身体的欢愉暂时掩盖了内心的不安，让她忘却了自己正行走在悬崖边缘。",
+                        image: "../image1/[Espacia Korea]/20.jpg"
+                    }
+                ]
             },
             {
-                image: "../image1/[Espacia Korea]/2.jpg",
-                dialogue: "你的手指轻轻探入美诺子的小穴，她立刻发出甜美的呻吟。啊...主人...你的手指好厉害...人家的小穴好舒服...请再深入一点...人家是主人的小母狗..."
+                id: 2,
+                title: "伊織的秘密",
+                author: "夜半笙歌",
+                cover: "../image1/Iori Kogawa(古川伊織) [101P]/1.jpg",
+                tags: ["都市", "情色", "秘密"],
+                description: "伊織看似是个普通的都市白领，但没人知道她的另一面。白天，她是精英公司的优秀员工；夜晚，她却在私密空间探索自我欲望的极限。一次偶然的相遇，让她被掌握了秘密，从此踏上了一条不可回头的道路。",
+                preview: "雨水敲打着窗棂，伊織立在落地窗前，手指紧握高脚杯，杯中的红酒映照出她脸上复杂的表情。\n\n手机震动起来，是一个陌生号码发来的信息：\"我知道你的小秘密，今晚11点，老地方见。\"\n\n她的心猛地一沉。那个只有她自己知道的秘密，怎么可能被人发现？是谁在背后窥视她的生活？\n\n伊織颤抖着放下酒杯，镜子中的她面色苍白，但眼神深处却闪烁着一丝难以察觉的兴奋。",
+                previewImage: "../image1/Iori Kogawa(古川伊織) [101P]/5.jpg"
             },
             {
-                image: "../image1/[Espacia Korea]/3.jpg",
-                dialogue: "你的手掌覆盖在美诺子的乳房上，用力揉捏着，她的乳头已经硬挺起来。主人...人家的奶子好涨...请用力揉捏它们...乳头都硬起来了...人家是主人的性奴..."
+                id: 3,
+                title: "深入迷醉",
+                author: "暗夜之火",
+                cover: "../image1/[Espacia Korea]/2.jpg",
+                tags: ["禁忌", "情爱", "挣扎"],
+                description: "年轻的心理医生小雨接手了一位特殊的病人，在治疗过程中，她逐渐被病人强大的心理暗示所影响。理智与情感的边界渐渐模糊，小雨发现自己在专业与私人情感之间摇摆，而这场心理游戏已经远超出她的控制范围。",
+                preview: "治疗室的灯光很柔和，小雨坐在椅子上，对面是她的病人——那个总是带着神秘微笑的男人。\n\n\"医生，你今天看起来很紧张，\"他说，声音低沉而富有磁性，\"是因为上次我们的谈话吗？\"\n\n小雨避开他探究的目光，努力保持专业态度：\"我们今天要继续上次的话题，关于你的梦境。\"\n\n\"我的梦？\"他轻笑，\"有趣的是，昨晚我梦到了你，医生。梦里你不再是医生，而我也不再是病人...我们只是一个男人和一个女人。\"\n\n小雨感到一阵心悸，她知道自己应该立即制止这个危险的对话，但某种力量让她无法开口。",
+                previewImage: "../image1/[Espacia Korea]/12.jpg"
             },
             {
-                image: "../image1/[Espacia Korea]/4.jpg",
-                dialogue: "你的舌头轻轻舔舐着美诺子的乳头，她感到一阵酥麻传遍全身。啊...主人...你的舌头好灵活...人家的乳头好敏感...请继续舔它们...人家是主人的小母狗..."
+                id: 4,
+                title: "欲望高潮",
+                author: "月下佳人",
+                cover: "../image1/[Espacia Korea]/3.jpg",
+                tags: ["激情", "缠绵", "都市"],
+                description: "都市高管晓芸在一次商务旅行中偶遇了多年前的初恋。往日的情感瞬间被唤醒，但他们都已各自有了家庭。在七天的旅程中，他们重新燃起激情，却必须面对现实的抉择。这是一个关于欲望、情感与责任的故事。",
+                preview: "酒店的房门被轻轻敲响，晓芸知道是谁，却犹豫着是否应该打开。\n\n最终，她还是转动了门把手。他站在门外，西装革履，眼神却像二十岁时一样炽热。\n\n\"我以为你不会来，\"她轻声说。\n\n\"我试过了，\"他低语，\"但我无法忍受与你共处一个城市却不能相见。\"\n\n他们之间只有一步之遥，却仿佛隔着整个世界。当他向前迈出那一步，她知道自己将无处可逃。",
+                previewImage: "../image1/[Espacia Korea]/15.jpg"
             },
-            {
-                image: "../image1/[Espacia Korea]/5.jpg",
-                dialogue: "你的手掌重重拍打在美诺子的臀部，她的身体因疼痛而颤抖，却感到一种奇异的快感。主人...人家的屁股好痒...请用力拍打它...好喜欢这种痛感...人家是主人的小母狗..."
-            },
-            {
-                image: "../image1/[Espacia Korea]/6.jpg",
-                dialogue: "你的肉棒抵在美诺子的小穴口，她感到一阵紧张和期待。啊...主人...你的肉棒好大...人家的小穴好紧...请慢慢插进来...人家是主人的性奴..."
-            },
-            {
-                image: "../image1/[Espacia Korea]/7.jpg",
-                dialogue: "美诺子的淫水不断流出，滴在地板上，形成一小滩水渍。主人...人家的淫水好多...都流出来了...请用手指搅动它...人家是主人的小母狗..."
-            },
-            {
-                image: "../image1/[Espacia Korea]/8.jpg",
-                dialogue: "你的手指在美诺子的小穴中快速抽插，她的身体因快感而颤抖。啊...主人...你的手指好深...人家要高潮了...请再快一点...人家是主人的性奴..."
-            },
-            {
-                image: "../image1/[Espacia Korea]/9.jpg",
-                dialogue: "你的手指轻轻捏住美诺子的乳头，她的身体立刻敏感地反应。主人...人家的奶头好硬...请继续玩弄它们...乳头都肿起来了...人家是主人的小母狗..."
-            },
-            {
-                image: "../image1/[Espacia Korea]/10.jpg",
-                dialogue: "你的舌头轻轻舔舐着美诺子的阴蒂，她感到一阵强烈的快感。啊...主人...你的舌头好热...人家的阴蒂好舒服...请用力吸它...人家是主人的性奴..."
-            },
-            // 第二章：深入
-            {
-                image: "../image1/[Espacia Korea]/11.jpg",
-                dialogue: "你的手掌再次拍打在美诺子的臀部，她的皮肤已经泛红。主人...人家的屁股好红...请继续打它...好喜欢这种惩罚...人家是主人的小母狗..."
-            },
-            {
-                image: "../image1/[Espacia Korea]/12.jpg",
-                dialogue: "你的肉棒深深插入美诺子的小穴，她感到一种前所未有的满足。啊...主人...你的肉棒好粗...人家的小穴好满...请用力顶到最深处...人家是主人的性奴..."
-            },
-            {
-                image: "../image1/[Espacia Korea]/13.jpg",
-                dialogue: "美诺子的淫水顺着大腿流下，散发着甜美的香气。主人...人家的淫水好甜...请尝尝看...都是为主人准备的...人家是主人的小母狗..."
-            },
-            {
-                image: "../image1/[Espacia Korea]/14.jpg",
-                dialogue: "你的手指在美诺子的小穴中快速抽插，她的身体因快感而颤抖。啊...主人...你的手指好快...人家要去了...请继续玩弄我的小穴...人家是主人的性奴..."
-            },
-            {
-                image: "../image1/[Espacia Korea]/15.jpg",
-                dialogue: "你的手掌覆盖在美诺子的乳房上，用力揉捏着，她的乳头已经硬挺起来。主人...人家的奶子好软...请用力揉它们...乳头都挺起来了...人家是主人的小母狗..."
-            },
-            {
-                image: "../image1/[Espacia Korea]/16.jpg",
-                dialogue: "你的舌头轻轻舔舐着美诺子的乳头，她感到一阵酥麻传遍全身。啊...主人...你的舌头好湿...人家的乳头好痒...请用舌头绕着乳头转圈...人家是主人的性奴..."
-            },
-            {
-                image: "../image1/[Espacia Korea]/17.jpg",
-                dialogue: "你的手掌重重拍打在美诺子的臀部，她的身体因疼痛而颤抖，却感到一种奇异的快感。主人...人家的屁股好痛...但是好舒服...请继续打它...再用力一点...人家是主人的小母狗..."
-            },
-            {
-                image: "../image1/[Espacia Korea]/18.jpg",
-                dialogue: "你的肉棒在美诺子的小穴中快速抽插，她的身体因快感而颤抖。啊...主人...你的肉棒好硬...人家的小穴好热...请用力抽插...再快一点...人家是主人的性奴..."
-            },
-            {
-                image: "../image1/[Espacia Korea]/19.jpg",
-                dialogue: "美诺子的淫水不断流出，散发着甜美的香气，你轻轻舔舐着。主人...人家的淫水好香...请喝掉它...都是为主人准备的...全部喝掉...人家是主人的小母狗..."
-            },
-            {
-                image: "../image1/[Espacia Korea]/20.jpg",
-                dialogue: "你的手指轻轻玩弄着美诺子的阴蒂，她的身体因快感而颤抖。啊...主人...你的手指好灵活...人家要高潮了...请继续玩弄我的阴蒂...再快一点...人家是主人的性奴..."
-            },
-            // 第三章：高潮
-            {
-                image: "../image1/[Espacia Korea]/21.jpg",
-                dialogue: "美诺子感到一种前所未有的满足，你的肉棒深深插入她的小穴，顶到最深处。她轻声呻吟道：'啊...主人...你的肉棒好长...人家的小穴好深...请全部插进来...顶到子宫口...人家是主人的小母狗...'"
-            },
-            {
-                image: "../image1/[Espacia Korea]/22.jpg",
-                dialogue: "美诺子的淫水不断流出，散发着甜美的香气，你轻轻搅动着。她感到一阵酥麻，轻声说道：'主人...人家的淫水好滑...请继续玩弄...用手指搅动它...好舒服...人家是主人的性奴...'"
-            },
-            {
-                image: "../image1/[Espacia Korea]/23.jpg",
-                dialogue: "你的手指在美诺子的小穴中快速抽插，她的身体因快感而颤抖，即将达到高潮。她轻声呻吟道：'啊...主人...你的手指好深...人家要去了...请继续抽插...再快一点...要高潮了...人家是主人的小母狗...'"
-            },
-            {
-                image: "../image1/[Espacia Korea]/24.jpg",
-                dialogue: "你的手掌覆盖在美诺子的乳房上，用力揉捏着，她的乳头已经硬挺起来。她感到一阵强烈的快感，轻声说道：'主人...人家的奶子好大...请用力揉它们...乳头都肿起来了...好敏感...人家是主人的性奴...'"
-            },
-            {
-                image: "../image1/[Espacia Korea]/25.jpg",
-                dialogue: "你的舌头轻轻舔舐着美诺子的乳头，她感到一阵酥麻传遍全身。她轻声呻吟道：'啊...主人...你的舌头好热...人家的乳头好硬...请用舌头舔它们...再用力吸...人家是主人的小母狗...'"
-            },
-            {
-                image: "../image1/[Espacia Korea]/26.jpg",
-                dialogue: "你的手掌再次拍打在美诺子的臀部，她的皮肤已经泛红，却感到一种奇异的快感。她轻声说道：'主人...人家的屁股好红...请继续打它...好喜欢这种惩罚...再用力一点...人家是主人的性奴...'"
-            },
-            {
-                image: "../image1/[Espacia Korea]/27.jpg",
-                dialogue: "你的肉棒深深插入美诺子的小穴，她感到一种前所未有的满足。她轻声呻吟道：'啊...主人...你的肉棒好粗...人家的小穴好紧...请慢慢插进来...全部插进去...人家是主人的小母狗...'"
-            },
-            {
-                image: "../image1/[Espacia Korea]/28.jpg",
-                dialogue: "美诺子的淫水不断流出，散发着甜美的香气，你轻轻搅动着。她感到一阵酥麻，轻声说道：'主人...人家的淫水好多...都流出来了...请用手指搅动它...好舒服...人家是主人的性奴...'"
-            },
-            {
-                image: "../image1/[Espacia Korea]/29.jpg",
-                dialogue: "你的手指在美诺子的小穴中快速抽插，她的身体因快感而颤抖，即将达到高潮。她轻声呻吟道：'啊...主人...你的手指好深...人家要高潮了...请继续抽插...再快一点...要去了...人家是主人的小母狗...'"
-            },
-            {
-                image: "../image1/[Espacia Korea]/30.jpg",
-                dialogue: "你的手指轻轻捏住美诺子的乳头，她的身体立刻敏感地反应。她轻声说道：'主人...人家的奶头好硬...请继续玩弄它们...乳头都肿起来了...好敏感...人家是主人的性奴...'"
-            },
-            // 第四章：极致
-            {
-                image: "../image1/[Espacia Korea]/31.jpg",
-                dialogue: "你的舌头轻轻舔舐着美诺子的阴蒂，她感到一阵强烈的快感。她轻声呻吟道：'啊...主人...你的舌头好热...人家的阴蒂好舒服...请用力吸它...再用力一点...人家是主人的小母狗...'"
-            },
-            {
-                image: "../image1/[Espacia Korea]/32.jpg",
-                dialogue: "你的手掌再次拍打在美诺子的臀部，她的皮肤已经泛红，却感到一种奇异的快感。她轻声说道：'主人...人家的屁股好红...请继续打它...好喜欢这种惩罚...再用力一点...人家是主人的性奴...'"
-            },
-            {
-                image: "../image1/[Espacia Korea]/33.jpg",
-                dialogue: "你的肉棒深深插入美诺子的小穴，顶到最深处，她感到一种前所未有的满足。她轻声呻吟道：'啊...主人...你的肉棒好粗...人家的小穴好满...请用力顶到最深处...再快一点...人家是主人的小母狗...'"
-            },
-            {
-                image: "../image1/[Espacia Korea]/34.jpg",
-                dialogue: "美诺子的淫水不断流出，散发着甜美的香气，你轻轻舔舐着。她感到一阵酥麻，轻声说道：'主人...人家的淫水好甜...请尝尝看...都是为主人准备的...全部喝掉...人家是主人的性奴...'"
-            },
-            {
-                image: "../image1/[Espacia Korea]/35.jpg",
-                dialogue: "你的手指在美诺子的小穴中快速抽插，她的身体因快感而颤抖，即将达到高潮。她轻声呻吟道：'啊...主人...你的手指好快...人家要去了...请继续玩弄我的小穴...再快一点...人家是主人的小母狗...'"
-            },
-            {
-                image: "../image1/[Espacia Korea]/36.jpg",
-                dialogue: "你的手掌覆盖在美诺子的乳房上，用力揉捏着，她的乳头已经硬挺起来。她感到一阵强烈的快感，轻声说道：'主人...人家的奶子好软...请用力揉它们...乳头都挺起来了...好敏感...人家是主人的性奴...'"
-            },
-            {
-                image: "../image1/[Espacia Korea]/37.jpg",
-                dialogue: "你的舌头轻轻舔舐着美诺子的乳头，她感到一阵酥麻传遍全身。她轻声呻吟道：'啊...主人...你的舌头好湿...人家的乳头好痒...请用舌头绕着乳头转圈...再用力吸...人家是主人的小母狗...'"
-            },
-            {
-                image: "../image1/[Espacia Korea]/38.jpg",
-                dialogue: "你的手掌再次拍打在美诺子的臀部，她的皮肤已经泛红，却感到一种奇异的快感。她轻声说道：'主人...人家的屁股好痛...但是好舒服...请继续打它...再用力一点...好喜欢...人家是主人的性奴...'"
-            },
-            {
-                image: "../image1/[Espacia Korea]/39.jpg",
-                dialogue: "你的肉棒在美诺子的小穴中快速抽插，她的身体因快感而颤抖，即将达到高潮。她轻声呻吟道：'啊...主人...你的肉棒好硬...人家的小穴好热...请用力抽插...再快一点...要高潮了...人家是主人的小母狗...'"
-            },
-            {
-                image: "../image1/[Espacia Korea]/40.jpg",
-                dialogue: "美诺子的淫水不断流出，散发着甜美的香气，你轻轻舔舐着。她感到一阵酥麻，轻声说道：'主人...人家的淫水好香...请喝掉它...都是为主人准备的...全部喝掉...好甜...人家是主人的性奴...'"
-            },
-            // 第五章：终章
-            {
-                image: "../image1/[Espacia Korea]/41.jpg",
-                dialogue: "你的手指轻轻玩弄着美诺子的阴蒂，她的身体因快感而颤抖，即将达到高潮。她轻声呻吟道：'啊...主人...你的手指好灵活...人家要高潮了...请继续玩弄我的阴蒂...再快一点...要去了...人家是主人的小母狗...'"
-            },
-            {
-                image: "../image1/[Espacia Korea]/42.jpg",
-                dialogue: "你的手掌覆盖在美诺子的乳房上，用力揉捏着，她的乳头已经硬挺起来。她感到一阵强烈的快感，轻声说道：'主人...人家的奶子好涨...请用力揉捏它们...乳头都硬起来了...好敏感...人家是主人的性奴...'"
-            },
-            {
-                image: "../image1/[Espacia Korea]/43.jpg",
-                dialogue: "你的舌头轻轻舔舐着美诺子的乳头，她感到一阵酥麻传遍全身。她轻声呻吟道：'啊...主人...你的舌头好灵活...人家的乳头好敏感...请用舌头舔它们...再用力吸...人家是主人的小母狗...'"
-            },
-            {
-                image: "../image1/[Espacia Korea]/44.jpg",
-                dialogue: "你的手掌再次拍打在美诺子的臀部，她的皮肤已经泛红，却感到一种奇异的快感。她轻声说道：'主人...人家的屁股好痒...请用力拍打它...好喜欢这种痛感...再用力一点...人家是主人的性奴...'"
-            },
-            {
-                image: "../image1/[Espacia Korea]/45.jpg",
-                dialogue: "你的肉棒深深插入美诺子的小穴，她感到一种前所未有的满足。她轻声呻吟道：'啊...主人...你的肉棒好大...人家的小穴好紧...请慢慢插进来...全部插进去...好舒服...人家是主人的小母狗...'"
-            },
-            {
-                image: "../image1/[Espacia Korea]/46.jpg",
-                dialogue: "美诺子的淫水不断流出，散发着甜美的香气，你轻轻搅动着。她感到一阵酥麻，轻声说道：'主人...人家的淫水好多...都流出来了...请用手指搅动它...好舒服...再快一点...人家是主人的性奴...'"
-            },
-            {
-                image: "../image1/[Espacia Korea]/47.jpg",
-                dialogue: "你的手指在美诺子的小穴中快速抽插，她的身体因快感而颤抖，即将达到高潮。她轻声呻吟道：'啊...主人...你的手指好深...人家要高潮了...请继续抽插...再快一点...要去了...好舒服...人家是主人的小母狗...'"
-            },
-            {
-                image: "../image1/[Espacia Korea]/48.jpg",
-                dialogue: "你的手指轻轻捏住美诺子的乳头，她的身体立刻敏感地反应。她轻声说道：'主人...人家的奶头好硬...请继续玩弄它们...乳头都肿起来了...好敏感...再用力一点...人家是主人的性奴...'"
-            },
-            {
-                image: "../image1/[Espacia Korea]/49.jpg",
-                dialogue: "你的舌头轻轻舔舐着美诺子的阴蒂，她感到一阵强烈的快感。她轻声呻吟道：'啊...主人...你的舌头好热...人家的阴蒂好舒服...请用力吸它...再用力一点...要高潮了...人家是主人的小母狗...'"
-            },
-            {
-                image: "../image1/[Espacia Korea]/50.jpg",
-                dialogue: "你的手掌最后一次拍打在美诺子的臀部，她的身体因疼痛而颤抖，却感到一种奇异的快感。她轻声说道：'主人...人家的屁股好红...请继续打它...好喜欢这种惩罚...再用力一点...好舒服...人家是主人的性奴...'"
-            }
+            // 其他小说数据...
         ];
 
-        let currentSceneIndex = 0;
-        let isMusicPlaying = false;
-        let isInfoPanelVisible = false;
-        let isDevelopmentPanelVisible = false;
-        const backgroundMusic = document.getElementById('background-music');
+        // 初始化变量
+        let currentNovel = null;
+        let currentChapterIndex = 0;
+        let fontSize = 1.2; // 默认字体大小，单位rem
 
-        // 加载场景
-        function loadScene(index) {
-            const scene = scenes[index];
-            const image = document.getElementById('scene-image');
-            const dialogueText = document.getElementById('dialogue-text');
-            const characterName = document.getElementById('character-name');
-            const dialogueOverlay = document.querySelector('.dialogue-overlay');
-            const chapterTitle = document.getElementById('chapter-title');
+        // 打开详情页
+        function openDetail(novel) {
+            currentNovel = novel;
+            currentChapterIndex = 0;
 
-            // 先隐藏所有元素
-            dialogueOverlay.classList.remove('show');
-            image.classList.remove('loaded');
-            dialogueText.classList.remove('show');
-            characterName.classList.remove('show');
-            chapterTitle.classList.remove('show');
+            // 设置详情页内容
+            document.getElementById("detailTitle").textContent = novel.title;
+            document.getElementById("detailAuthor").textContent = `作者：${novel.author}`;
+            document.getElementById("detailCover").src = novel.cover;
+            document.getElementById("detailCover").alt = novel.title + " 封面";
+            document.getElementById("detailDescription").textContent = novel.description;
+            document.getElementById("chapterContent").textContent = novel.preview;
+            document.getElementById("chapterImage").src = novel.previewImage;
+            document.getElementById("chapterImage").alt = novel.title + " 章节插图";
 
-            // 加载新图片
-            image.src = scene.image;
-            image.onload = function () {
-                // 显示图片
-                image.classList.add('loaded');
-
-                // 显示章节标题
-                chapterTitle.classList.add('show');
-
-                // 等待3秒后显示文字
-                setTimeout(() => {
-                    dialogueOverlay.classList.add('show');
-                    dialogueText.textContent = scene.dialogue;
-
-                    // 依次显示角色名和对话文本
-                    requestAnimationFrame(() => {
-                        characterName.classList.add('show');
-                        setTimeout(() => {
-                            dialogueText.classList.add('show');
-                        }, 300);
-                    });
-                }, 3000);
+            // 设置立即阅读按钮点击事件
+            document.getElementById("readNowBtn").onclick = function (e) {
+                e.preventDefault();
+                enterReadingMode();
             };
 
-            // 更新按钮状态
-            document.getElementById('prev-button').disabled = index === 0;
-            document.getElementById('next-button').disabled = index === scenes.length - 1;
-
-            // 更新章节标题
-            updateChapterTitle(index);
-
-            // 更新开发程度
-            updateDevelopmentProgress(index);
-        }
-
-        // 更新章节标题
-        function updateChapterTitle(index) {
-            const chapterTitles = [
-                "第一章：初遇",
-                "第二章：深入",
-                "第三章：高潮",
-                "第四章：极致",
-                "第五章：终章"
-            ];
-
-            const chapterIndex = Math.floor(index / 10);
-            const chapterTitle = document.getElementById('chapter-title');
-            chapterTitle.textContent = chapterTitles[chapterIndex];
-        }
-
-        // 更新开发程度
-        function updateDevelopmentProgress(index) {
-            // 根据场景索引计算开发程度
-            const progress = Math.min(100, Math.floor((index / scenes.length) * 100));
-
-            // 更新各个开发程度条
-            document.getElementById('nipple-progress').style.width = Math.min(100, 75 + (progress * 0.25)) + '%';
-            document.getElementById('pussy-progress').style.width = Math.min(100, 60 + (progress * 0.4)) + '%';
-            document.getElementById('clit-progress').style.width = Math.min(100, 85 + (progress * 0.15)) + '%';
-            document.getElementById('anal-progress').style.width = Math.min(100, 30 + (progress * 0.7)) + '%';
-            document.getElementById('obedience-progress').style.width = Math.min(100, 90 + (progress * 0.1)) + '%';
-            document.getElementById('orgasm-progress').style.width = Math.min(100, 80 + (progress * 0.2)) + '%';
-
-            // 更新数值显示
-            document.querySelectorAll('.development-value').forEach((el, i) => {
-                const progressBars = document.querySelectorAll('.development-progress');
-                const width = parseInt(progressBars[i].style.width);
-                el.textContent = width + '%';
+            // 清除并添加标签
+            const tagsContainer = document.getElementById("detailTags");
+            tagsContainer.innerHTML = "";
+            novel.tags.forEach(tag => {
+                const tagElem = document.createElement("span");
+                tagElem.className = "detail-tag";
+                tagElem.textContent = tag;
+                tagsContainer.appendChild(tagElem);
             });
+
+            // 显示详情页，隐藏阅读模式
+            document.getElementById("detailOverlay").style.display = "block";
+            document.querySelector(".detail-content").style.display = "block";
+            document.getElementById("readingMode").style.display = "none";
+            document.body.style.overflow = "hidden"; // 防止背景滚动
         }
 
-        // 上一张
-        function prevScene() {
-            if (currentSceneIndex > 0) {
-                currentSceneIndex--;
-                loadScene(currentSceneIndex);
-            }
+        // 关闭详情页
+        function closeDetail() {
+            document.getElementById("detailOverlay").style.display = "none";
+            document.body.style.overflow = "auto"; // 恢复背景滚动
         }
 
-        // 下一张
-        function nextScene() {
-            if (currentSceneIndex < scenes.length - 1) {
-                currentSceneIndex++;
-                loadScene(currentSceneIndex);
+        // 进入阅读模式
+        function enterReadingMode() {
+            if (!currentNovel || !currentNovel.chapters || currentNovel.chapters.length === 0) {
+                alert("没有可阅读的内容");
+                return;
             }
+
+            // 隐藏详情内容，显示阅读模式
+            document.querySelector(".detail-content").style.display = "none";
+            document.querySelector(".detail-header").style.display = "none";
+            document.getElementById("readingMode").style.display = "block";
+
+            // 加载当前章节内容
+            loadChapter(currentChapterIndex);
         }
 
-        // 切换全屏
-        function toggleFullscreen() {
-            if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen();
-            } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                }
-            }
+        // 切换回详情视图
+        function toggleDetailView() {
+            document.querySelector(".detail-content").style.display = "block";
+            document.querySelector(".detail-header").style.display = "flex";
+            document.getElementById("readingMode").style.display = "none";
         }
 
-        // 切换音乐
-        function toggleMusic() {
-            if (isMusicPlaying) {
-                backgroundMusic.pause();
-            } else {
-                backgroundMusic.play();
+        // 加载指定章节
+        function loadChapter(index) {
+            if (!currentNovel || !currentNovel.chapters || index >= currentNovel.chapters.length || index < 0) {
+                return;
             }
-            isMusicPlaying = !isMusicPlaying;
+
+            currentChapterIndex = index;
+            const chapter = currentNovel.chapters[index];
+
+            // 更新阅读界面内容
+            document.getElementById("readingTitle").textContent = currentNovel.title;
+            document.getElementById("currentChapter").textContent = chapter.title;
+            document.getElementById("fullContent").textContent = chapter.content;
+            document.getElementById("fullChapterImage").src = chapter.image;
+            document.getElementById("fullChapterImage").alt = chapter.title;
+
+            // 更新章节导航按钮状态
+            document.getElementById("prevChapter").disabled = index === 0;
+            document.getElementById("nextChapter").disabled = index === currentNovel.chapters.length - 1;
+
+            // 设置导航按钮点击事件
+            document.getElementById("prevChapter").onclick = () => loadChapter(currentChapterIndex - 1);
+            document.getElementById("nextChapter").onclick = () => loadChapter(currentChapterIndex + 1);
+
+            // 滚动到顶部
+            document.getElementById("readingMode").scrollIntoView({ behavior: "smooth" });
         }
 
-        // 切换信息面板
-        function toggleInfoPanel() {
-            const infoPanel = document.getElementById('info-panel');
-            isInfoPanelVisible = !isInfoPanelVisible;
-
-            if (isInfoPanelVisible) {
-                infoPanel.style.display = "block";
-                setTimeout(() => {
-                    infoPanel.style.opacity = "1";
-                }, 10);
-                console.log("信息面板已打开");
-            } else {
-                infoPanel.style.opacity = "0";
-                setTimeout(() => {
-                    infoPanel.style.display = "none";
-                }, 300);
-                console.log("信息面板已关闭");
-            }
+        // 修改字体大小
+        function changeFontSize(delta) {
+            fontSize += delta * 0.1; // 每次增减0.1rem
+            fontSize = Math.max(0.8, Math.min(1.8, fontSize)); // 限制字体大小范围
+            document.getElementById("fullContent").style.fontSize = fontSize + "rem";
         }
 
-        // 切换开发程度面板
-        function toggleDevelopmentPanel() {
-            const developmentPanel = document.getElementById('development-panel');
-            isDevelopmentPanelVisible = !isDevelopmentPanelVisible;
+        // 初始化页面
+        document.addEventListener("DOMContentLoaded", function () {
+            // 特色小说点击事件
+            document.querySelector(".featured-novel").addEventListener("click", function () {
+                openDetail(novels[0]); // 特色小说是第一个
+            });
 
-            if (isDevelopmentPanelVisible) {
-                developmentPanel.style.display = "block";
-                setTimeout(() => {
-                    developmentPanel.style.opacity = "1";
-                }, 10);
-                console.log("开发程度面板已打开");
-            } else {
-                developmentPanel.style.opacity = "0";
-                setTimeout(() => {
-                    developmentPanel.style.display = "none";
-                }, 300);
-                console.log("开发程度面板已关闭");
-            }
-        }
+            document.querySelector(".featured-novel .read-button").addEventListener("click", function (e) {
+                e.stopPropagation(); // 防止冒泡到父元素
+                openDetail(novels[0]);
+            });
 
-        // 键盘导航
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'ArrowLeft') {
-                prevScene();
-            } else if (e.key === 'ArrowRight') {
-                nextScene();
-            } else if (e.key === 'f') {
-                toggleFullscreen();
-            } else if (e.key === 'm') {
-                toggleMusic();
-            } else if (e.key === 'i') {
-                toggleInfoPanel();
-            } else if (e.key === 'd') {
-                toggleDevelopmentPanel();
-            }
+            // 为每个小说卡片添加点击事件
+            const novelCards = document.querySelectorAll(".novel-card");
+            novelCards.forEach(function (card, index) {
+                // 从不同区域中的索引映射到novels数组中的索引
+                // 这里我们简单处理，假设每张卡片对应novels数组中的相应项
+                let novelIndex = index % novels.length;
+                if (novelIndex >= novels.length) novelIndex = 0;
+
+                card.addEventListener("click", function () {
+                    openDetail(novels[novelIndex]);
+                });
+            });
         });
-
-        // 初始化
-        window.onload = function () {
-            loadScene(0);
-        };
     </script>
 </body>
 
